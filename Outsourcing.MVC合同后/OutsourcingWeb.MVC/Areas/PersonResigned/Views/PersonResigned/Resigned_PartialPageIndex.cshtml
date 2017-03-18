@@ -1,0 +1,118 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model OutsourcingWeb.MVC.Areas.PersonResigned.Models.PersonsResignedViewModel
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead  id="theadId">
+        <tr>
+            <th>选择</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>技能</th>
+            <th>所属公司</th>
+            <th>人员状态</th>
+            <th>入职公司</th>
+            @*<th>入职时间</th>*@
+            <th>离职时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.PersonsEntrySets.Count > 0)
+            {
+                foreach (var item in Model.PersonsEntrySets)
+                {
+                    <tr>
+                        <td style="text-align:center;">
+                            <input class="states checkbox" style="vertical-align:middle" type="checkbox" name="ids" value="@item.Id" />                            
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PersonalInfo.PersonName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PersonalInfo.Sex)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PersonalInfo.Publications)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OutsourcingCompany.CompnayName)
+
+                        </td>
+                        <td>
+                            @{
+                                string classStyle = "btn-success";
+                                string status = "";
+                                switch (item.EntryStatus)
+                                {
+                                    case 0:
+                                        status = "在职";
+                                        break;
+                                    case 1:
+                                        status = "离职";
+                                        classStyle = "btn-warning";
+                                        break;
+                                }
+                            }
+                            @Html.Label(status, new { @class = classStyle })
+                            @*@Html.DisplayFor(modelItem => status)*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustomerCompnay.CompnayName)
+                        </td>
+                        @*<td>
+                            @{
+                                string entryDate = string.Format("{0:D}", item.EntryDate);
+                             }
+                            @entryDate
+                        </td>*@
+                        <td>
+                            @{
+                                string ResignedDate = string.Format("{0:D}", item.ResignedDate);
+                            }
+                            @ResignedDate
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" onclick="LoadAjaxContent('/PersonResigned/PersonResigned/PersonResignedSettlement?loginid=@ViewBag.LoginID&&type=@ViewBag.Type&&PersonID=@item.PersonalInfoId&&CustomerID=@item.CustomerCompnayCompnayId&&OutCompanyID=@item.OutsourcingCompanyCompnayId')" class="btn btn-primary btn-xs">
+                                    结算明细
+                                </button>
+                            </div> 
+                            <div class="btn-group">
+                                <button type="button" onclick="LoadAjaxContent('/PersonEntry/PersonsEntry/PersonSettl?loginid=@ViewBag.LoginID&&type=@ViewBag.Type&&PersonID=@item.PersonalInfoId&&CustomerID=@item.CustomerCompnayCompnayId&&OutCompanyID=@item.OutsourcingCompanyCompnayId')" class="btn btn-primary btn-xs">
+                                    考勤
+                                </button>
+                            </div>                            
+                       </td>
+                    </tr>
+                }
+        }
+        else
+        {
+             <tr><td colspan="9" style="text-align:center;">未查询到任何记录</td></tr>
+        }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <span class="form-inline">                           
+                    <input id="checkall" class="checkbox" type="checkbox" title="全选" />
+                </span>
+            </td>
+            <td colspan="8">            
+            </td>
+            </tr>
+    </tfoot>
+    </table>
+    <br />
+<div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.PersonsEntrySets.PageCount 页 @Model.PersonsEntrySets.TotalItemCount 条记录，当前为第 @Model.PersonsEntrySets.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.PersonsEntrySets, page => Url.Action("Index",
+    new { page, loginid = ViewBag.LoginID }))
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {replacePageUrl() });
+</script>

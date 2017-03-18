@@ -1,0 +1,353 @@
+﻿@*@using Webdiyer.WebControls.Mvc*@
+@using PagedList
+@using PagedList.Mvc
+@model OutsourcingWeb.MVC.Areas.TalentPush.Models.PushInverviewViewModel
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead  id="theadId">
+        <tr class="caption">
+            被推送人: 【@Model.Personal.PersonName】
+            技术: 【@Model.Personal.Publications】&nbsp;&nbsp;
+            工作年限:                 
+        </tr>
+        <tr>
+            @*<th>
+                    @Html.ActionLink("RoleName", "Index", new { sortOrder = ViewBag.RoleNameParm, currentFilter = ViewBag.CurrentFilter })
+                </th>*@
+            <th>选择</th>
+            <th>项目名称</th>
+            <th>招聘人数</th>
+            <th>专业名称</th>
+            <th>要求到岗时间</th>
+            <th>所属客户公司</th>
+            <th>推送状态</th>
+            <th>反馈状态</th>
+            <th>面试时间</th>
+            <th>面试状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.Requirements.Count > 0)
+            {
+                foreach (var item in Model.Requirements)
+                {
+                    <tr>
+                        <td>
+                            <input class="states checkbox" type="checkbox" name="ids" value="@item.RequirementId" />
+                            
+                        </td>
+                        <td>
+                            @Html.HiddenFor(modelItem => item.RequirementId)
+                            @Html.DisplayFor(modelItem => item.ProjectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RecNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobName)
+                        </td>
+                        <td>
+                            @{
+                                string ArrivalTime = item.ArrivalTime.Value.ToString("yyyy-MM-dd");
+                            }
+                            @Html.DisplayFor(modelItem => ArrivalTime)
+                        </td>
+                        <td>
+                            @{
+                                var compnay = Model.CustomerCompnays.FirstOrDefault(a => a.CompnayId == item.CompnayId);
+
+                                string companyName = compnay == null ? "" : compnay.CompnayName;
+                            }
+                            @Html.DisplayFor(modelItem => companyName)
+                        </td>
+                        <td>                            
+
+                            @{
+                                var pushview = Model.PushInterViewTables.FirstOrDefault(c => c.RequirementId == item.RequirementId && c.PersonalInfoId == Model.Personal.PersonalInfoId);
+                                string pushStatue = pushview == null ? "未推送" : pushview.PlushStatute == "0" ? "已推送" : "未推送";
+                                if (pushStatue == "已推送")
+                                {
+                                    @Html.Label(pushStatue, new { @class = "btn-success" })
+
+                                }
+                                else
+                                {
+                                    @Html.Label(pushStatue, new { @class = "btn-warning" })
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            @{
+                                string InterviewStatue = "未阅";
+                                string feedstyle = "btn-warning";
+                                if (pushview != null)
+                                {
+                                    switch (pushview.FeedbackState)
+                                    {
+                                        //case "0": //未阅
+
+                                        //    break;
+                                        case "0"://匹配
+                                            InterviewStatue = "匹配";
+                                            feedstyle = "btn-success";
+                                            break;
+                                        case "1"://不匹配
+                                            InterviewStatue = "不匹配";
+                                            break;
+                                    }
+                                }
+                                           }
+                                           @Html.Label(InterviewStatue, new { @class = feedstyle })
+                                       </td>
+
+
+                                       <td>
+                             @if (pushview != null && pushview.InterviewTime != null)
+                             {
+                                               @pushview.InterviewTime
+                             }
+                        </td>
+                        <td>
+                          @{
+                              string InterviewStatusStr = "未面试";
+                              if (pushview != null && pushview.InterviewTime != null)
+                              {
+                                  //0未面试；1面试成功；2面试失败;
+                                  string style = "btn-warning";
+                                  switch (pushview.InterviewStatus)
+                                  {
+                                      case "1":
+                                          InterviewStatusStr = "成功";
+                                          style = "btn-success";
+                                          break;
+                                      case "2":
+                                          InterviewStatusStr = "失败";
+                                          style = "btn-danger";
+                                          break;
+                                      default:
+                                          InterviewStatusStr = "未面试";
+                                          style = "btn-warning";
+                                          break;
+                                  }
+                                  @Html.Label(InterviewStatusStr, new { @class = style });
+                              }
+                              }
+                                </td>
+
+
+                       <td>
+                                               @if (pushStatue == "未推送")
+                            {
+                                               if (pushview == null)
+                                               {
+                                        <button id="btnPlush" type="button" onclick="Edit(-1,0,0,@Model.Personal.PersonalInfoId,@item.RequirementId,'@HttpUtility.UrlEncode(Model.Personal.Publications)')" class="btn btn-primary btn-xs">
+                                        推送
+                                        </button>
+                                        @*<a id="btnPlush" onclick="Edit(-1,0,0,@Model.Personal.PersonalInfoId,@item.RequirementId,'@HttpUtility.UrlEncode(Model.Personal.Publications)')" class="btn-info" href="#">推送</a>*@
+                                        }
+                                        else
+                                        {
+                                        @*<a id="btnPlush" onclick="Edit('@pushview.ID',0,0,@Model.Personal.PersonalInfoId,@item.RequirementId,'@HttpUtility.UrlEncode(Model.Personal.Publications)')" class="btn-info" href="#">推送</a>*@
+                                        <button id="btnPlush" type="button" onclick="Edit('@pushview.ID',0,0,@Model.Personal.PersonalInfoId,@item.RequirementId,'@HttpUtility.UrlEncode(Model.Personal.Publications)')" class="btn btn-primary btn-xs">
+                                            推送
+                                        </button>
+                                }
+                            }
+                                        @if (InterviewStatue == "匹配" && (pushview != null && pushview.InterviewTime != null))
+                                        {
+                                            <button id="interView" type="button"  class="btn btn-primary btn-xs">
+                                                面试通知
+                                            </button>
+                                            @*<a id="interView" href="#">面试</a>*@
+                                        }
+                                        @if (InterviewStatusStr == "失败")
+                                        {
+                                            <button id="FairDetail" type="button" onclick="showFariMessage(@item.RequirementId,@Model.Personal.PersonalInfoId);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalMessage">
+                                                详情
+                                            </button>
+                                        }
+                                        @*<a id = "btnDetails" onclick="LoadAjaxContent('TalentPush/TalentPush/Details?rid=@item.RequirementId&pageIndex=@Model.Requirements.PageNumber&pid=@Model.Personal.PersonalInfoId')" href="#">详情</a>|*@
+</td>
+                    </tr>
+                          }
+                     }
+                     else
+                     {
+                     <tr><td colspan="11" style="text-align:center;">未查询到任何记录</td></tr>
+                     }
+                }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                @*<div class="form-group">
+                <div class="input-group col-xs-12">
+                    <div class="input-group-btn">*@
+                        <span class="form-inline">                           
+                            <input id="checkall" class="checkbox" type="checkbox" /> 全选
+                        </span>
+                    @*</div>
+                        <a href="#">推送简历</a>
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" id="search_submit" type="submit">Go</button>
+                        </span>
+                    </div>
+                    </div>*@
+
+                </td>
+            <td colspan="10">
+                <input id="allPush" class="btn btn-default btn-sm btn-info" type="button" value="推送简历" />
+                <input id="reSet" class="btn btn-default btn-sm btn-info" type="button" value="重置" />
+                @*<input class="btn-default btn-info " type="button"  value="推送简历"/>*@               
+            </td>
+            </tr>
+        </tfoot>
+    </table>
+    <br />
+<!-- 模态框（Modal）面试失败描述 -->
+<div class="modal fade" id="myModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalStatusLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form role="form" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="MessageModalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalStatusLabel">面试失败详情</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <p id="fairMessage"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </form>
+    </div><!-- /.modal -->
+</div>
+    <div>
+
+        @*<script src="~/Scripts/mvcpager.js"></script>*@
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.Requirements.PageCount 页 @Model.Requirements.TotalItemCount 条记录，当前为第 @Model.Requirements.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.Requirements, page => Url.Action("Index",
+    new { page, JobName=Model.Personal.Publications,pid= ViewBag.Pid }))
+    @*mvcpager分页，带ajax支持*@
+    @*@Ajax.Pager(Model.StaffMembers, new PagerOptions
+        {
+            PageIndexParameterName = "page",
+            ShowPageIndexBox = true,
+            PageIndexBoxType = PageIndexBoxType.DropDownList,
+            ShowGoButton = false,
+            ShowNumericPagerItems = true,
+
+        },
+        new MvcAjaxOptions
+        {
+            UpdateTargetId = "datalist",
+            HttpMethod = "Post",
+            DataFormId = "searchForm",
+            EnablePartialLoading = true,
+            Url = "OA/AttendanceMonthStatistical/Index"
+        }, new { style = "float:right" })*@
+</div>
+@*@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}*@
+<script type="text/javascript">
+    $(document).ready(function () { replacePageUrl() });
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+
+        //debugger;
+        //var alist = $('#datalist a');
+        //alist.innerHtml = "";
+        //var divlist = $('div#pagerleft').next();
+        //if (divlist) {
+        //debugger;
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                //debugger;
+                //alert(index);
+                //if (index >= 6) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    //debugger;
+                    //var splitUrl = element.href.split('/')
+                    var splitUrl = element.href.split('?');
+                    //var newhref = "LoadAjaxContent('" + splitUrl[3] + splitUrl[4] + "')";
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('/TalentPush/TalentPush/ShowTalentRequirement?' + splitUrl[1]);
+                    });
+                    //$(this).on("click", function () {
+                    //    LoadAjaxContent('OA/AttendanceMonthStatistical/Index?page=2');
+                    //});
+                    $(this).attr("href", "#");
+                }
+
+                //}
+            });
+        }
+        //}
+    }
+
+    function Edit(id, viewS, plushS, pid, rid, job) {
+        debugger;
+        var url = "/TalentPush/TalentPush/Edit?loginid=@ViewBag.LoginID&id=" + id + "&viewS=" + viewS + "&plushS=" + plushS + "&pid=" + pid + "&rid=" + rid + "&job=" + job;
+        //alert(url);
+        LoadAjaxContent(url);
+    }
+
+    $("#checkall").click(function () {
+        //全选全不选
+        $('[name=ids]:checkbox').prop('checked', this.checked);//checked为true时为默认显示的状态
+    });
+    $("#checkrev").click(function () {
+        //实现反选功能
+        $('[name=ids]:checkbox').each(function () {
+            this.checked = !this.checked;
+        });
+    });
+    $("#allPush").click(function () {
+        var str = "";
+        $("[name=ids]:checkbox").each(function (i) {
+            if (this.checked)
+                str += $(this).val() + ",";
+        });
+        //alert(str);
+        var url = "/TalentPush/TalentPush/MuchEdit?loginid=@ViewBag.LoginID&pid=@HttpUtility.UrlEncode(Model.Personal.PersonalInfoId.ToString())&rids=" + str + "&job=@HttpUtility.UrlEncode(Model.Personal.Publications)";
+        //alert(url);
+        LoadAjaxContent(url);
+    })
+
+    $("#reSet").click(function () {
+        var str = "";
+        $("[name=ids]:checkbox").each(function (i) {
+            if (this.checked)
+                str += $(this).val() + ",";
+        });
+        //alert(str);
+        var url = "/TalentPush/TalentPush/Delete?loginid=@ViewBag.LoginID&pid=@HttpUtility.UrlEncode(Model.Personal.PersonalInfoId.ToString())&rids=" + str + "&job=@HttpUtility.UrlEncode(Model.Personal.Publications)";
+        //alert(url);
+        LoadAjaxContent(url);
+    })
+    function showFariMessage(rid, pid) {
+        $("#MessageModalclose").click();
+        $.ajax({
+            url: "/Personal/Personal/GetInterResult",
+            type: "GET",
+            data: { rid: rid, pid: pid },
+            success: function (data) {
+                //debugger;
+                if (data != "") {
+                    $("#fairMessage").html(data);
+                }
+                else
+                {
+                    $("#fairMessage").html("");
+                }
+            }
+        });
+    }
+</script>

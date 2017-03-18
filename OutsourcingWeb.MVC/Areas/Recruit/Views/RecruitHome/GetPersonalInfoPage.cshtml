@@ -1,0 +1,146 @@
+﻿@using PagedList.Mvc;
+@using PagedList
+@model PagedList.IPagedList<Outsourcing.EF.Model.Index.PersonalInfoModel>
+
+@{
+    Layout = "~/Views/Shared/_indexLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetPersonalInfoPage</title>
+    <style type="text/css">
+        .dv{
+            width:80%;
+            margin-top:40px;
+            margin-left:200px;
+            font-size:20px;
+            font-family:"宋体"; 
+            margin-bottom:20px;
+        }
+
+        #td_personal {
+        width:100%;
+        }
+        #td_personal thead tr {
+            height:50px;
+            font-size:18px;
+            font-weight:900;
+        }
+            #td_personal td {
+            border:none;
+            text-align:center;
+            }
+
+            #td_personal tbody tr td {
+            font-size:14px;
+            font-family:"宋体";
+            }
+
+            #td_personal tbody tr{
+                height:40px;
+                font-size:14px;
+                line-height:40px;
+            }
+
+            #td_personal tbody tr:hover{
+            font-size:16px;
+            color:red;
+            cursor:pointer;
+            }
+    </style>
+</head>
+<body>
+    <div class="dv"> 
+        
+       <table id="td_personal">
+           <thead>
+               <tr>
+                   <td>姓名</td>
+                   <td>性别</td>
+                   <td>工作年限</td>
+                   <td>学历</td>
+                   <td>职位</td>
+                   <td>所属公司</td>
+               </tr>
+           </thead>
+           <tbody>
+               @{
+                   if (Model.Count > 0)
+                   {
+                       foreach (var item in Model)
+                       {
+                        <tr attr="@item.PersonalInfoId">
+                            <td style="border:none;">
+                                @item.PersonName
+                            </td>
+                            <td style="border:none;">
+                                @item.Sex
+                            </td>
+                            <td style="border:none;">
+                                @item.OutsourcingCompanyId
+                            </td>
+                            <td style="border:none;">
+                                @item.Education
+                            </td>
+                            <td style="border:none;">
+                                @item.Publications
+                            </td>
+                            <td style="border:none;">
+                                @item.CompnayName
+                            </td>
+                        </tr>
+                       }
+                   }
+                   else
+                   {
+                    <tr>
+                        <td colspan="6" style="height:50px;text-align:center;">未找到数据！</td>
+                    </tr>
+                   }
+
+            }
+           </tbody>
+       </table>
+    </div>
+    <div style="margin-top:20px;">
+
+        @*<script src="~/Scripts/mvcpager.js"></script>*@
+        <div id="pagerlist" style="float:left;width:50%;margin-bottom:30px;">
+            共 @Model.PageCount 页 @Model.TotalItemCount 条记录，当前为第 @Model.PageNumber 页
+        </div>
+        @*PagedList分页，不带ajax支持*@
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetDateByType", "RecruitHome",
+    new { name=@ViewBag.Name,page, sortOrder = ViewBag.CurrentSort, ProjectName = (ViewBag.CurrentFilter != null ? ViewBag.CurrentFilter : string.Empty) }))
+        @*mvcpager分页，带ajax支持*@
+        @*@Ajax.Pager(Model.StaffMembers, new PagerOptions
+            {
+                PageIndexParameterName = "page",
+                ShowPageIndexBox = true,
+                PageIndexBoxType = PageIndexBoxType.DropDownList,
+                ShowGoButton = false,
+                ShowNumericPagerItems = true,
+
+            },
+            new MvcAjaxOptions
+            {
+                UpdateTargetId = "datalist",
+                HttpMethod = "Post",
+                DataFormId = "searchForm",
+                EnablePartialLoading = true,
+                Url = "OA/AttendanceMonthStatistical/Index"
+            }, new { style = "float:right" })*@
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    debugger;
+    $("#td_personal tr").not("#td_personal tr:first").click(function () {
+        var id = $(this).attr("attr");
+        window.location.href = "/Recruit/RecruitHome/PersonalInfo?id="+id+"&loginid=@ViewBag.LoginID";
+    })
+</script>

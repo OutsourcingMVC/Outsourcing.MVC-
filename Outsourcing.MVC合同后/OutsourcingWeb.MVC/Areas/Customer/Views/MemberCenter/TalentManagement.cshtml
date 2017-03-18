@@ -1,0 +1,363 @@
+﻿@model OutsourcingWeb.MVC.Areas.Customer.Models.MemberCenterViewModel
+@{
+    ViewBag.Title = "会员中心";}
+<!--第一部分样式-->
+<link href="~/Scripts/styles/base.css" rel="stylesheet" />
+<link href="~/Scripts/styles/extends/loginreg/loginreg.css" rel="stylesheet" />
+<link href="~/Scripts/styles/nav.css" rel="stylesheet" />
+<!--表格样式-->
+<link href="~/Scripts/devoops/bootstrap.css" rel="stylesheet">
+<script src="~/Scripts/js/jquery-1.8.0.js"></script>
+<script src="~/Scripts/devoops/bootstrap.min.js" type="text/javascript"></script>
+<!--消息提示框-->
+<script type="text/javascript" src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+<link rel="stylesheet" href="~/Scripts/sweetalert/sweetalert.css" />
+<style type="text/css">
+    #theadId th {
+        text-align: center;
+        height: 10px;
+        font-weight: bold;
+    }
+
+    #tableId {
+        height: 380px;
+    }
+
+    #tbodyId tr {
+        height: 10px;
+    }
+
+    #tbodyId td {
+        text-align: center;
+    }
+
+    #tfootId {
+        text-align: center;
+    }
+
+    #outsidePage {
+        width: 900px;
+    }
+
+    #topDiv {
+        height: 40px;
+    }
+
+    #leftPage {
+        float: left;
+        margin-top: -10px;
+    }
+
+    #rightPage {
+        float: right;
+        margin-top: -10px;
+    }
+
+    #exampleModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+    }
+
+    #exampleModal tr {
+        height: 50px;
+    }
+
+    #exampleModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #exampleModal input {
+        height: 35px;
+    }
+
+    #EditModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+        margin-bottom: -20px;
+    }
+
+    #EditModal tr {
+        height: 50px;
+    }
+
+    #EditModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #EditModal input {
+        height: 35px;
+    }
+</style>
+<div id="rightId">
+    <div class="panel-body" id="topDiv">
+        <div class="list-op" id="leftPage">
+            @*<button type="button" class="btn btn-default btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
+                    <span class="glyphicon" aria-hidden="true"></span>新增
+                </button>*@
+        </div>
+        <div class="list-op" id="rightPage">
+            <form id="defaultForm" method="post" action="/Customer/MemberCenter/TalentManagement" class="form-horizontal">
+                <input name="SelectPersonName" value="@(HttpUtility.UrlDecode(ViewBag.CurrentFilter) as string)" class="form-control" style="float:left; width:65%; height:30px;" type="text" placeholder="请输入姓名" id="SelectPersonName">
+                <button style="float:right; width:30%;" class="btn btn-default btn-sm btn-info" type="submit" id="btnSubmit">查询</button>
+            </form>
+        </div>
+    </div>
+    <div id="datalist">
+        @Html.Partial("_PartialPageIndex", Model)
+    </div>
+    <div id="outputdiv" role="alert">
+    </div>
+</div>
+<!--编辑人才-->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModal">
+    <div class="modal-dialog" role="document" id="outsidePage">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="editClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 style="height:30px; margin-top:-10px;" class="modal-title" id="EditModal">编辑人才</h2>
+            </div>
+            <div class="modal-body">
+                <form id="form2">
+                    <table align="center">
+                        <tr>
+                            <td>姓名：</td>
+                            <td><input id="PersonNames" type="text" class="form-control" placeholder="请输入姓名" style="width:150px;"></td>
+                            <td>性别：</td>
+                            <td>
+                                <select id="Sexs" class="form-control" style="width:150px;">
+                                    <option>男</option>
+                                    <option>女</option>
+                                </select>
+                            </td>
+                            <td>出生年月日：</td>
+                            <td>
+                                <input type="text" id="Birthdays" class="form-control" placeholder="请选择出生年月日">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>联系方式：</td>
+                            <td><input id="Telephones" type="text" class="form-control" placeholder="请输入手机号"></td>
+                            <td>技术语言：</td>
+                            <td>
+                                <select id="Publicationss" class="form-control" style="width:150px;">
+                                    <option>Java</option>
+                                    <option>C#</option>
+                                    <option>Web前端</option>
+                                    <option>美工</option>
+                                    <option>C/C++</option>
+                                </select>
+                            </td>
+                            <td>最高学历：</td>
+                            <td>
+                                <select id="Educations" class="form-control" style="width:150px;">
+                                    <option>硕士及以上</option>
+                                    <option>本科</option>
+                                    <option>大专</option>
+                                    <option>中专及同等学历</option>
+                                    <option>高中及以下</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>邮箱：</td>
+                            <td><input type="email" class="form-control" id="Emails" placeholder="请输入邮箱"></td>
+                            <td>身份证号：</td>
+                            <td><input id="CaredIDs" type="text" class="form-control" placeholder="请输入身份证号" style="width:150px;"></td>
+                            <td>毕业院校：</td>
+                            <td><input id="GraduationSchools" type="text" class="form-control" placeholder="请输入毕业院校"></td>
+                        </tr>
+                        <tr>
+                            <td>毕业时间：</td>
+                            <td>
+                                <input type="text" id="GraduationDates" class="form-control" placeholder="请选择毕业时间">
+                            </td>
+                            <td>简历状态：</td>
+                            <td>
+                                <select id="CVStatues" class="form-control" style="width:150px;">
+                                    <option value="1">已上传</option>
+                                    <option value="2">未上传</option>
+                                </select>
+                            </td>
+                            <td>人才状态：</td>
+                            <td>
+                                <select id="PeopleStatues" class="form-control" style="width:150px;">
+                                    <option value="1">未推送</option>
+                                    <option value="2">已推送</option>
+                                    <option value="3">已入职</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="btnSubmits();">提交</button>
+                <input type="hidden" id="hidden" />
+                @*<button type="button" class="btn btn-default" onclick="editClean();">重置</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Add Drag-n-Drop feature
+        //WinMove();
+        //思路:使用jquery替换方式替换掉mvcpager生成的分页文本
+        replacePageUrl();
+    });
+
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    var splitUrl = element.href.split('/')
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('/Customer/MemberCenter/TalentManagement?page=' + $(this).text());
+                    });
+                    $(this).attr("href", "#");
+                }
+            });
+        }
+    }
+
+    $('#close').on('click', function () {
+        //为form的ajax提交准备参数
+        LoadAjaxContent('/Customer/MemberCenter/TalentManagement');
+    });
+    $('#editClose').on('click', function () {
+        //为form的ajax提交准备参数
+        LoadAjaxContent('/Customer/MemberCenter/TalentManagement');
+    });
+    //编辑
+    function edit(id) {
+        debugger
+        $.ajax({
+            type: "POST",
+            url: "/Customer/MemberCenter/Edit",
+            data: { id: id },
+            success: function (personalInfo) {
+                if (personalInfo != null) {
+                    $("#PersonNames").val(personalInfo[0].PersonName),
+                    $("#Sexs").val(personalInfo[0].Sex),
+                    $("#Birthdays").val(personalInfo[0].Birthday),
+                    $("#Telephones").val(personalInfo[0].Telephone),
+                    $("#Publicationss").val(personalInfo[0].Publications),
+                    $("#Educations").val(personalInfo[0].Education),
+                    $("#Emails").val(personalInfo[0].Email),
+                    $("#CaredIDs").val(personalInfo[0].CaredID),
+                    $("#GraduationSchools").val(personalInfo[0].GraduationSchool),
+                    $("#GraduationDates").val(personalInfo[0].GraduationDate),
+                    $("#CVStatues").val(personalInfo[0].CVStatue),
+                    $("#PeopleStatues").val(personalInfo[0].PeopleStatue),
+                    $("#hidden").val(personalInfo[0].PersonalInfoId)
+                }
+            }
+        });
+    }
+    function btnSubmits() {
+        debugger;
+        var personalInfoId = $("#hidden").val();
+        var PersonName = $("#PersonNames").val();
+        if (PersonName == "" || PersonName == null) {
+            swal("请输入姓名!");
+            return false;
+        }
+        var Sex = $("#Sexs").val();
+        var Birthday = $("#Birthdays").val();
+        var Telephone = $("#Telephones").val();
+        var Publications = $("#Publicationss").val();
+        var Education = $("#Educations").val();
+        var Email = $("#Emails").val();
+        var CaredID = $("#CaredIDs").val();
+        var GraduationSchool = $("#GraduationSchools").val();
+        var GraduationDate = $("#GraduationDates").val();
+        var CVStatue = $("#CVStatues").val();
+        var PeopleStatue = $("#PeopleStatues").val();
+        debugger;
+        $.ajax({
+            type: "POST",
+            url: "/Customer/MemberCenter/UpdateData",
+            data: {
+                PersonalInfoId: personalInfoId, PersonName: PersonName, Sex: Sex, Birthday: Birthday, Telephone: Telephone,
+                Publications: Publications, Education: Education, Email: Email, CaredID: CaredID,
+                GraduationSchool: GraduationSchool, GraduationDate: GraduationDate, CVStatue: CVStatue,
+                PeopleStatue: PeopleStatue
+            },
+            success: function (msg) {
+                if (msg == "更新成功") {
+                    swal("人才更新成功!", "", "success");
+                }
+                else { swal("人才更新失败!", "", "error"); }
+            }
+        });
+    }
+    //删除
+    function del(id) {
+        swal({
+            title: "您确定要删除吗？",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "是的，我要删除",
+            confirmButtonColor: "#ec6c62"
+        }, function () {
+            $.ajax({
+                type: "POST",
+                url: "/Customer/MemberCenter/PersonalInfoDelete",
+                data: { id: id },
+                success: function (msg) {
+                    if (msg == "删除成功") {
+                        swal("删除成功!", "", "success");
+                        LoadAjaxContent('/Customer/MemberCenter/TalentManagement');
+
+                    }
+                    else { swal("删除失败!", "", "error"); }
+                }
+            });
+        });
+    }
+    //重置
+    function clean() {
+        $("#PersonName").attr("value", "");
+        $("#Sex").attr("value", "");
+        $("#Birthday").attr("value", "");
+        $("#Telephone").attr("value", "");
+        $("#Publications").attr("value", "");
+        $("#Education").attr("value", "");
+        $("#Email").attr("value", "");
+        $("#CaredID").attr("value", "");
+        $("#GraduationSchool").attr("value", "");
+        $("#GraduationDate").attr("value", "");
+        $("#CVStatue").attr("value", "");
+        $("#PeopleStatue").attr("value", "");
+    }
+    //设置时间控件参数
+    $('#Birthday').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    });
+    $('#GraduationDate').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    });
+    $('#Birthdays').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    });
+    $('#GraduationDates').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    });
+</script>

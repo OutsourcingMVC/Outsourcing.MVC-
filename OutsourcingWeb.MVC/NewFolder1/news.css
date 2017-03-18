@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* CSS Document */
+.new_warp{ width:1070px; margin:0 auto; position:relative; padding:0px 15px; background:#FFF; overflow:hidden; zoom:1; padding-bottom:40px;}
+#current{ display:block; width:260px; height:39px; line-height:39px; background:#1e60a6; font-size:18px; color:#FFF; text-align:center; }
+#current{ display:block; width:260px; height:39px; line-height:39px; background:#1e60a6; font-size:18px; color:#FFF; text-align:center; }
+.down_nav{ height:44px; line-height:44px;  background:#dbe8f6; margin-top:10px; font-size:14px; vertical-align:central;}
+.down_nav img{ display:inline-block; margin:14px 10px 0 22px;}
+.nav_con , .nav_cou{ margin-top:19px;}
+ .nav_cou{ margin-top:19px;}
+
+
+.navbar{ width:260px;}
+#list{ width:260px;}
+#list h2{ height:30px;background:#f7f7f7 url(../image/52.png) no-repeat 30px 13px; padding:4px 20px; line-height:30px; margin-bottom:1px; font-size:14px; font-weight:normal; text-align:center;}
+#list ul{ display:none;}
+#list ul li{ height:39px; padding-left:21px; line-height:39px; text-align:center; border:1px solid #dfeefa;}
+#list ul .hover{background:#5baeff;}
+#list h2.active{ background:#5baeff url(../image/8.png) no-repeat 30px 13px; font-size:13px;}
+
+
+.nav_con{ width:770px;}
+.nav_con ul li{ width:770px; height:45px; line-height:45px; font-size:13px; vertical-align:top; border-bottom:1px dotted #bbbbbb; background:url(../image/55.png) no-repeat; background-position: left center;}
+.nav_con ul li a{ display:block; float:left; width:520px; margin-left:18px; white-space: nowrap; text-overflow:ellipsis; overflow:hidden;}
+.nav_con ul li span{ display:block; float:right; margin-right:74px;}
+.nav_con h2{ height:39px; line-height:39px; font-weight:normal; background:#f3f6fb url(../image/54.png) no-repeat; background-position:left center; text-indent:1.2em;}
+
+
+
+
+#child ul{ margin-top:10px;}
+#child ul li{ width:260px; height:31px; line-height:31px; background: url(../image/57.png) no-repeat; background-position:left center;}
+#child ul a{width:240px; display:block; margin-left:17px; white-space: nowrap; text-overflow:ellipsis; overflow:hidden;}
+
+
+
+
+/*二级-新闻-详情css*/
+#new_list{ text-align:center;}
+#new_list h2{line-height:30px; height:30px; background:url(../image/54.png) no-repeat; background-position:left center; text-indent:1em;}
+#new_list h3{line-height:30px; height:30px; font-size:19px; color:#0a4684;}
+#new_list img{ display:block; margin:43px auto;}
+#new_list p{ width:689px; margin:0 auto; font-size:13px; line-height:23px;}
+#con_listchrend{ background:none;}
+
+#inner_adv{ width:770px; overflow:hidden; margin-top:10px;}
+#inner_adv h2{ background:#f3f6fb url(../image/54.png) no-repeat;background-position:left center;}
+.warp_img{width:192px; float:left; margin-left:48px; display:inline; margin-top:30px;}
+.warp_img li{width:192px;  background:none;}
+.warp_img img{ width:192px; height:135px;}
+.warp_img  p{ width:192px; height:50px; font-size:14px; line-height:24px; margin-top:6px; overflow:hidden;}
+
+
+.new_t { width:260px; height:200px; position:relative; overflow:hidden;}
+.new_t ul{ width:260px; height:200px; position:absolute;}
+.new_t ul li{ width:260px; height:200px; list-style:none;}
+.new_t li img{ position:absolute; top:0; left:0; width:260px; height:200px; display:block;}
+.buttons li.hover{ background:#014286;}
+.buttons{ position:absolute; bottom:10px; right:10px; text-align:center;}
+.buttons li{ float:left;  list-style:none; width:18px; height:18px; margin-left:2px; color:#FFF; text-align:center;}
+
+
+#warp{ width:1100px; margin:0 auto; position:relative; background:#FFF; padding-top:10px;}
+#warp .warp_div{ margin:0 auto; width:1070px; height:137px; margin-bottom:10px;}
+#warp .warp_div img{ width:1070px; height:137px;}
+#warp .wap_nav{ width:1070px; height:44px; margin:0 auto; background:#dbe8f6 url(../image/51.png) no-repeat 23px 14px;}
+#warp .wap_nav a{ font-size:14px; line-height:44px;}
+#warp .wap_nav span{ font-size:14px; line-height:44px; margin-left:34px;}
+
+.currentBtn{ background:#1d5ea5;}
+.side{ margin:33px 0 3px 0;}

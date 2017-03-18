@@ -1,0 +1,71 @@
+@charset "utf-8";
+#shouye { 
+   line-height: 35px;
+   float:right;
+   margin-top:15px;
+   margin-right:90px;
+} 
+#shouye a { 
+   display: block; 
+   text-align:center;
+   font-size:16px;
+} 
+/*#shouye a:link { 
+color:red;
+} */
+/*#shouye a:visited { 
+color:#666;text-decoration:none; 
+} */
+/*#shouye a:hover { 
+   color:blue; 
+} */
+#shouye li { 
+   float: left;
+   margin-right:20px;
+} 
+/*#shouye li a:hover{ 
+   background:black; 
+} */
+#shouye li ul { 
+   line-height: 30px; 
+   text-align:left;
+   left: -999em; 
+   width: 100px; 
+   position: absolute; 
+} 
+#shouye li ul li{ 
+   float: left; 
+   width: 100px; 
+/*   filter:alpha(opacity=50);  
+   -moz-opacity:0.5;  
+   -khtml-opacity: 0.5;  
+   opacity: 0.5;*/
+} 
+#shouye li ul a{
+   wedisplay: block; 
+   text-align:left;
+   padding-left:10px;
+   color:#000000;
+} 
+/*#shouye li ul a:link { 
+   color:#000000; 
+   text-decoration:none; 
+} */
+/*#shouye li ul a:visited { 
+   color:#666;
+   text-decoration:none; 
+} */
+#shouye li ul a:hover { 
+    color:#0000FF;
+	text-decoration:none;
+	font-weight:normal;
+} 
+#shouye li:hover ul { 
+    left: auto; 
+} 
+#shouye li.sfhover ul { 
+    left: auto; 
+} 
+#content { 
+    clear: left; 
+}﻿

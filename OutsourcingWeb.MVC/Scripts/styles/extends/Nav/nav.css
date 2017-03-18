@@ -1,0 +1,43 @@
+﻿body {
+    margin:0;padding:0;
+}
+
+#mavMenu {
+    height:80px;
+    background-color:rgb(229, 242, 240);
+    margin-left:70px;
+    margin-right:80px;
+    margin-top:10px;
+}
+
+#menuui {
+    width:100%;
+margin-left:50px;
+padding-top:25px;
+}
+
+#menuui li {
+    font-size:16px;
+    font-weight:500;
+    float:left;
+    margin-left:20px;
+    
+    
+}
+
+    #menuui li a {
+        color:rgb(16, 1, 1);
+        cursor:pointer;
+        text-decoration:none;
+    }
+
+#menuui li a:hover {
+color:rgb(52, 45, 45);
+font-weight:600;
+}
+
+#menuui li font {
+    width:1px;
+    margin-right:20px;
+    padding-left:20px;
+}

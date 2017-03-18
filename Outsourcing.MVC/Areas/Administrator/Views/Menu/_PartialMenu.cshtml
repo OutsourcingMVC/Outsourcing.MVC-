@@ -1,0 +1,77 @@
+﻿@using System.Text;
+
+@model  List<Outsourcing.MVC.Areas.Administrator.Models.JsonMenuModel>
+
+@{if (Model != null && Model.Count > 0)
+    {
+        var topMenus = Model.Where(m => m.pId == "0");
+        if (topMenus != null && topMenus.Count() > 0)
+        {
+            foreach (var topMenu in topMenus)
+            {
+                var subMenus = Model.Where(m => m.pId == topMenu.id);
+                //处理没有子菜单的情况
+                if (subMenus == null || subMenus.Count() < 0)
+                {
+                    <li>
+                        <a href="@topMenu.url" class="active ajax-link">
+                            <i class="fa fa-dashboard"></i>
+                            <span class="hidden-xs">@topMenu.name</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <span class="hidden-xs">@topMenu.name</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach (var subMenu in subMenus)
+                            {
+                                var secondSubMenus = Model.Where(m => m.pId == subMenu.id);
+                                if (secondSubMenus == null || secondSubMenus.Count() <= 0)
+                                {
+                                    <li><a class="ajax-link" href="@subMenu.url">@subMenu.name</a></li>
+
+                                    @*<li>
+                                            <a href="@subMenu.url" class="active ajax-link">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span class="hidden-xs">@subMenu.name</span>
+                                            </a>
+                                        </li>*@
+                                }
+                                else
+                                {
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="fa fa-plus-square"></i>
+                                            @*hidden-xs的作用是针对不同屏幕尺寸隐藏或显示页面内容*@
+                                            @*<span class="hidden-xs">@subMenu.name</span>*@
+                                            <span>@subMenu.name</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            @foreach (var secondSubMenu in secondSubMenus)
+                                            {
+                                                <li><a class="ajax-link" href="@secondSubMenu.url">@secondSubMenu.name</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            }
+                            @*<li><a class="ajax-link" href="ajax/charts_xcharts.html">xCharts</a></li>
+                                <li><a class="ajax-link" href="ajax/charts_flot.html">Flot Charts</a></li>
+                                <li><a class="ajax-link" href="ajax/charts_google.html">Google Charts</a></li>
+                                <li><a class="ajax-link" href="ajax/charts_morris.html">Morris Charts</a></li>
+                                <li><a class="ajax-link" href="ajax/charts_amcharts.html">AmCharts</a></li>
+                                <li><a class="ajax-link" href="ajax/charts_chartist.html">Chartist</a></li>
+                                <li><a class="ajax-link" href="ajax/charts_coindesk.html">CoinDesk realtime</a></li>*@
+                        </ul>
+                    </li>
+                }
+            }
+        }
+    }
+
+}

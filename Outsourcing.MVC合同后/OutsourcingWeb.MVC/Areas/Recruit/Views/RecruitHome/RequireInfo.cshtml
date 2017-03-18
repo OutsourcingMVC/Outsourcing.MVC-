@@ -1,0 +1,120 @@
+﻿@model Outsourcing.EF.Model.Recruit.RequiredModel
+@{
+    Layout = "~/Views/Shared/_indexLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>客户需求</title>
+    <style type="text/css">
+        #td_personal tr {
+            height: 60px;
+            font-size: 16px;
+        }
+
+            #td_personal tr td {
+                border: none;
+            }
+
+        #td_personal {
+            margin-top: 30px;
+            width: 80%;
+            text-align:center;
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:1190px; margin:0 auto;">
+        <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:30px;height:50px;">
+            <span style="font-weight:800;font-size:24px;color:red;top:30px;">公司信息</span>
+        </div>
+        <table id="td_personal">
+            <tr>
+                <td style="text-align:right;">公司名称：</td>
+                <td>@Model.CompanyName</td>
+                <td style="text-align:right;">项目名称：</td>
+                <td>@Model.ProjectName</td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">联系人员：</td>
+                <td>@Model.UpdateUser </td>
+                <td style="text-align:right;">联系电话：</td>
+                <td>@Model.Salary </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">工作经验：</td>
+                <td>@Model.ExperienceName</td>
+                <td style="text-align:right;">
+                    职位名称：
+                </td>
+                <td>@Model.JobName</td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">发布时间：</td>
+                <td>@Model.PublishTime</td>
+                <td style="text-align:right;">到岗时间：</td>
+                <td>@Model.ArrivalTime.ToString()</td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">工作性质：</td>
+                <td>@Model.PropertyName</td>
+                <td style="text-align:right;">职位月薪：</td>
+                <td>@Model.SalaryName</td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">项目地点：</td>
+                <td>@Model.ProjectAddress</td>
+                <td style="text-align:right;">招聘人数：</td>
+                <td>@Model.RecNumber</td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">学历要求：</td>
+                <td>@Model.EducationName</td>
+                <td style="text-align:right;">职位类别：</td>
+                <td>@Model.JobCateGoryName</td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">公司地址：</td>
+                <td>@Model.ComAddress</td>
+
+            </tr>
+        </table>
+        <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:30px;height:50px;">
+            <span style="font-weight:800;font-size:24px;color:red;top:30px;">职位描述</span>
+        </div>
+        <div style="width:730px; margin:0 auto;  height:200px;">
+            <div style="margin-top:30px; float:left; ">
+                @Html.Raw(HttpUtility.UrlDecode(Model.JobDescription))
+            </div>
+        </div>
+       
+           
+        <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:30px;height:50px;">
+            <span style="font-weight:800;font-size:24px;color:red;top:30px;">公司简介</span>
+        </div>
+        <div style="width:730px; margin:0 auto; height:200px;">
+            <div style="margin-top:30px; float:left; ">
+                @Html.Raw(HttpUtility.UrlDecode(Model.ComProfile))
+            </div>
+        </div>
+        
+       
+        @*<div style="width:80%;border-bottom:1px solid #dddbdb;margin-top:20px;height:50px;">
+            <span style="font-weight:800;font-size:20px;color:red;top:30px;">自我评价</span>
+        </div>
+        <p>
+            1.有三年.net开发经验\<br>2,先后从事过教育、进销存，网站相关领域的系统和项目开发、管理和实施。<br>3,熟悉三层，MVC等架构 <br>4,熟悉JS,JQuery,Ajax等前台技术 <br>5,熟悉WCF,Web Service，Web Api等分布式开发技术 <br>6,熟练使用Sql Server数据库 ，<br>7,熟悉Ado.net,EF,ASP.NET MVC等技术<br>8,可以独立开发
+        </p>*@
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //alert(1);
+    })
+</script>

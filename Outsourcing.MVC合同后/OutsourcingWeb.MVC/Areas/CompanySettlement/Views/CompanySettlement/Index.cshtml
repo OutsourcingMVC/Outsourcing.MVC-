@@ -1,0 +1,205 @@
+﻿@model  OutsourcingWeb.MVC.Areas.CompanySettlement.Models.CompanySettlementViewModel
+@{
+    ViewBag.Title = "会员中心";
+    Layout = null;
+}
+<!--时间控件-->
+<script src="~/Scripts/js/jquery-1.8.0.js"></script>
+<link href="~/Scripts/devoops/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<!-- 实习bootstrap多选 -->
+@*multiple-select*@
+<script src="~/Scripts/multipleselect/multiple-select.js"></script>
+<link href="~/Scripts/multipleselect/multiple-select.css" rel="stylesheet" />
+<!-- 实习bootstrap多选结束 -->
+<style type="text/css">
+    #shouye {
+        font-family: "Microsoft YaHei",微软雅黑;
+    }
+
+    #theadId th {
+        text-align: center;
+        vertical-align: middle;
+        height: 15px;
+        font-weight: bold;
+    }
+
+
+    tbody {
+        text-align: center;
+    }
+
+    #tfootId {
+        text-align: center;
+    }
+
+    #outsidePage {
+        width: 900px;
+    }
+
+    #topDiv {
+        padding: 0px;
+        padding-left: 5px;
+        height: auto;
+    }
+
+
+    #leftPage {
+        float: left;
+        margin-top: -10px;
+    }
+
+    #rightPage {
+        float: right;
+        margin-top: -10px;
+    }
+
+    #exampleModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+    }
+
+    #exampleModal tr {
+        height: 50px;
+    }
+
+    #exampleModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #exampleModal input {
+        height: 35px;
+    }
+
+    #EditModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+        margin-bottom: -20px;
+    }
+
+    #EditModal tr {
+        height: 50px;
+    }
+
+    #EditModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #EditModal input {
+        height: 35px;
+    }
+
+    .datetimepicker {
+        width: 200px;
+    }
+</style>
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<input type="hidden" name="types" id="types" value="@ViewBag.Type">
+
+<div id="rightId">
+    <div class="panel-body" id="topDiv">
+        <div class="list-op" id="leftPage">
+        </div>
+        <form class="form-horizontal">
+            <legend>
+                <span style="font-size: 13px;">
+                    @*<button type="button" class="btn btn-default btn-xs btn-info" onclick="LoadAjaxContent('/PersonEntry/PersonsEntry/PersonsEntryList?loginid=@ViewBag.LoginID&&type=@ViewBag.Type')">
+                            <span class="glyphicon" aria-hidden="true"></span>返回列表
+                        </button>*@
+                    <strong> 查询设置</strong>
+                </span>
+            </legend>
+            <div class="form-group">
+                <label class="col-sm-1 control-label" style="width: auto;" for="ds_host">合作公司：</label>
+                <div class="col-sm-2">
+                    
+                    <select id="usertype" name="usertype" style="width:150px;" multiple="multiple">
+                         @if (Model.PatternList != null && Model.PatternList.Count > 0)
+                            {
+                                foreach (KeyValuePair<int, string> kv in Model.PatternList)
+                                {
+                                   <option value=@kv.Key>@kv.Value</option>
+                                }
+                            }
+                        @*<option value="a">苹果</option>
+                        <option value="b">菠萝</option>
+                        <option value="c">香蕉</option>
+                        <option value="d">火龙果</option>*@
+                    </select>
+                </div>
+                <label class="col-sm-1 control-label" for="ds_name" style="min-width:112px;">开始月份:</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="DatepickerStart" style="width: 150px;" type="text" placeholder="">
+                </div>
+                <label class="col-sm-1 control-label" style="width: 112px;" for="ds_username">结束月份：</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="DatepickerEnd" style="width: 150px;" type="text" placeholder="">
+                </div>
+                <div class="col-sm-1">
+                    <button id="QuerySettlement" type="button" onclick="submitQuerySettement()" class="btn btn-default btn-sm btn-info">查询</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="datalist">
+        @Html.Partial("company_PartialPageIndex", Model)
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DatepickerStart').datetimepicker({
+            //language: 'zh-CN',  //日期
+            startView: 3,
+            minView: 3,
+            format: 'yyyy-mm',
+            autoclose: 1
+        });
+
+        $('#DatepickerEnd').datetimepicker({
+            //language: 'zh-CN',  //日期
+            startView: 3,
+            minView: 3,
+            format: 'yyyy-mm',
+            autoclose: 1
+        });
+
+        //获取值， $("#XXX").val()即可
+        //回显操作：
+        //用方法 $('.selectpicker').selectpicker('val', 'Mustard');
+        //Mustard处填入数组。代码如下：
+        //var str='3,4,5,6';
+        //var arr=str.split(',');
+        //$('#usertype').selectpicker('val', arr);
+
+        $('#usertype').multipleSelect(); //多选初始化
+
+    });
+
+
+    //验证查询参数提交
+    function submitQuerySettement() {
+        debugger;
+        var usetype = $("#usertype").val();
+
+        //验证数据
+        var ds = $('#DatepickerStart').val();
+        var de = $('#DatepickerEnd').val();
+        if ($.isEmptyObject(ds)) {
+            swal("参数提示!", "开始月份不能为空！", "error");
+            return false;
+        }
+        if (de == "") {
+            swal("参数提示!", "结束月份不能为空！", "error");
+            return false;
+        }
+
+        if (ds > de) {
+            swal("参数提示!", "开始月份不能大于结束月份", "error");
+            return false;
+        }
+        LoadAjaxContent('/CompanySettlement/CompanySettlement/Index?loginid=@ViewBag.LoginID&&type=@ViewBag.Type&&isQueryCurrentMonth=@ViewBag.QueryMonth&&startD=' + $("#DatepickerStart").val() + '&&endD=' + $("#DatepickerEnd").val() + "&&partner=" + usetype);
+    }
+</script>

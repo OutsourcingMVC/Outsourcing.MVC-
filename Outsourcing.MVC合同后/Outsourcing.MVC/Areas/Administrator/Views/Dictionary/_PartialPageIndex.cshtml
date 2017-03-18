@@ -1,0 +1,121 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using System.Text;
+@model PagedList<Outsourcing.EF.Dictionary>
+
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.ActionLink("RoleName", "Index", new { sortOrder = ViewBag.RoleNameParm, currentFilter = ViewBag.CurrentFilter })
+                </th>*@
+            <th>字典名称</th>
+            <th>创建人</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.DictionaryID)
+                        @Html.DisplayFor(modelItem => item.ClassName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateUser)
+                    </td>
+                    <td>
+                        @{
+                string date = item.CreateTime.Value.ToString();
+                        }
+                        @Html.DisplayFor(modelItem => date)
+                    </td>
+
+                    <td>
+                        <a id="btnEdit" onclick="LoadAjaxContent('Administrator/Dictionary/Edit/@item.DictionaryID?pageIndex=@Model.PageNumber&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">编辑</a>|
+                        <a id="btnDetails" onclick="LoadAjaxContent('Administrator/Dictionary/DictionaryItemIndex?Dictionaryid=@item.DictionaryID&page=1')">详情</a>|
+                        <a id="btnDelete" onclick="del(this,@item.DictionaryID);" href="#">删除</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="3" style="text-align:center;">未查询到任何记录</td></tr>
+        }
+        }
+    </tbody>
+</table>
+<br />
+<div>
+
+    @*<script src="~/Scripts/mvcpager.js"></script>*@
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.PageCount 页 @Model.TotalItemCount 条记录，当前为第 @Model.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, DictionaryName = (ViewBag.CurrentFilter != null ? ViewBag.CurrentFilter : string.Empty) }))
+    @*mvcpager分页，带ajax支持*@
+    @*@Ajax.Pager(Model.StaffMembers, new PagerOptions
+        {
+            PageIndexParameterName = "page",
+            ShowPageIndexBox = true,
+            PageIndexBoxType = PageIndexBoxType.DropDownList,
+            ShowGoButton = false,
+            ShowNumericPagerItems = true,
+
+        },
+        new MvcAjaxOptions
+        {
+            UpdateTargetId = "datalist",
+            HttpMethod = "Post",
+            DataFormId = "searchForm",
+            EnablePartialLoading = true,
+            Url = "OA/AttendanceMonthStatistical/Index"
+        }, new { style = "float:right" })*@
+</div>
+@*@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}*@
+<script type="text/javascript">
+    $(document).ready(function () { replacePageUrl() });
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+
+        //debugger;
+        //var alist = $('#datalist a');
+        //alist.innerHtml = "";
+        //var divlist = $('div#pagerleft').next();
+        //if (divlist) {
+        //debugger;
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                //debugger;
+                //alert(index);
+                //if (index >= 6) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    //debugger;
+                    //var splitUrl = element.href.split('/')
+                    var splitUrl = element.href.split('?');
+                    //var newhref = "LoadAjaxContent('" + splitUrl[3] + splitUrl[4] + "')";
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('Administrator/Dictionary/Index?' + splitUrl[1]);
+                    });
+                    //$(this).on("click", function () {
+                    //    LoadAjaxContent('OA/AttendanceMonthStatistical/Index?page=2');
+                    //});
+                    $(this).attr("href", "#");
+                }
+
+                //}
+            });
+        }
+        //}
+    }
+
+
+</script>

@@ -1,0 +1,117 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using System.Text;
+@model OutsourcingWeb.MVC.Areas.Customer.Models.MemberCenterViewModel
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead id="theadId">
+        <tr>
+            @*<th data-field="PersonName">所属项目</th>*@
+            <th data-field="Sex">姓名</th>
+            <th data-field="Birthday">年龄</th>
+            <th data-field="Telephone">薪资</th>
+            <th data-field="Publications">技术语言</th>
+            <th data-field="Education">简历状态</th>
+            <th data-field="Email">人才状态</th>
+            <th data-field="">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.PersonalInfo.Count > 0)
+            {
+                foreach (var item in Model.PersonalInfo)
+                {
+                    <tr>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.ProjectName)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sex)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Birthday)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telephone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Education)
+                        </td>
+                        @{
+                            if (item.CVStatue == 1)
+                            {
+                                <td>
+                                    已上传
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    未上传
+                                </td>
+                            }
+                        }
+                        @{
+                            if (item.PeopleStatue == 1)
+                            {
+                                <td>
+                                    未推送
+                                </td>
+                            }
+                            else if (item.PeopleStatue == 2)
+                            {
+                                <td>
+                                    已推送
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    已入职
+                                </td>
+                            }
+
+                        }
+                        <td>
+                            <a id="btnEdit" onclick="edit(@item.PersonalInfoId);" href="#" data-toggle="modal" data-target="#EditModal">编辑</a>|
+                            <a id="btnDelete" onclick="del(@item.PersonalInfoId);" href="#">删除</a>
+                        </td>
+                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="13" style="text-align:center; background-color:white;">未查询到任何记录</td></tr>
+                            }
+        }
+    </tbody>
+</table>
+<br />
+<div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.PersonalInfo.PageCount 页 @Model.PersonalInfo.TotalItemCount 条记录，当前为第 @Model.PersonalInfo.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.PersonalInfo, page => Url.Action("TalentManagement",
+            new { page, sortOrder = ViewBag.CurrentSort, PersonName = (ViewBag.CurrentFilter != null ? ViewBag.CurrentFilter : string.Empty) }))
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.preloader').hide();
+        replacePageUrl();
+    });
+    function replacePageUrl() {
+        //debugger;
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    var splitUrl = element.href.split('?');
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('/Ectocyst/MemberCenter/TalentManagement?' + splitUrl[1]);
+                    });
+                    $(this).attr("href", "#");
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,588 @@
+﻿@model OutsourcingWeb.MVC.Areas.Ectocyst.Models.PersonalInfoViewModel
+@{
+    ViewBag.Title = "会员中心";
+   
+}
+<!--时间控件-->
+<script src="~/Scripts/js/jquery-1.8.0.js"></script>
+<link href="~/Scripts/devoops/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<style type="text/css">
+    #shouye {
+        font-family: "Microsoft YaHei",微软雅黑;
+    }
+
+    #theadId th {
+        text-align: center;
+        vertical-align: middle;
+        height: 15px;
+        font-weight: bold;
+    }
+
+
+    tbody {
+        text-align: center;
+    }
+
+    #tfootId {
+        text-align: center;
+    }
+
+    #outsidePage {
+        width: 900px;
+    }
+
+    #topDiv {
+        height: 40px;
+    }
+
+    #leftPage {
+        float: left;
+        margin-top: -10px;
+    }
+
+    #rightPage {
+        float: right;
+        margin-top: -10px;
+    }
+
+    #exampleModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+    }
+
+    #exampleModal tr {
+        height: 50px;
+    }
+
+    #exampleModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #exampleModal input {
+        height: 35px;
+    }
+
+    #EditModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+        margin-bottom: -20px;
+    }
+
+    #EditModal tr {
+        height: 50px;
+    }
+
+    #EditModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #EditModal input {
+        height: 35px;
+    }
+    
+
+    .datetimepicker {
+        width: 200px;
+    }
+</style>
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<input type="hidden" name="types" id="types" value="@ViewBag.Type"> 
+@*<div class="preloader">
+        <img src="~/img/devoops_getdata.gif" class="devoops-getdata" alt="preloader" />
+    </div>*@
+<div id="rightId">
+    <div class="panel-body" id="topDiv">
+        <div class="list-op" id="leftPage">
+            <button type="button" class="btn btn-default btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
+                <span class="glyphicon" aria-hidden="true"></span>新增
+            </button>
+        </div>
+        <div class="list-op" id="rightPage">
+            <form id="defaultForm" method="post" action="/Ectocyst/MemberCenter/TalentManagement?loginid=@ViewBag.LoginID&&type=@ViewBag.Type" class="form-horizontal">
+                <input name="SelectPersonName" value="@(HttpUtility.UrlDecode(ViewBag.CurrentFilter) as string)" class="form-control" style="float:left; width:65%; height:30px;" type="text" placeholder="请输入姓名" id="SelectPersonName">
+                <button style="float:right; width:30%;" class="btn btn-default btn-sm btn-info" type="submit"  id="btnSubmit">查询</button>
+            </form>
+        </div>
+    </div>
+    <div id="datalist">
+        @Html.Partial("_PartialPageIndex", Model)
+    </div>
+    <div id="outputdiv" role="alert">
+    </div>
+</div>
+<!--新增人才-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document" id="outsidePage">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 style="height:30px; margin-top:-10px;" class="modal-title" id="exampleModalLabel">新增人才</h2>
+            </div>
+            <div class="modal-body">
+                <form id="editID">
+                    <table align="center">
+                        <tr>
+                            <td>姓名：</td>
+                            <td><input id="PersonName" type="text" class="form-control" placeholder="请输入姓名" style="width:150px;"></td>
+                            <td>性别：</td>
+                            <td>
+                                <select id="Sex" class="form-control" style="width:150px;">
+                                    <option>男</option>
+                                    <option>女</option>
+                                </select>
+                            </td>
+                            <td>出生年月日：</td>
+                            <td>
+                                <input type="text" id="Birthday" class="form-control" placeholder="请选择出生年月日">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>联系方式：</td>
+                            <td><input id="Telephone" type="text" class="form-control" placeholder="请输入手机号"></td>
+                            <td>技术语言：</td>
+                            <td>
+                                <select id="Publications" class="form-control" style="width:150px;">
+                                    <option>Java</option>
+                                    <option>C/C++</option>
+                                    <option>C#/.Net</option>
+                                    <option>HTML</option>
+                                    <option>PHP</option>
+                                    <option>UI</option>
+                                    <option>ANDROID/IOS</option>
+                                    <option>PYTHON</option>
+                                    <option>Web前端</option>
+                                    <option>美工</option>
+                                    <option>测试</option>
+                                  
+                                </select>
+                            </td>
+                            <td>最高学历：</td>
+                            <td>
+                                <select id="Education" class="form-control" style="width:150px;">
+                                    <option>硕士及以上</option>
+                                    <option>本科</option>
+                                    <option>大专</option>
+                                    <option>中专及同等学历</option>
+                                    <option>高中及以下</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>邮箱：</td>
+                            <td><input type="email" class="form-control" id="Email" placeholder="请输入邮箱"></td>
+                            <td>身份证号：</td>
+                            <td><input id="CaredID" type="text" class="form-control" placeholder="请输入身份证号" style="width:150px;"></td>
+                            <td>毕业院校：</td>
+                            <td><input id="GraduationSchool" type="text" class="form-control" placeholder="请输入毕业院校"></td>
+                        </tr>
+                        <tr>
+                            <td>毕业时间：</td>
+                            <td>
+                                <input type="text" id="GraduationDate" class="form-control" placeholder="请选择毕业时间">
+                            </td>
+                            @*<td>上传简历：</td>
+                                <td><input type="file" id="CVStatue" style="width:150px;"></td>*@
+                            <td>简历状态：</td>
+                            <td>
+                                <select id="CVStatue" class="form-control" style="width:150px;">
+                                    <option value="1">已上传</option>
+                                    <option value="2">未上传</option>
+                                </select>
+                            </td>
+                            <td>人才状态：</td>
+                            <td>
+                                <select id="PeopleStatue" class="form-control" style="width:150px;">
+                                    <option value="1">未推送</option>
+                                    <option value="2">已推送</option>
+                                    <option value="3">已入职</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr id="PersonInfor">
+                          
+                            <td>自我介绍：</td>
+                            <td><textarea id="Remark" class="form-control"></textarea></td> 
+                            <td>工作经历：</td>
+                            <td><textarea id="Resume" class="form-control"></textarea></td>
+                            <td>教育背景：</td>
+                            <td><textarea id="Attachment" class="form-control"></textarea></td>
+                        </tr>
+                       
+                    </table>
+                  
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="PutInWord" class="btn btn-primary" onclick="PutIn();">导入</button>
+                <button type="button" class="btn btn-primary" onclick="Submit();">提交</button>
+                <button type="button" class="btn btn-primary" onclick="clean();">重置</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑人才-->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModal">
+    <div class="modal-dialog" role="document" id="outsidePage">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="editClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 style="height:30px; margin-top:-10px;" class="modal-title" id="EditModal">编辑人才</h2>
+            </div>
+            <div class="modal-body">
+                <form id="form2">
+                    <table align="center">
+                        <tr>
+                            <td>姓名：</td>
+                            <td><input id="PersonNames" type="text" class="form-control" placeholder="请输入姓名"  style="width:150px;"></td>
+                            <td>性别：</td>
+                            <td>
+                                <select id="Sexs" class="form-control" style="width:150px;">
+                                    <option>男</option>
+                                    <option>女</option>
+                                </select>
+                            </td>
+                            <td>出生年月日：</td>
+                            <td>
+                                <input type="text" id="Birthdays" class="form-control" placeholder="请选择出生年月日">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>联系方式：</td>
+                            <td><input id="Telephones" type="text" class="form-control" placeholder="请输入手机号"></td>
+                            <td>技术语言：</td>
+                            <td>
+                                <select id="Publicationss" class="form-control" style="width:150px;">
+                                    <option>Java</option>
+                                    <option>C/C++</option>
+                                    <option>C#/.Net</option>
+                                    <option>HTML</option>
+                                    <option>PHP</option>
+                                    <option>UI</option>
+                                    <option>ANDROID/IOS</option>
+                                    <option>PYTHON</option>
+                                    <option>Web前端</option>
+                                    <option>美工</option>
+                                    <option>测试</option>
+                                    
+                                </select>
+                            </td>
+                            <td>最高学历：</td>
+                            <td>
+                                <select id="Educations" class="form-control" style="width:150px;">
+                                    <option>硕士及以上</option>
+                                    <option>本科</option>
+                                    <option>大专</option>
+                                    <option>中专及同等学历</option>
+                                    <option>高中及以下</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>邮箱：</td>
+                            <td><input type="email" class="form-control" id="Emails" placeholder="请输入邮箱"></td>
+                            <td>身份证号：</td>
+                            <td><input id="CaredIDs" type="text" class="form-control" placeholder="请输入身份证号" style="width:150px;"></td>
+                            <td>毕业院校：</td>
+                            <td><input id="GraduationSchools" type="text" class="form-control" placeholder="请输入毕业院校"></td>
+                        </tr>
+                        <tr>
+                            <td>毕业时间：</td>
+                            <td>
+                                <input type="text" id="GraduationDates" class="form-control" placeholder="请选择毕业时间">
+                            </td>
+                            <td>简历状态：</td>
+                            <td>
+                                <select id="CVStatues" class="form-control" style="width:150px;">
+                                    <option value="1">已上传</option>
+                                    <option value="2">未上传</option>
+                                </select>
+                            </td>
+                            <td>人才状态：</td>
+                            <td>
+                                <select id="PeopleStatues" class="form-control" style="width:150px;">
+                                    <option value="1">未推送</option>
+                                    <option value="2">已推送</option>
+                                    <option value="3">已入职</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="btnSubmits();">提交</button>
+                <input type="hidden" id="hidden" value="@Session["id"]" />
+                @*<button type="button" class="btn btn-default" onclick="editClean();">重置</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Add Drag-n-Drop feature
+        //WinMove();
+        //思路:使用jquery替换方式替换掉mvcpager生成的分页文本
+        replacePageUrl();
+        btnSubmits();
+    });
+    function btnSubmits() {
+        debugger;
+        var usetype = $("#usertype").val();
+
+        //验证数据
+        var SelectPersonName = $('#SelectPersonName').val();
+
+        if ($.isEmptyObject(SelectPersonName)) {
+            swal("参数提示!", "姓名不能为空！", "error");
+            return false;
+        }
+        var hel = '/Ectocyst/MemberCenter/TalentManagement?loginid=@ViewBag.LoginID&type=@ViewBag.Type&StaffName=' + SelectPersonName;
+        LoadAjaxContent(hel);
+
+
+        $("#PutInWord").click(function () {
+            debugger
+
+            window.location.href = "/Ectocyst/MemberCenter/PutInWord";
+        })
+        //$.ajax({
+        //    url: "/PersonEntry/PersonsEntry/Insearch",
+        //    type: "Post",
+        //    data: { SelectPersonName: SelectPersonName },
+        //    success: function (data) {
+
+        //    }
+
+        //})
+
+
+    }
+
+
+
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    var splitUrl = element.href.split('/')
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('/Ectocyst/MemberCenter/TalentManagement?page=' + $(this).text());
+                    });
+                    $(this).attr("href", "#");
+                }
+            });
+        }
+    }
+
+    //添加人才库数据
+    function Submit() {
+        var PersonName = $("#PersonName").val();
+        if (PersonName == "" || PersonName == null) {
+            swal("请输入姓名!");
+            return false;
+        }
+        var Attachment = $("#Attachment").val();
+        var Resume = $("#Resume").val();
+        var Remark = $("#Remark").val();
+        var Sex = $("#Sex").val();
+        var Birthday = $("#Birthday").val();
+        var Telephone = $("#Telephone").val();
+        var Publications = $("#Publications").val();
+        var Education = $("#Education").val();
+        var Email = $("#Email").val();
+        var CaredID = $("#CaredID").val();
+        var GraduationSchool = $("#GraduationSchool").val();
+        var GraduationDate = $("#GraduationDate").val();
+        var CVStatue = $("#CVStatue").val();
+        var PeopleStatue = $("#PeopleStatue").val();
+        $.ajax({
+            type: "POST",
+            url: "/Ectocyst/MemberCenter/AddData",
+            data: {
+                PersonName: PersonName, Sex: Sex, Birthday: Birthday, Telephone: Telephone,
+                Publications: Publications, Education: Education, Email: Email, CaredID: CaredID,
+                GraduationSchool: GraduationSchool, GraduationDate: GraduationDate, CVStatue: CVStatue,
+                PeopleStatue: PeopleStatue, Remark: Remark, Resume: Resume, Attachment: Attachment
+            },
+            success: function (msg) {
+
+                if (msg == "添加成功") {
+                    swal("人才添加成功!", "", "success");
+
+                }
+                else { swal("人才添加失败!", "", "error"); }
+            }
+        });
+    }
+
+    $('#close').on('click', function () {
+        //为form的ajax提交准备参数
+        LoadAjaxContent('/Ectocyst/MemberCenter/TalentManagement');
+    });
+    $('#editClose').on('click', function () {
+        //为form的ajax提交准备参数
+        LoadAjaxContent('/Ectocyst/MemberCenter/TalentManagement');
+    });
+
+    //$('#btnSubmit').on('click', function () {
+    //    LoadAjaxContent('/Ectocyst/MemberCenter/TalentManagement');
+    //});
+
+    //编辑
+    function edit(id) {
+        debugger
+        $.ajax({
+             
+            type: "POST",
+            url: "/Ectocyst/MemberCenter/Edit",
+            data: { id: id },
+            datatype:"json",
+            success: function (id) {
+                if (personalInfo != null) {
+                    $("#PersonNames").val(personalInfo[0].PersonName),
+                    $("#Sexs").val(personalInfo[0].Sex),
+                    $("#Birthdays").val(personalInfo[0].Birthday),
+                    $("#Telephones").val(personalInfo[0].Telephone),
+                    $("#Publicationss").val(personalInfo[0].Publications),
+                    $("#Educations").val(personalInfo[0].Education),
+                    $("#Emails").val(personalInfo[0].Email),
+                    $("#CaredIDs").val(personalInfo[0].CaredID),
+                    $("#GraduationSchools").val(personalInfo[0].GraduationSchool),
+                    $("#GraduationDates").val(personalInfo[0].GraduationDate),
+                    $("#CVStatues").val(personalInfo[0].CVStatue),
+                    $("#PeopleStatues").val(personalInfo[0].PeopleStatue),
+                    $("#hidden").val(personalInfo[0].PersonalInfoId)
+                }
+            }
+        });
+    }
+
+    function btnSubmits() {
+        debugger;
+        var personalInfoId = $("#hidden").val();
+        //var PersonName = $("#PersonNames").val();
+        //if (PersonName == "" || PersonName == null) {
+        //    swal("请输入姓名!");
+        //    return false;
+        //}
+        var Sex = $("#Sexs").val();
+        var Birthday = $("#Birthdays").val();
+        var Telephone = $("#Telephones").val();
+        var Publications = $("#Publicationss").val();
+        var Education = $("#Educations").val();
+        var Email = $("#Emails").val();
+        var CaredID = $("#CaredIDs").val();
+        var GraduationSchool = $("#GraduationSchools").val();
+        var GraduationDate = $("#GraduationDates").val();
+        var CVStatue = $("#CVStatues").val();
+        var PeopleStatue = $("#PeopleStatues").val();
+        debugger;
+        $.ajax({
+            datatype: "json",
+            type: "POST",
+            url: "/Ectocyst/MemberCenter/UpdateData",
+            data: {
+                PersonalInfoId: personalInfoId, PersonName: PersonName, Sex: Sex, Birthday: Birthday, Telephone: Telephone,
+                Publications: Publications, Education: Education, Email: Email, CaredID: CaredID,
+                GraduationSchool: GraduationSchool, GraduationDate: GraduationDate, CVStatue: CVStatue,
+                PeopleStatue: PeopleStatue
+            },
+            success: function (msg) {
+                if (msg == "更新成功") {
+                    swal("人才更新成功!", "", "success");
+                }
+                else { swal("人才更新失败!", "", "error"); }
+            }
+        });
+    }
+    //删除
+    function del(id) {
+        swal({
+            title: "您确定要删除吗？",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "是的，我要删除",
+            confirmButtonColor: "#ec6c62"
+        }, function () {
+            $.ajax({
+                type: "POST",
+                url: "/Ectocyst/MemberCenter/Delete",
+                data: { id: id },
+                success: function (msg) {
+                    if (msg == "删除成功") {
+                        swal("删除成功!", "", "success");
+                        LoadAjaxContent('/Ectocyst/MemberCenter/TalentManagement');
+
+                    }
+                    else { swal("删除失败!", "", "error"); }
+                }
+            });
+        });
+    }
+    //查询+验证查询功能
+    $('#btnSubmit').on('click', function () {
+        debugger;
+        var usetype = $("#usertype").val();
+
+        //验证数据
+        var SelectPersonName = $('#SelectPersonName').val();
+
+        if ($.isEmptyObject(SelectPersonName)) {
+            swal("参数提示!", "姓名不能为空！", "error");
+            return false;
+        }
+        var hel = '/Customer/MemberCenter/TalentManagement?loginid=@ViewBag.LoginID&type=@ViewBag.Type&StaffName=' + SelectPersonName;
+        LoadAjaxContent(hel);
+    })
+    //重置
+    function clean() {
+        $("#PersonName").attr("value", "");
+        $("#Sex").attr("value", "");
+        $("#Birthday").attr("value", "");
+        $("#Telephone").attr("value", "");
+        $("#Publications").attr("value", "");
+        $("#Education").attr("value", "");
+        $("#Email").attr("value", "");
+        $("#CaredID").attr("value", "");
+        $("#GraduationSchool").attr("value", "");
+        $("#GraduationDate").attr("value", "");
+        $("#CVStatue").attr("value", "");
+        $("#PeopleStatue").attr("value", "");
+    }
+
+    //设置时间控件参数
+    $('#Birthday').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    });
+    $('#GraduationDate').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    });
+    $('#Birthdays').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    });
+    $('#GraduationDates').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    });
+</script>

@@ -1,0 +1,269 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model OutsourcingWeb.MVC.Areas.PersonnelSettlement.Models.PersonSettlementsViewModel
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead  id="theadId">
+        <tr>
+            @*<th style="width:5%;"><span class="form-inline">
+                <a href="#" id="SelectAll">全选</a>
+            </span></th>*@
+            <th></th>
+            <th>姓名</th>
+            @*<th>技能</th>*@
+            <th>所属公司</th>
+            @*<th>入职公司</th>*@
+            <th>月份</th>
+            <th>应到/天</th>
+            <th>实到/天</th>
+            <th>缺勤/天</th>
+            <th>加班/天</th>
+            <th>应结/元</th>
+            <th>实结/元</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.PersonSettlements.Count > 0)
+            {
+                foreach (var item in Model.PersonSettlements)
+                {
+                    <tr>
+                        <td>
+                            <input class="states checkbox" type="checkbox" name="ids" value="@item.ID" />                            
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PersonalInfo.PersonName)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.PersonalInfo.Publications)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OutsourcingCompany.CompnayName)
+                        </td>
+                        <td>
+                            @{
+                                string CurrentDate = string.Format("{0:yyyy-MM}", item.SettlementDate);
+                            }
+                            @CurrentDate
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RealWorkDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OvertimeDays)
+                        </td>
+                        <td>
+                            @string.Format("{0:C}", item.Wages)
+                        </td>
+                        <td>
+                            @string.Format("{0:C}", item.RealWages)
+                        </td>
+                        <td>
+                            @if (ViewBag.Type == "2")
+                            {
+                                <div class="btn-group">
+                                    <button type="button" onclick="LoadAjaxContent('/PersonnelSettlement/PersonnelSettlement/SettlementPerson?loginid=@ViewBag.LoginID&&type=@ViewBag.Type&&PersonSettlementID=@HttpUtility.HtmlEncode(item.ID)&&page=@Model.PersonSettlements.PageNumber&&isQueryCurrentMonth=@ViewBag.QueryMonth&&PersonID=@item.PersonalInfo.PersonalInfoId')" class="btn btn-primary btn-xs">
+                                        结算
+                                    </button>
+                                </div>
+
+                            }
+
+                            <button type="button" onclick="ShowLeaveDetail('@item.ID');" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                                明细
+                            </button>                                                        
+                       </td>
+                    </tr>
+                }
+        }
+        else
+        {
+             <tr><td colspan="13" style="text-align:center;">未查询到任何记录</td></tr>
+        }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="9">
+                <button id="SelectAll" type="button" class="btn btn-primary btn-xs">
+                    全选
+                </button> 
+                <button id="CancelSelectAll" type="button" class="btn btn-primary btn-xs">
+                    取消
+                </button> 
+                <button id="Del" type="button" class="btn btn-primary btn-xs">
+                    删除
+                </button> 
+            </td>
+            <td colspan="2">
+                 <strong>共结算:@string.Format("{0:C}", Model.TotalMoney)</strong>
+            </td>
+        </tr>
+     </tfoot>
+ </table>
+    <br />
+
+<!-- 按钮触发模态框 -->
+<!-- 模态框（Modal）考勤明细 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="Modalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">考勤明细记录</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                                <th>时长/时</th>
+                                <th>工资扣减</th>
+                                <th>请假类型</th>
+                            </tr>                          
+                        </thead> 
+                        <tbody id="detail">
+                        </tbody>
+                     </table>
+               </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="dateSelectOK" type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.PersonSettlements.PageCount 页 @Model.PersonSettlements.TotalItemCount 条记录，当前为第 @Model.PersonSettlements.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.PersonSettlements, page => Url.Action("Index",
+    new { page, loginid = ViewBag.LoginID,type=ViewBag.Type }))
+</div>
+<script type="text/javascript">
+    //$(document).ready(function () {replacePageUrl() });
+
+    //查看明细    
+    function ShowLeaveDetail(id) {
+        $("#Modalclose").click();
+        //debugger;
+        var datas={
+            loginid:@ViewBag.LoginID,
+            types:@ViewBag.Type,
+            PersonSettlementID:id};
+        $.ajax({
+            url:"/PersonnelSettlement/PersonnelSettlement/Details",
+            type: "Post",
+            data:datas,
+            dataType: "json",
+            success: function (datas)
+            { 
+                //debugger;
+                var result = "";  
+                var dataObj=$.parseJSON(datas);
+                if ($.isEmptyObject(dataObj))
+                {                   
+                    result='<tr><td colspan="5" style="text-align:center;">未查询到任何记录</td></tr>';
+               
+                }   
+                else
+                {
+                    $.each(dataObj,function(index,data){  
+                        // debugger;
+                        var ltype="";
+                        switch(data.LeaveType){                           
+                            case 1://事假
+                                ltype="事假";
+                                break;
+                            case 2: //加班补助
+                                ltype="加班(补助)";
+                                break;
+                            case 3://事假调休
+                                ltype="事假(调休)";
+                                break;    
+                            case 4://加班(调休)
+                                ltype="加班(调休)";
+                                break;  
+                        }
+                        result += "<tr><td>" + ConvertJSONDateToJSDateObject(data.LeaveStartDate) + "</td><td>" + ConvertJSONDateToJSDateObject(data.LeaveEndDate) + 
+                            "</td><td>" + data.LeaveHours + "</td><td>" + data.LeaveMoney +"</td><td>" + ltype
+                        "</td></tr>";  
+                    });      
+                }
+                $('#detail').html(result);  
+            }
+        });
+    }
+
+    $('#dateSelect').datetimepicker({
+        language: 'zh-CN',  //日期
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    })
+
+    //转换json格式的日期（如：{ServerDatetime:"\/Date(1278930470649)\/"}）为Javascript的日期对象 
+    function ConvertJSONDateToJSDateObject(JSONDateString) { 
+        //debugger;
+        var Milliseconds = parseInt(JSONDateString.replace(/\D/igm, ""));
+        //实例化一个新的日期格式，使用1970 年 1 月 1 日至今的毫秒数为参数
+        var date = new Date(Milliseconds);
+        return date.toLocaleString();  //toLocaleString是关键
+    } 
+
+    //全选与取消
+    $("#SelectAll").click(function(){
+        $("input[type='checkbox']").each(function(){
+            this.checked=true;
+        });   
+    });
+
+    $("#CancelSelectAll").click(function(){
+        $("input[type='checkbox']").each(function(){
+            this.checked=false;
+        });   
+    });
+    //删除
+    $("#Del").click(function(){
+        debugger
+        var str="";
+        $("input[type='checkbox']").each(function(){
+            if(this.checked)
+            {
+                str+=$(this).val()+",";
+            }
+        });  
+        //alert(str);
+        var s=new Array();
+        s=str.split(",");
+        alert(s);
+      
+        swal({
+        title: "您确定要删除吗？",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "是的，我要删除",
+            confirmButtonColor: "#ec6c62"
+        }, function () {
+        $.ajax({
+            type:"post",
+            url:"/PersonnelSettlement/PersonnelSettlement/Delete",
+
+        })
+    });
+
+</script>

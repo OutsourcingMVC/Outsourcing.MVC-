@@ -1,0 +1,192 @@
+﻿
+@{
+    ViewBag.Title = "账号注册";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Scripts/styles/common.css" />
+<div>
+    <div class="spacer8"></div>
+    <div class="spacer8"></div>
+    <div style="height:20px;background-color:#f0ecec; width:100%;"></div>
+    <div class="spacer8"></div>
+    <div class="spacer8"></div>
+</div>
+<div style="height:453px; margin-left:33%;">
+    <div style="height:50px;"></div>
+    @*<form id="defaultForm" method="post">*@
+    <table>
+        <tr>
+            <td><div class="tdcss"><font color="#F1423C">*</font>登录名</div></td>
+            <td><input id="txtAccountName" name="txtAccountName" autocomplete="off" type="text" class="text" placeholder="请输入登录名" onblur="lostName();"> </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style=" float:right;"><span id="disAccountName" style="display:none;color:#FF0000;">该用户已存在！</span></td>
+        </tr>
+        <tr>
+            <td><div class="tdcss"><font color="#F1423C">*</font>邮箱</div></td>
+            <td><input name="txtEmail" autocomplete="off" type="text" class="text" placeholder="请输入邮箱" onfocus="getEmail();"> </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style=" float:right;"><span id="disEmail" style="display:none;color:#FF0000;">邮箱格式不正确！</span></td>
+        </tr>
+        <tr>
+            <td><div class="tdcss"><font color="#F1423C">*</font>密码</div></td>
+            <td><input autocomplete="off" type="password" class="text" name="password" id="person_password" placeholder="请输入密码"> </td>
+        </tr>
+        <tr>
+            <td><div class="tdcss"><font color="#F1423C">*</font>重复密码</div></td>
+            <td>
+                <input autocomplete="off" type="password" class="text" name="passwords" id="person_password" placeholder="请再次输入密码"
+                       onfocus="getsubmit();">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style=" float:right;"><span id="anchor" style="display:none;color:#FF0000;">两次输入密码不相同！</span></td>
+        </tr>
+        <tr>
+            <td style="float:right; margin-right:5px;"><input id="check" type="checkbox" name="checkItem" onClick="check();" /></td>
+            <td style="font-family:Verdana, Arial, Helvetica, sans-serif;">我接受<a target="_blank" href="/Public/AboutUs/AboutUs">《翼聚源网站协议》</a>条款</td>
+        </tr>
+    </table>
+    @*</form>*@
+    <div class="control-group">
+        <button disabled="disabled" id="btnsubmit" type="button" onclick="onOk()"
+                style="margin: 20px auto 0 90px; height:50px; width:250px; font-size:30px;">
+            提交
+        </button>
+    </div>
+</div>
+<script type="text/javascript">
+    var str = location.search;
+    var num = str.split('?act=')[1];
+    //alert(num);
+    //验证账号是否存在
+    function lostName() {
+        debugger;
+        var name = $('[name="txtAccountName"]').val();
+        $.ajax({
+            type: "POST",
+            url: "/Public/Identity/VerificationName",
+            data: { AccountName: name },
+            success: function (msg) {
+                debugger;
+                if (msg == "该用户已存在") {
+                    document.getElementById("disAccountName").style.display = "block";
+                    document.getElementById("txtAccountName").focus();
+                }
+                else {
+                    document.getElementById("disAccountName").style.display = "none";
+                }
+            }
+        });
+    }
+
+    //邮箱格式验证
+    //function getEmail() {
+    //    document.getElementById("disEmail").style.display = "block";
+    //}
+    //$(document).ready(function () {
+    //    $('[name="txtEmail"]').keyup(function () {
+    //        debugger;
+    //        var value = $('[name="txtEmail"]');
+    //        var pattern = /^([a-zA-Z0-9_-])+@@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    //        if (!pattern.test(value.val())) {
+    //            document.getElementById("disEmail").style.display = "block";
+    //            value.focus();
+    //            return false;
+    //        }
+    //        else {
+    //            document.getElementById("disEmail").style.display = "none";
+    //        }
+    //        //return true;
+    //    });
+    //});
+
+
+    //获得焦点时显示密码错误提示
+    function getsubmit() {
+        document.getElementById("anchor").style.display = "block";
+    }
+    //判断两次密码是否相同
+    $(document).ready(function () {
+        $('[name="passwords"]').keyup(function () {
+            var value = $('[name="password"]').val();
+            var values = $('[name="passwords"]').val();
+            if (value == values) {
+                document.getElementById("anchor").style.display = "none";
+            }
+            else {
+                document.getElementById("anchor").style.display = "block";
+            }
+        });
+    });
+
+
+    //点击同意平台协后议注册按钮可用
+    function check() {
+        if (document.getElementById("check").checked == true) {
+            document.getElementById("btnsubmit").disabled = "";
+            $("#btnsubmit").attr("class", "kbtn kbtn_orange kbtn30 font14");
+        }
+        else {
+            document.getElementById("btnsubmit").disabled = "disabled";
+            $("#btnsubmit").attr("class", "");
+        }
+    }
+
+    function onOk() {
+        var CompanyUserName = $('[name="txtAccountName"]').val();
+        if (txtAccountName == "") {
+            swal("请输入登录名!");
+            return false;
+        }
+        var txtEmail = $('[name="txtEmail"]').val();
+        if (txtEmail == "") {
+            swal("请输入邮箱!");
+            return false;
+        }
+        var password = $('[name="password"]').val();
+        if (password == "") {
+            swal("请输入密码!");
+            return false;
+        }
+        var passwords = $('[name="passwords"]').val();
+        if (passwords == "") {
+            swal("请再次输入密码!");
+            return false;
+        }
+        debugger;
+        $.ajax({
+            type: "POST",
+            url: "/Public/Identity/Add",
+            data: { CompanyUserName: CompanyUserName, Email: txtEmail, password: password, num: num },
+            success: function (msg) {
+                if (msg) {
+                    swal({
+                        title: "账号注册成功!",
+                        text: "",
+                        type: "success",
+                        closeOnConfirm: false,
+                        confirmButtonText: "确认",
+                    },
+                    function () {
+                        window.location.href = '/System/Index';
+
+
+                        //if (num == 1)
+                        //{
+                        //    window.location.href = '/Ectocyst/MemberCenter/TabsRightOne';
+                        //}
+                        //if (num == 2)
+                        //{
+                        //    window.location.href = '/Customer/MemberCenter/TabsRightFive';
+                        //}
+                    });
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,395 @@
+﻿@{
+    ViewBag.Title = "首页";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<script src="~/Scripts/devoops/devoops.js"></script>*@
+<!--轮播图-->
+@*<script src="~/Scripts/js/jquery-1.8.0.js"></script>*@
+@*<link rel="stylesheet" type="text/css" href="~/Scripts/styles/lunbo.css" />
+    <script type="text/javascript">
+        var t = n = 0, count;
+        $(document).ready(function () {
+            count = $("#banner_list a").length;
+            $("#banner_list a:not(:first-child)").hide();
+            $("#banner_info").html($("#banner_list a:first-child").find("img").attr('alt'));
+            $("#banner_info").click(function () { window.open($("#banner_list a:first-child").attr('href'), "_blank") });
+            $("#banner li").click(function () {
+                var i = $(this).text() - 1;//获取Li元素内的值，即1，2，3，4
+                n = i;
+                if (i >= count) return;
+                $("#banner_info").html($("#banner_list a").eq(i).find("img").attr('alt'));
+                $("#banner_info").unbind().click(function () { window.open($("#banner_list a").eq(i).attr('href'), "_blank") })
+                $("#banner_list a").filter(":visible").fadeOut(500).parent().children().eq(i).fadeIn(1000);
+                document.getElementById("banner").style.background = "";
+                $(this).toggleClass("on");
+                $(this).siblings().removeAttr("class");
+            });
+            t = setInterval("showAuto()", 3000);
+            $("#banner").hover(function () { clearInterval(t) }, function () { t = setInterval("showAuto()", 3000); });
+        })
+
+        function showAuto() {
+            n = n >= (count - 1) ? 0 : ++n;
+            $("#banner li").eq(n).trigger('click');
+        }
+    </script>
+    <style type="text/css">
+        #model {
+            -moz-column-count: 2;
+            -webkit-column-count: 2;
+            column-count: 2;
+        }
+    </style>*@
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<div>
+    <div class="spacer8"></div>
+    <div class="spacer8"></div>
+    <div style="height:20px;background-color:#f0ecec; width:100%;"></div>
+</div>
+<!--首页轮播展示图片-->
+@*<div id="banner">
+        <div id="banner_bg"></div>
+        <ul>
+            <li class="on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <div id="banner_list">
+            <a href="#" target="_blank"><img src="~/Scripts/styles/img/1.jpg" /></a>
+            <a href="#" target="_blank"><img src="~/Scripts/styles/img/2.jpg" /></a>
+            <a href="#" target="_blank"><img src="~/Scripts/styles/img/3.jpg" /></a>
+            <a href="#" target="_blank"><img src="~/Scripts/styles/img/4.jpg" /></a>
+        </div>
+    </div>*@
+<div align="center" ;>
+    @*<div class="header">
+        <div style="height:70px; width:160px;background-color:#f0ecec; display:inline-block; width:100%;"><img src="~/Scripts/styles/images/zp.png" /></div>
+        <div class="clear"></div>
+        <div class="spacer8"></div>
+        <div class="spacer8"></div>
+        </div>*@
+    <div class="new_supp_talent">
+        <div class="spacer8"></div>
+        <ul>
+            <li>
+                <a title="找技术人才" target="_blank" href="/Public/MessageList/MessageList?Type=1" @*onclick="LoadAjaxContent('/Public/MessageList/MessageList?Type=1')"*@>
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_WEBAPP"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">26300+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="Web应用开发">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="Web应用开发">Web应用开发</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才" target="_blank" href="/Public/MessageList/MessageList?Type=2">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_MAPP"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">14300+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="移动应用开发">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="移动应用开发">移动应用开发</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才" target="_blank" href="/Public/MessageList/MessageList?Type=3">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_OPD"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">6300+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="微信开发">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="微信开发">微信开发</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才" target="_blank" href="/Public/MessageList/MessageList?Type=4">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_DAPP"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">6000+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="桌面应用开发">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="桌面应用开发">桌面应用开发</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才" target="_blank" href="/Public/MessageList/MessageList?Type=5">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_SD"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">4700+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="系统分析设计">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="系统分析设计">系统分析设计</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_DAD');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_DAD"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">6000+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="数据分析开发">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="数据分析开发">数据分析开发</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_AID');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_AID"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">2800+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="应用集成开发">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="应用集成开发">应用集成开发</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_UEUI');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_UEUI"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">5000+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="UE/UI设计">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="UE/UI设计">UE/UI设计</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_SUITE');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_SUITE"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">2400+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="套装软件实施(如ERP)">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="套装软件实施(如ERP)">
+                            套装软件实施<!--(如ERP)-->
+                        </span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_PRESALE');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_PRESALE"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">2300+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="售前咨询">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="售前咨询">售前咨询</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_TEST');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_TEST"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">7400+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="测试">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="测试">测试</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_TRAIN');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_TRAIN"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">3100+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="培训">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="培训">培训</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_SYS');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_SYS"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">2700+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="系统软件配置">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="系统软件配置">系统软件配置</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_NET');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_NET"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">2200+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="网络硬件实施">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="网络硬件实施">网络硬件实施</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_EDITOR');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_EDITOR"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">2200+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="编辑/翻译/资料录入">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="编辑/翻译/资料录入">
+                            编辑/翻译/资料录入
+                        </span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_ITOM');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_ITOM"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">3500+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="IT运维">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="IT运维">IT运维</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才"
+                   href="javascript:void(0);" onClick="workstyle('WT_PM');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_PM"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">7100+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="项目管理">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="项目管理">项目管理</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a title="找技术人才" href="javascript:void(0);" onClick="workstyle('WT_OPR');">
+                    <div class="icon">
+                        <i class="icon_talent_ios">
+                            <em class="technical_talents WT_OPR"> </em>
+                        </i>
+                        <p class="white aligncenter font14" style="padding-top:16px;">3300+</p>
+                        <p class="white aligncenter font14">人</p>
+                    </div>
+                    <p class="type font14 gray" title="运营">
+                        <span style="display: inline-block; overflow: hidden; height: 20px; width: 90%;" title="运营">运营</span>
+                    </p>
+                </a>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="spacer8"></div>
+<div class="spacer8"></div>
+<div class="spacer8"></div>
+<!--关于-->
+<div id="ks-about">
+    <div id="ks-about-width">
+        <ul>
+            <li>
+                <div class="box">
+                    <h1>关于我们</h1>
+                    <p><a href="/Public/AboutUs/AboutUs" target="_blank">企业文化</a></p>
+                    <p><a href="/Public/AboutUs/AboutUs" target="_blank">平台须知</a></p>
+                    <p><a href="/Public/AboutUs/AboutUs" target="_blank">安全声明</a></p>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <h1>寻找人才</h1>
+                    <p><a href="/Public/AboutUs/AboutUs" target="_blank">拼命的建设中</a></p>
+                    <p><a href="/Public/AboutUs/AboutUs" target="_blank">拼命的建设中</a></p>
+                    <p><a href="/Public/AboutUs/AboutUs" target="_blank">拼命的建设中</a></p>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <h1>成为人才</h1>
+                    <p><a href="/Public/AboutUs/AboutUs" target="_blank">拼命的建设中</a></p>
+                    <p><a href="/Public/AboutUs/AboutUs" target="_blank">拼命的建设中</a></p>
+                    <p><a href="/Public/AboutUs/AboutUs" target="_blank">拼命的建设中</a></p>
+                </div>
+            </li>
+            <li>
+                <div class="box" style="border-left:1px solid #e6e6e6">
+                    <h1>新浪微博</h1>
+                    <div style="display:inline-block;"><img style="width:115px" src="~/Scripts/styles/images/yjywblogo.png" /></div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <h1>微信公众号</h1>
+                    <div style="display:inline-block;"><img style="width:115px" src="~/Scripts/styles/images/wxtb.jpg" /></div>
+                </div>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>
+

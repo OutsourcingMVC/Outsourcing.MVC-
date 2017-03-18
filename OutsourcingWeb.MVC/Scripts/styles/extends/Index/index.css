@@ -1,0 +1,179 @@
+﻿
+/*-----------------轮播图-----------------------------*/
+.bgbox{position:relative; }
+.imgBox{margin:0 auto; text-align:center; width:1190px;height:100%}
+.imgBox ol li{display:none;}
+.imgBox ol .show_list{display:block;}
+.imgBox a{display:block;}
+.imgBox img{ width: 100%; height:360px; display:block; }
+.num{position:absolute; margin-bottom:50px; left:50%; transform: translateX(-50%); }
+.num li{float:left; margin-right:7px; width:10px; height:10px; background:url(../../../../img/yuan2.png) no-repeat;}
+.num .active_btn{ margin-right:7px; width:10px; height:10px; background:url(../../../../img/yuan.png) no-repeat;}
+
+
+.tubig{float:left; margin-right:10px;}
+.sky{float:left; background:#ecf3e5; width:320px; height:360px;}
+/*----------------------tabbox部分--------------------------*/
+.tabbox{margin-bottom:12px; font-size:14px;}
+.tab{width:670px; height:300px; float:left; background:#eff5e9; margin-right:10px;}
+.affiche{width:320px; height:300px; float:left; background:#eff5e9;}
+/*-------------tab-----------*/
+.imgBox img{position:relative;}
+.bgbox h4{width:450px; height:46px; background:#3b9b5e; border:1px solid #0F0; position:absolute; top:266px; left:0; font-size:18px; color:#fff; line-height:46px; padding-left:15px;}
+
+.tab-tit{height:30px; background:#e6efdc; padding-top:10px; padding-left:10px; cursor: pointer;}
+.tab-tit p{float:left; width:92px; text-align:center; margin-right:20px;  font-weight:bold; color:#676865;}
+.active{color:#3b9b5e; border-bottom:2px solid #3b9b5e; padding-bottom:5px; }
+.tab ul{display:none; padding-top:5px;}
+.tab li{height:30px; line-height:30px; color:#6a6b69;  padding-left:15px; }
+.tab .show{display:block;}
+.tab li a{color:#6a6b69;}
+.tab ul i{background:url(../../../../img/kuai.jpg) no-repeat; width:4px; height:4px; float:left; margin-top:15px; padding-right:10px;}
+/*-----------------------tabulation-list部分--------------------------------------*/
+.tabulation-list{margin-bottom:12px; font-size:14px;}
+.tabulation-list li{float:left;  height:300px; background:#eff5e9;}
+.tab-l{margin-right:10px; width:330px;}
+.study{height:40px; background:#e6efdc;}
+.study h2{float:left; font-size:14px; color:#3b9b5e; font-weight:bold; line-height:40px; padding-left:18px; margin-right:180px;}
+.study a{float:left; line-height:40px;  font-size:12px; color:#999; }
+.study i{background:url(../../../../img/bowling.gif) no-repeat; width:14px; height:14px; float:right; margin-right:17px; margin-top:15px;}
+.list-new{margin-top:5px;}
+.list-new i{background:url(../../../../img/dj.gif) no-repeat; width:3px; height:6px; float:left; margin-top:17px; margin-right:10px; font-size:12px; color:#535353;}
+.list-newk i{background:url(../../../../img/kuai.jpg) no-repeat; width:4px; height:4px; float:left; margin-top:17px; margin-right:10px; font-size:12px; color:#535353;}
+.list-newk li{height:30px; line-height:30px; padding-left:18px;  color:#535353;}
+.list-new li{height:30px; line-height:30px; padding-left:18px;  color:#535353;}
+.tab-m{margin-right:10px; width:330px;}
+.tab-r .study h2{margin-right:160px;}
+.tab-r{width:320px;}
+
+.weather-box img{width:100%; height:320px;}
+/*------------------------------第三部 -工作页面---------------------------------------------------------*/
+.bigbox{width:1190px; margin:0 auto; font-family:"宋体"; font-weight:bold; color:#333;}
+.bigbox .bigbox-left{height:500px;  padding-top:20px;}
+.bigbox-left li{margin-bottom:15px; margin-left:15px; color:#333;} 
+.bigbox .bigbox-right{ background:#CF9; height:500px; float:left; padding-top:20px;  font-weight:bold; position:relative;}
+/*.bigbox{background:url(../../../../img/bj0.jpg) repeat-x;height:528px;}*/
+.bigbox-right h2{float:left;  margin-left:15px; font-size:16px; font-weight:bold;}
+/*.bigbox-right h3{float:right;  font-size:14px; font-weight:bold; position:absolute; top:10px; left:350px; color:#333;}*/
+
+/*------------------第四部 平台人才---------------------------*/
+/*--.ptrc-box{}
+.ptrc-box h2{background:url(img/tit.jpg) no-repeat; width:109; height:30px; color:#fff; line-height:30px; padding:0 20px; float:left; margin-left:20px; font-weight:bold; margin-top:10px;}
+.ptrc-list{float:left;}
+.ptrc-list li{float:left; color:#666; margin-left:15px; font-weight:bold; margin-top:15px; }*/
+/*-------------------案例展示---------------------------------*/
+/*.alzs img{width:80%; height:80%; margin: 0 200px;}*/
+.alzs h2{background:url(../../../../img/tit%20.png) no-repeat; width:179px; height:45px; color:#fff; line-height:45px; padding:0 45px;   font-weight:bold; margin-top:20px; font-size:16px; margin-bottom:30px;}
+
+/*------------------第四部 平台人才---------------------------*/
+.photo{background-color:forestgreen;width:1190px;height:500px ;margin:0 auto;}
+.ptrc-box clearfix{color:#333; margin:60px 0;}
+.ptrc-box h2{background:url(../../../../img/tit%20.png) no-repeat; width:179px; height:45px; color:#fff; line-height:45px; padding:0 45px; font-weight:bold; margin-top:10px; font-size:16px; margin-bottom:20px;}
+.ptrc-list{display:inline-block; width: 100%; }
+/*.ptrc-list li{float:left; margin-left:15px; font-weight:bold; margin-top:15px; color:#666; font-size:16px; color:#666; padding:30px 30px; background:#0F6;   -webkit-transition-property: background-color;
+    -webkit-transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;   transform:rotate(45deg);}*/
+
+
+.ptrc-box { width: 1190px; margin: 0 auto; text-align: center; height: 150px;}
+.ptrc-list li { float:left; width: 10%; height: 30px; line-height: 30px; border-radius: 20px;border: 1px solid rgba(255,255,255,.5); background: rgba(255,255,255,.3); color: white; margin: 5px;}
+
+
+.ptrc-list li:hover{background:#2a74bf; color:#900;  border-radius:40px; transform:rotate(45deg);  transform: skew(35deg);  transform:scale(1, 1); }
+/*------------------第五部 精准匹配---------------------------*/
+.alzs { width: 1190px; height:875px; margin: 30px auto 0;}
+.jzpp-div { background:#6b89c9; margin-top:50px;  }
+.jzpp-list{width:1190px; height:80px; margin: 20px auto 0;}
+.jzpp-list li{float:left; width:20%; line-height:80px; font-weight:bold; color:#333; background:red;}
+.jzpp-list li a{text-decoration:none; font-size:18px; color:black;}
+
+/*------------------第六部  交易流程--------------------*/
+.liucheng ul li { width: 10%; margin-right:40px; border-radius: 20px; position: relative; }
+.liucheng ul li::after { content:""; width: 37px; height:3px; background: white; position: absolute; top: 48%; right: -41px; display: block;}
+.liucheng ul li::before { content:""; width: 0; height: 0; border: 8px solid transparent; border-left-color: white;  display: block; position:absolute; right: -51px; top: 25%;}
+.liucheng ul li:last-of-type::before { content:""; display: none;}
+.liucheng ul li:last-of-type::after { content:""; display: none;}
+.liucheng ul li a { text-decoration:none; color:white}
+.liucheng ul li a:hover{  font-weight:700; color:white; }
+
+/*------------------第七部 面试---------------------------*/
+#msboxH2{background:url(../../../../img/tit%20.png) no-repeat; width:179px; height:45px; color:#fff; line-height:45px; padding:0 45px; font-weight:bold; margin-top:10px; font-size:16px; margin-bottom:20px;}
+.msbox{margin:50px 50px; position:relative; height:450px; border:1px solid #e6efdc; margin-top:50px; margin-bottom:150px;width:1190px; box-sizing: border-box;margin:0 auto}
+.msbox-left{float:left; width:500px; height:360px;  border:2px solid #0F3;}
+.msbox-left{background:url(../../../../img/dhms.jpg) no-repeat; width:568px; height:350px;}/*背景图*/
+.msbox-right{float:right; width:500px; height:360px;  border:2px solid #30F;}
+.msbox h2{ margin-top:15px; font-size:20px; font-weight:bold; color:#666; margin-bottom:20px;}
+.bigbox-right{float:left;}
+.msbox-right{background:url(../../../../img/spms.jpg) no-repeat; width:568px; height:350px; background-size
+:100%  100%;}
+.msbox .bigbox-right{position:relative;}
+.msbox h3{  font-size:14px; font-weight:bold; position:absolute; top:10px; left:300px; color:#333; width:60px;}
+/*.msbox img{width:260px; height:260px; margin-left:180px; margin-top:40px;}*/
+.msbox-left img{position:relative;}
+.msbox-left h2{  font-size:26px;}
+.msbox-right img{position:relative;}
+.msbox .msbox-right h2{  font-size:26px; }
+.msbox-right a{width:20px; height:20px;}
+/*-------------------第八部 平台活动-------------------------------------*/
+.dv_img { width: 1190px; height: 300px; margin: 10px auto 0; border:1px solid black;}
+.dv_img img{ width: 100%; height:100%;}
+.pthdbox{width:100%; height:300px; margin:30px 30px; border:2px dashed #0F6; }
+.pthdbox h2{margin-left:20px; margin-top:15px; font-size:16px; font-weight:bold; color:#333;}
+/*-------------------第八部 行业资讯-------------------------------------*/
+.hyzx {width:1190px; height:380px; margin:10px auto 0;}
+.hyzx #hyzxH2{background:url(../../../../img/tit%20.png) no-repeat; width:179px; height:45px; color:#fff; line-height:45px; /*padding:0 45px;*/ font-weight:bold; margin-top:10px; font-size:16px; margin-bottom:20px;}
+.hyzx #hyzxList ul{list-style:none; margin-top:10px; width:100%}
+.hyzx #hyzxList ul .hyzxLi{height:300px; border:1px solid #eff5e9; width:30%; float:left; line-height:30px;}
+.hyzx .hyzxLis ul{padding:0px 20px;}
+.hyzxLis ul li{text-align:left;}
+.hyzxLis ul li .hyzxi{font-size:16px; color:white; background-color:orange;}
+.hyzxLis ul li a {padding:0px 15px; color:black;}
+.hyzxLis ul li a:hover{color:lightgreen;}
+.hyzxtitle{width:100%; height:50px;}
+.hyzxtitle h3{padding:0px 30px; float:left; line-height:50px;}
+.hyzxtitles{margin-top:13px; float:right; padding:0 20px;}
+.hyzxtitle h3 a{color:black; text-decoration:none;}
+.hyzxtitle h3 a:hover{color:chartreuse;}
+/*---------------------footer--------------------------------------------*/
+footer{width:100%; height:360px; background-color:gray; color:#fff; font-size:20px;}
+.copy{ width:1190px; margin:0 auto;line-height:10px; }
+.copyo{ width:1190px; margin:0 auto; margin-bottom:30px; padding-left:70px;}
+.foot{padding-top:180px;}
+
+
+
+@media screen and (max-width: 1200px) {
+    header .header_nav {
+        width: 90%;
+    }
+
+    .imgBox {
+        width: 90%;
+    }
+
+    .bigbox {
+        width: 90%;
+    }
+
+    .photo {
+        width: 90%;
+    }
+
+    .alzs {
+        width: 90%;
+    }
+
+    .msbox {
+        width: 90%;
+    }
+
+    .dv_img {
+        width: 90%;
+    }
+    .photo{width:90%;
+
+    }
+    .ptrc-box{width:90%;
+
+    }
+}

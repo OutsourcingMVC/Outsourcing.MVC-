@@ -1,0 +1,2618 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OutsourcingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountName" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="RealName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="CreateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AccountRole_R">
+          <Key>
+            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Name="AttachmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForeignKey" Type="varchar" MaxLength="36" />
+          <Property Name="AttachmentName" Type="varchar" MaxLength="50" />
+          <Property Name="Size" Type="varchar" MaxLength="50" />
+          <Property Name="Descriptions" Type="varchar(max)" />
+          <Property Name="DocPath" Type="varchar" MaxLength="200" />
+          <Property Name="IsDelete" Type="int" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ContractManagement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContractStatus" Type="nvarchar" MaxLength="15" />
+          <Property Name="ContractTypes" Type="nvarchar" MaxLength="15" />
+          <Property Name="ContractPartner" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegisterId" Type="int" />
+          <Property Name="CreateTime" Type="date" />
+          <Property Name="PartnerType" Type="nvarchar" MaxLength="10" />
+          <Property Name="UpdateTime" Type="date" />
+        </EntityType>
+        <EntityType Name="CooperativeContract">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="ContractCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="ContractFirstParty" Type="int" />
+          <Property Name="ContractSecondParty" Type="int" />
+          <Property Name="SigningTime" Type="date" />
+          <Property Name="FirstPartyStatus" Type="int" />
+          <Property Name="SecondPartyStatus" Type="int" />
+          <Property Name="FirstPartEffectiveStatus" Type="int" />
+          <Property Name="SecondPartyEffectiveStatus" Type="int" />
+          <Property Name="ContractStatus" Type="int" />
+          <Property Name="EffectiveTime" Type="date" />
+          <Property Name="ReviewUserID" Type="int" />
+          <Property Name="ReviewTime" Type="date" />
+          <Property Name="ContractContent" Type="nvarchar(max)" />
+          <Property Name="ContractBack" Type="text" />
+          <Property Name="FirstOrSecondDownload" Type="int" />
+          <Property Name="UploadFilePath" Type="nvarchar" MaxLength="200" />
+          <Property Name="ContactFileFul" Type="nvarchar" MaxLength="50" />
+          <Property Name="back" Type="nchar" MaxLength="10" />
+          <Property Name="back1" Type="nchar" MaxLength="10" />
+          <Property Name="back2" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="CustomerCompnay">
+          <Key>
+            <PropertyRef Name="CompnayId" />
+          </Key>
+          <Property Name="CompnayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyUserName" Type="varchar" MaxLength="50" />
+          <Property Name="Pwd" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="CompnayName" Type="varchar" MaxLength="50" />
+          <Property Name="EnglishName" Type="varchar" MaxLength="50" />
+          <Property Name="LegalRepresentative" Type="varchar" MaxLength="50" />
+          <Property Name="LegalTelephone" Type="varchar" MaxLength="50" />
+          <Property Name="UnitResponsible" Type="varchar" MaxLength="50" />
+          <Property Name="ResponsibleTelephone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="EnterpriseNum" Type="varchar" MaxLength="50" />
+          <Property Name="Descriptions" Type="varchar(max)" />
+          <Property Name="Telephone1" Type="varchar" MaxLength="50" />
+          <Property Name="Telephone2" Type="varchar" MaxLength="50" />
+          <Property Name="Nature" Type="varchar" MaxLength="100" />
+          <Property Name="BusinessCertificate" Type="varchar" MaxLength="200" />
+          <Property Name="EnterpriseNum2" Type="varchar" MaxLength="50" />
+          <Property Name="OperatingPeriod" Type="varchar" MaxLength="200" />
+          <Property Name="RegistrationAuthority" Type="varchar" MaxLength="200" />
+          <Property Name="BusinessScope" Type="varchar" MaxLength="500" />
+          <Property Name="Contract" Type="varchar" MaxLength="500" />
+          <Property Name="Type" Type="varchar" MaxLength="200" />
+          <Property Name="AuditingStatue" Type="int" />
+          <Property Name="IsDelete" Type="int" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CustomerOutsourc">
+          <Key>
+            <PropertyRef Name="CustomerOutID" />
+          </Key>
+          <Property Name="CustomerOutID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyUserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pwd" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="int" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Dictionary">
+          <Key>
+            <PropertyRef Name="DictionaryID" />
+          </Key>
+          <Property Name="DictionaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DictionaryItem">
+          <Key>
+            <PropertyRef Name="DictionaryItemID" />
+          </Key>
+          <Property Name="DictionaryItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DictionaryID" Type="int" />
+          <Property Name="CreateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EmployeeExpatriation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="FirstPartyID" Type="int" />
+          <Property Name="SecondPartyID" Type="int" />
+          <Property Name="FirstContent" Type="text" />
+          <Property Name="SecondContent" Type="text" />
+          <Property Name="PersonList" Type="text" />
+          <Property Name="FirstPartyStatus" Type="int" />
+          <Property Name="SecondPartyStatus" Type="int" />
+          <Property Name="FirstPartEffectiveStatus" Type="int" />
+          <Property Name="SecondPartyEffectiveStatus" Type="int" />
+          <Property Name="ContractStatus" Type="int" />
+          <Property Name="ReviewUserID" Type="int" />
+          <Property Name="ReviewTime" Type="date" />
+          <Property Name="ReviewContract" Type="text" />
+          <Property Name="EntryDate" Type="date" />
+          <Property Name="EffectiveTime" Type="date" />
+          <Property Name="FirstOrSecondDownload" Type="int" />
+          <Property Name="UploadFilePath" Type="nvarchar" MaxLength="200" />
+          <Property Name="ContactFileFul" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FinancialManagement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="10" />
+          <Property Name="BothEnds" Type="nvarchar" MaxLength="2" />
+          <Property Name="Money" Type="nchar" MaxLength="10" />
+          <Property Name="EntryAndExit" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExchangeHour" Type="datetime" />
+          <Property Name="InvoiceStatus" Type="nchar" MaxLength="10" />
+          <Property Name="PaymentStatus" Type="nchar" MaxLength="10" />
+          <Property Name="Detail" Type="text" />
+          <Property Name="InvoiceType" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ImageFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ImageFilePath" Type="image" />
+          <Property Name="CreateTime" Type="varchar" MaxLength="50" />
+          <Property Name="ImageContent" Type="text" />
+        </EntityType>
+        <EntityType Name="InvoiceApplication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="CustomerCompanyID" Type="int" Nullable="false" />
+          <Property Name="OutrCompanyID" Type="int" Nullable="false" />
+          <Property Name="SettlementYear" Type="int" />
+          <Property Name="SettlementMonth" Type="int" />
+          <Property Name="SettlementMoney" Type="float" />
+          <Property Name="InvoiceOutState" Type="int" />
+          <Property Name="InvoiceCustomerState" Type="int" />
+          <Property Name="OperationUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="OperationTime" Type="date" />
+        </EntityType>
+        <EntityType Name="InvoiceDetail">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="InvoiceType" Type="int" />
+          <Property Name="InvoiceName" Type="nvarchar" MaxLength="30" />
+          <Property Name="InvoiceDate" Type="date" />
+          <Property Name="InvoiceCode" Type="nchar" MaxLength="8" />
+          <Property Name="InvoiceMoney" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BuyerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuyerAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="BuyerTel" Type="nchar" MaxLength="15" />
+          <Property Name="BuyerTaxpayerNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="BuyerBankDeposit" Type="nvarchar" MaxLength="30" />
+          <Property Name="BuyerBankAccount" Type="nvarchar" MaxLength="30" />
+          <Property Name="SalesName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SalesAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="SalesTel" Type="nvarchar" MaxLength="15" />
+          <Property Name="SalesTaxpayerNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="SalesBankDeposit" Type="nvarchar" MaxLength="30" />
+          <Property Name="SalesBankAccount" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="LeaveDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="PersonSettlementID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="LeaveStartDate" Type="datetime" Nullable="false" />
+          <Property Name="LeaveEndDate" Type="datetime" Nullable="false" />
+          <Property Name="LeaveHours" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LeaveType" Type="int" Nullable="false" />
+          <Property Name="LeaveMoney" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LeaveReason" Type="nvarchar(max)" />
+          <Property Name="LeaveBack" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PID" Type="int" />
+          <Property Name="Url" Type="varchar" MaxLength="100" />
+          <Property Name="OrderNumber" Type="int" />
+          <Property Name="Icon" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="CreateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="Invalid" Type="int" />
+        </EntityType>
+        <EntityType Name="My&#xD;&#xA;Dictionary">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppInfo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MyCertificate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecruitId" Type="int" />
+          <Property Name="CertificateName" Type="nvarchar" MaxLength="100" />
+          <Property Name="GetTime" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MyElseinfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="RecruitId" Type="int" />
+          <Property Name="NameId" Type="int" />
+          <Property Name="Describe" Type="text" />
+        </EntityType>
+        <EntityType Name="MyExpectations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecruitId" Type="int" Nullable="false" />
+          <Property Name="ExpectationsNature" Type="nvarchar" MaxLength="20" />
+          <Property Name="ExpectationsAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="ExpectationsProfession" Type="nvarchar" MaxLength="100" />
+          <Property Name="ExpectationsIndustries" Type="nvarchar" MaxLength="100" />
+          <Property Name="ExpectationsMoney" Type="int" />
+          <Property Name="WorkStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="MyLanguage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecruitId" Type="int" />
+          <Property Name="Foreignlanguage" Type="int" />
+          <Property Name="ForeignlanguageName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReadAbility" Type="int" />
+          <Property Name="HearAbility" Type="int" />
+        </EntityType>
+        <EntityType Name="MyMajor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="RecruitId" Type="int" />
+          <Property Name="MajorId" Type="int" />
+          <Property Name="MajorName" Type="nvarchar" MaxLength="100" />
+          <Property Name="UseTime" Type="int" />
+          <Property Name="Master" Type="int" />
+        </EntityType>
+        <EntityType Name="MyPractice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReceruitId" Type="int" />
+          <Property Name="PracticeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="PracticeTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="PracticeDescribe" Type="text" />
+        </EntityType>
+        <EntityType Name="MyPrize">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecruitId" Type="int" />
+          <Property Name="GetPrize" Type="nvarchar" MaxLength="100" />
+          <Property Name="GetYear" Type="int" />
+          <Property Name="GetMonth" Type="int" />
+          <Property Name="Describe" Type="text" />
+        </EntityType>
+        <EntityType Name="MyProject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecruitId" Type="int" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProjectTime" Type="nvarchar" MaxLength="100" />
+          <Property Name="IfIT" Type="int" />
+          <Property Name="SoftEnvironment" Type="nvarchar" MaxLength="200" />
+          <Property Name="HardwareEnvironment" Type="nvarchar" MaxLength="200" />
+          <Property Name="DevelopTool" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProjectDuty" Type="text" />
+          <Property Name="ProjectDescribe" Type="text" />
+        </EntityType>
+        <EntityType Name="MyRated">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecruitId" Type="int" Nullable="false" />
+          <Property Name="RatedId" Type="int" />
+          <Property Name="RatedName" Type="nvarchar" MaxLength="100" />
+          <Property Name="RatedContent" Type="text" />
+        </EntityType>
+        <EntityType Name="MyRecruit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginId" Type="int" />
+          <Property Name="RecruitName" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserSex" Type="nvarchar" MaxLength="2" />
+          <Property Name="Birthday" Type="nvarchar" MaxLength="50" />
+          <Property Name="TelPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="100" />
+          <Property Name="AttendYear" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RegisteredPerson" Type="nvarchar" MaxLength="100" />
+          <Property Name="NowAdress" Type="nvarchar" MaxLength="100" />
+          <Property Name="IfMarried" Type="nvarchar" MaxLength="6" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="100" />
+          <Property Name="CredentialsStatus" Type="int" />
+          <Property Name="CredentialsNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="OverseasStudent" Type="nvarchar" MaxLength="2" />
+          <Property Name="PoliticsStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Private" Type="nvarchar" MaxLength="10" />
+          <Property Name="UpdateTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MyScholarship">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecruitId" Type="int" />
+          <Property Name="ScholarshipLevel" Type="int" />
+          <Property Name="ScholarshipStatus" Type="int" />
+          <Property Name="PostDescribe" Type="text" />
+        </EntityType>
+        <EntityType Name="MyTrain">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecruitId" Type="int" />
+          <Property Name="TrainMechanism" Type="nvarchar" MaxLength="100" />
+          <Property Name="TrainCourse" Type="nvarchar" MaxLength="100" />
+          <Property Name="TrainAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="GetCertificate" Type="nvarchar" MaxLength="100" />
+          <Property Name="DetailContent" Type="text" />
+        </EntityType>
+        <EntityType Name="MyWorkexperience">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecruitId" Type="int" />
+          <Property Name="CorporateName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IndustriesClassifications" Type="nvarchar" MaxLength="100" />
+          <Property Name="PositionName" Type="nvarchar" MaxLength="100" />
+          <Property Name="WorkTime" Type="nvarchar" MaxLength="100" />
+          <Property Name="PositionMoney" Type="int" />
+          <Property Name="WorkContent" Type="text" />
+          <Property Name="CorporateNature" Type="int" />
+          <Property Name="CorporateSize" Type="int" />
+        </EntityType>
+        <EntityType Name="OutsourcingCompany">
+          <Key>
+            <PropertyRef Name="CompnayId" />
+          </Key>
+          <Property Name="CompnayId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyUserName" Type="varchar" MaxLength="100" />
+          <Property Name="Pwd" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="CompnayName" Type="varchar" MaxLength="50" />
+          <Property Name="EnglishName" Type="varchar" MaxLength="50" />
+          <Property Name="LegalRepresentative" Type="varchar" MaxLength="50" />
+          <Property Name="LegalTelephone" Type="varchar" MaxLength="50" />
+          <Property Name="UnitResponsible" Type="varchar" MaxLength="50" />
+          <Property Name="ResponsibleTelephone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="EnterpriseNum" Type="varchar" MaxLength="50" />
+          <Property Name="Descriptions" Type="varchar(max)" />
+          <Property Name="Telephone1" Type="varchar" MaxLength="50" />
+          <Property Name="Telephone2" Type="varchar" MaxLength="50" />
+          <Property Name="Nature" Type="varchar" MaxLength="100" />
+          <Property Name="BusinessCertificate" Type="varchar" MaxLength="200" />
+          <Property Name="EnterpriseNum2" Type="varchar" MaxLength="50" />
+          <Property Name="OperatingPeriod" Type="varchar" MaxLength="200" />
+          <Property Name="RegistrationAuthority" Type="varchar" MaxLength="200" />
+          <Property Name="BusinessScope" Type="varchar" MaxLength="500" />
+          <Property Name="Type" Type="varchar" MaxLength="200" />
+          <Property Name="Contract" Type="varchar" MaxLength="200" />
+          <Property Name="AuditingStatue" Type="int" />
+          <Property Name="IsDelete" Type="int" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PersonalInfo">
+          <Key>
+            <PropertyRef Name="PersonalInfoId" />
+          </Key>
+          <Property Name="PersonalInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OutsourcingCompanyId" Type="nvarchar" MaxLength="36" />
+          <Property Name="PersonName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sex" Type="varchar" MaxLength="10" />
+          <Property Name="Birthday" Type="varchar" MaxLength="10" />
+          <Property Name="Telephone" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="CaredID" Type="varchar" MaxLength="50" />
+          <Property Name="Education" Type="varchar" MaxLength="50" />
+          <Property Name="GraduationSchool" Type="varchar" MaxLength="80" />
+          <Property Name="GraduationDate" Type="varchar" MaxLength="50" />
+          <Property Name="Publications" Type="varchar(max)" />
+          <Property Name="Attachment" Type="varchar" MaxLength="50" />
+          <Property Name="Resume" Type="varchar(max)" />
+          <Property Name="CVStatue" Type="int" />
+          <Property Name="PeopleStatue" Type="int" />
+          <Property Name="IsActivated" Type="int" />
+          <Property Name="Remark" Type="varchar(max)" />
+          <Property Name="PushStatue" Type="int" />
+          <Property Name="IsDelete" Type="int" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PersonsEntrySet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonalInfoId" Type="int" Nullable="false" />
+          <Property Name="CustomerCompnayCompnayId" Type="int" Nullable="false" />
+          <Property Name="OutsourcingCompanyCompnayId" Type="int" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="EntryStatus" Type="smallint" Nullable="false" />
+          <Property Name="EntryMoney" Type="int" />
+          <Property Name="ResignedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PersonSettlement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="OutCompanyID" Type="int" Nullable="false" />
+          <Property Name="SettlementDate" Type="date" Nullable="false" />
+          <Property Name="WorkDays" Type="float" Nullable="false" />
+          <Property Name="RealWorkDays" Type="float" Nullable="false" />
+          <Property Name="LeaveDays" Type="float" Nullable="false" />
+          <Property Name="OvertimeDays" Type="float" Nullable="false" />
+          <Property Name="Wages" Type="float" Nullable="false" />
+          <Property Name="RealWages" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PushedHistory">
+          <Key>
+            <PropertyRef Name="PushedHistoryId" />
+          </Key>
+          <Property Name="PushedHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequirementId" Type="varchar" MaxLength="36" />
+          <Property Name="CustomerCompnayId" Type="varchar" MaxLength="36" />
+          <Property Name="PersonalInfoId" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="OutsourcingCompanyId" Type="varchar" MaxLength="36" />
+          <Property Name="PushDate" Type="datetime" />
+          <Property Name="Mark" Type="varchar(max)" />
+          <Property Name="CustomFeedback" Type="varchar(max)" />
+          <Property Name="CustPeopleMark" Type="varchar(max)" />
+          <Property Name="CustPeopleStatue" Type="int" />
+          <Property Name="IsDelete" Type="int" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PushInterViewTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="PersonalInfoId" Type="int" />
+          <Property Name="RequirementId" Type="int" />
+          <Property Name="PlushStatute" Type="char" MaxLength="1" />
+          <Property Name="FeedbackState" Type="char" MaxLength="1" />
+          <Property Name="InterviewStatus" Type="char" MaxLength="1" />
+          <Property Name="InterviewTime" Type="datetime" />
+          <Property Name="InterviewResult" Type="text" />
+        </EntityType>
+        <EntityType Name="Requirement">
+          <Key>
+            <PropertyRef Name="RequirementId" />
+          </Key>
+          <Property Name="RequirementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="50" />
+          <Property Name="ArrivalTime" Type="datetime" />
+          <Property Name="JobName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompnayId" Type="int" Nullable="false" />
+          <Property Name="Salary" Type="int" />
+          <Property Name="PublishTime" Type="datetime" />
+          <Property Name="ProjectAddress" Type="varchar" MaxLength="200" />
+          <Property Name="Property" Type="int" />
+          <Property Name="Experience" Type="int" />
+          <Property Name="Education" Type="int" />
+          <Property Name="RecNumber" Type="int" />
+          <Property Name="JobDescription" Type="nvarchar(max)" />
+          <Property Name="ComProfile" Type="nvarchar(max)" />
+          <Property Name="JobCategory" Type="int" />
+          <Property Name="ComAddress" Type="varchar" MaxLength="200" />
+          <Property Name="TecLanguage" Type="int" />
+          <Property Name="Remark" Type="varchar(max)" />
+          <Property Name="IsDelete" Type="int" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="RoleDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="CreateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="UpdateUser" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RoleMenu_R">
+          <Key>
+            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="MenuID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="[FK_dbo_RoleMenu_R_dbo_Role_RoleID">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RoleMenu_R" Type="Self.RoleMenu_R" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="RoleMenu_R">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CooperativeContract_CustomerCompnay">
+          <End Role="CustomerCompnay" Type="Self.CustomerCompnay" Multiplicity="0..1" />
+          <End Role="CooperativeContract" Type="Self.CooperativeContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="CooperativeContract">
+              <PropertyRef Name="ContractFirstParty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CooperativeContract_OutsourcingCompany">
+          <End Role="OutsourcingCompany" Type="Self.OutsourcingCompany" Multiplicity="0..1" />
+          <End Role="CooperativeContract" Type="Self.CooperativeContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="CooperativeContract">
+              <PropertyRef Name="ContractSecondParty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AccountRole_R_dbo_Account_RoleID">
+          <End Role="Account" Type="Self.Account" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccountRole_R" Type="Self.AccountRole_R" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="AccountRole_R">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AccountRole_R_dbo_Role_AccountID">
+          <End Role="Role" Type="Self.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccountRole_R" Type="Self.AccountRole_R" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="AccountRole_R">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RoleMenu_R_dbo_Menu_MenuID">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="RoleMenu_R" Type="Self.RoleMenu_R" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="RoleMenu_R">
+              <PropertyRef Name="MenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeExpatriation_CustomerCompnay">
+          <End Role="CustomerCompnay" Type="Self.CustomerCompnay" Multiplicity="0..1" />
+          <End Role="EmployeeExpatriation" Type="Self.EmployeeExpatriation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="EmployeeExpatriation">
+              <PropertyRef Name="FirstPartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeExpatriation_OutsourcingCompany">
+          <End Role="OutsourcingCompany" Type="Self.OutsourcingCompany" Multiplicity="0..1" />
+          <End Role="EmployeeExpatriation" Type="Self.EmployeeExpatriation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="EmployeeExpatriation">
+              <PropertyRef Name="SecondPartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceApplication_CustomerCompnay">
+          <End Role="CustomerCompnay" Type="Self.CustomerCompnay" Multiplicity="1" />
+          <End Role="InvoiceApplication" Type="Self.InvoiceApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="InvoiceApplication">
+              <PropertyRef Name="CustomerCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceApplication_OutsourcingCompany">
+          <End Role="OutsourcingCompany" Type="Self.OutsourcingCompany" Multiplicity="1" />
+          <End Role="InvoiceApplication" Type="Self.InvoiceApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="InvoiceApplication">
+              <PropertyRef Name="OutrCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveDetail_PersonSettlement">
+          <End Role="PersonSettlement" Type="Self.PersonSettlement" Multiplicity="1" />
+          <End Role="LeaveDetail" Type="Self.LeaveDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonSettlement">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LeaveDetail">
+              <PropertyRef Name="PersonSettlementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonsEntrySet_CustomerCompnay">
+          <End Role="CustomerCompnay" Type="Self.CustomerCompnay" Multiplicity="1" />
+          <End Role="PersonsEntrySet" Type="Self.PersonsEntrySet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="PersonsEntrySet">
+              <PropertyRef Name="CustomerCompnayCompnayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonsEntrySet_OutsourcingCompany">
+          <End Role="OutsourcingCompany" Type="Self.OutsourcingCompany" Multiplicity="1" />
+          <End Role="PersonsEntrySet" Type="Self.PersonsEntrySet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="PersonsEntrySet">
+              <PropertyRef Name="OutsourcingCompanyCompnayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonsEntrySet_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="1" />
+          <End Role="PersonsEntrySet" Type="Self.PersonsEntrySet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="PersonalInfoId" />
+            </Principal>
+            <Dependent Role="PersonsEntrySet">
+              <PropertyRef Name="PersonalInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonSettlement_CustomerCompnay">
+          <End Role="CustomerCompnay" Type="Self.CustomerCompnay" Multiplicity="1" />
+          <End Role="PersonSettlement" Type="Self.PersonSettlement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="PersonSettlement">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonSettlement_OutsourcingCompany">
+          <End Role="OutsourcingCompany" Type="Self.OutsourcingCompany" Multiplicity="1" />
+          <End Role="PersonSettlement" Type="Self.PersonSettlement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="PersonSettlement">
+              <PropertyRef Name="OutCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonSettlement_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="1" />
+          <End Role="PersonSettlement" Type="Self.PersonSettlement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="PersonalInfoId" />
+            </Principal>
+            <Dependent Role="PersonSettlement">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PushInterViewTable_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+          <End Role="PushInterViewTable" Type="Self.PushInterViewTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="PersonalInfoId" />
+            </Principal>
+            <Dependent Role="PushInterViewTable">
+              <PropertyRef Name="PersonalInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PushInterViewTable_Requirement">
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="0..1" />
+          <End Role="PushInterViewTable" Type="Self.PushInterViewTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requirement">
+              <PropertyRef Name="RequirementId" />
+            </Principal>
+            <Dependent Role="PushInterViewTable">
+              <PropertyRef Name="RequirementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OutsourcingModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountRole_R" EntityType="Self.AccountRole_R" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attachment" EntityType="Self.Attachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContractManagement" EntityType="Self.ContractManagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CooperativeContract" EntityType="Self.CooperativeContract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerCompnay" EntityType="Self.CustomerCompnay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerOutsourc" EntityType="Self.CustomerOutsourc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dictionary" EntityType="Self.Dictionary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DictionaryItem" EntityType="Self.DictionaryItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeExpatriation" EntityType="Self.EmployeeExpatriation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinancialManagement" EntityType="Self.FinancialManagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImageFile" EntityType="Self.ImageFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceApplication" EntityType="Self.InvoiceApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceDetail" EntityType="Self.InvoiceDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveDetail" EntityType="Self.LeaveDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="My&#xD;&#xA;Dictionary" EntityType="Self.My&#xD;&#xA;Dictionary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyCertificate" EntityType="Self.MyCertificate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyElseinfo" EntityType="Self.MyElseinfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyExpectations" EntityType="Self.MyExpectations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyLanguage" EntityType="Self.MyLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyMajor" EntityType="Self.MyMajor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyPractice" EntityType="Self.MyPractice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyPrize" EntityType="Self.MyPrize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyProject" EntityType="Self.MyProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyRated" EntityType="Self.MyRated" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyRecruit" EntityType="Self.MyRecruit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyScholarship" EntityType="Self.MyScholarship" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyTrain" EntityType="Self.MyTrain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyWorkexperience" EntityType="Self.MyWorkexperience" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutsourcingCompany" EntityType="Self.OutsourcingCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonsEntrySet" EntityType="Self.PersonsEntrySet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonSettlement" EntityType="Self.PersonSettlement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PushedHistory" EntityType="Self.PushedHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PushInterViewTable" EntityType="Self.PushInterViewTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requirement" EntityType="Self.Requirement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleMenu_R" EntityType="Self.RoleMenu_R" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="[FK_dbo_RoleMenu_R_dbo_Role_RoleID" Association="Self.[FK_dbo_RoleMenu_R_dbo_Role_RoleID">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RoleMenu_R" EntitySet="RoleMenu_R" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CooperativeContract_CustomerCompnay" Association="Self.FK_CooperativeContract_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="CooperativeContract" EntitySet="CooperativeContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CooperativeContract_OutsourcingCompany" Association="Self.FK_CooperativeContract_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="CooperativeContract" EntitySet="CooperativeContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AccountRole_R_dbo_Account_RoleID" Association="Self.FK_dbo_AccountRole_R_dbo_Account_RoleID">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="AccountRole_R" EntitySet="AccountRole_R" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AccountRole_R_dbo_Role_AccountID" Association="Self.FK_dbo_AccountRole_R_dbo_Role_AccountID">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="AccountRole_R" EntitySet="AccountRole_R" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RoleMenu_R_dbo_Menu_MenuID" Association="Self.FK_dbo_RoleMenu_R_dbo_Menu_MenuID">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="RoleMenu_R" EntitySet="RoleMenu_R" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeExpatriation_CustomerCompnay" Association="Self.FK_EmployeeExpatriation_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="EmployeeExpatriation" EntitySet="EmployeeExpatriation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeExpatriation_OutsourcingCompany" Association="Self.FK_EmployeeExpatriation_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="EmployeeExpatriation" EntitySet="EmployeeExpatriation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceApplication_CustomerCompnay" Association="Self.FK_InvoiceApplication_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="InvoiceApplication" EntitySet="InvoiceApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceApplication_OutsourcingCompany" Association="Self.FK_InvoiceApplication_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="InvoiceApplication" EntitySet="InvoiceApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveDetail_PersonSettlement" Association="Self.FK_LeaveDetail_PersonSettlement">
+            <End Role="PersonSettlement" EntitySet="PersonSettlement" />
+            <End Role="LeaveDetail" EntitySet="LeaveDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonsEntrySet_CustomerCompnay" Association="Self.FK_PersonsEntrySet_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="PersonsEntrySet" EntitySet="PersonsEntrySet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonsEntrySet_OutsourcingCompany" Association="Self.FK_PersonsEntrySet_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="PersonsEntrySet" EntitySet="PersonsEntrySet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonsEntrySet_PersonalInfo" Association="Self.FK_PersonsEntrySet_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="PersonsEntrySet" EntitySet="PersonsEntrySet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonSettlement_CustomerCompnay" Association="Self.FK_PersonSettlement_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="PersonSettlement" EntitySet="PersonSettlement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonSettlement_OutsourcingCompany" Association="Self.FK_PersonSettlement_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="PersonSettlement" EntitySet="PersonSettlement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonSettlement_PersonalInfo" Association="Self.FK_PersonSettlement_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="PersonSettlement" EntitySet="PersonSettlement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PushInterViewTable_PersonalInfo" Association="Self.FK_PushInterViewTable_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="PushInterViewTable" EntitySet="PushInterViewTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PushInterViewTable_Requirement" Association="Self.FK_PushInterViewTable_Requirement">
+            <End Role="Requirement" EntitySet="Requirement" />
+            <End Role="PushInterViewTable" EntitySet="PushInterViewTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OutsourcingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Role" Relationship="Self.AccountRole_R" FromRole="Account" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PID" Type="Int32" />
+          <Property Name="Url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OrderNumber" Type="Int32" />
+          <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Invalid" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.RoleMenu_R" FromRole="Menu" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.AccountRole_R" FromRole="Role" ToRole="Account" />
+          <NavigationProperty Name="Menu" Relationship="Self.RoleMenu_R" FromRole="Role" ToRole="Menu" />
+        </EntityType>
+        <Association Name="AccountRole_R">
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+        </Association>
+        <Association Name="RoleMenu_R">
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="Self.Account" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <AssociationSet Name="AccountRole_R" Association="Self.AccountRole_R">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="RoleMenu_R" Association="Self.RoleMenu_R">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+          <EntitySet Name="OutsourcingCompany" EntityType="OutsourcingModel.OutsourcingCompany" />
+          <EntitySet Name="CustomerCompnay" EntityType="OutsourcingModel.CustomerCompnay" />
+          <EntitySet Name="PersonalInfo" EntityType="OutsourcingModel.PersonalInfo" />
+          <EntitySet Name="PushedHistory" EntityType="OutsourcingModel.PushedHistory" />
+          <EntitySet Name="CustomerOutsourc" EntityType="OutsourcingModel.CustomerOutsourc" />
+          <EntitySet Name="Dictionary" EntityType="OutsourcingModel.Dictionary" />
+          <EntitySet Name="DictionaryItem" EntityType="OutsourcingModel.DictionaryItem" />
+          <EntitySet Name="Attachment" EntityType="OutsourcingModel.Attachment" />
+          <EntitySet Name="Requirement" EntityType="OutsourcingModel.Requirement" />
+          <EntitySet Name="FinancialManagement" EntityType="OutsourcingModel.FinancialManagement" />
+          <EntitySet Name="ContractManagement" EntityType="OutsourcingModel.ContractManagement" />
+          <AssociationSet Name="FK_ContractManagement_CustomerCompnay" Association="OutsourcingModel.FK_ContractManagement_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="ContractManagement" EntitySet="ContractManagement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContractManagement_CustomerOutsourc" Association="OutsourcingModel.FK_ContractManagement_CustomerOutsourc">
+            <End Role="CustomerOutsourc" EntitySet="CustomerOutsourc" />
+            <End Role="ContractManagement" EntitySet="ContractManagement" />
+          </AssociationSet>
+          <EntitySet Name="PushInterViewTable" EntityType="OutsourcingModel.PushInterViewTable" />
+          <AssociationSet Name="FK_PushInterViewTable_PersonalInfo" Association="OutsourcingModel.FK_PushInterViewTable_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="PushInterViewTable" EntitySet="PushInterViewTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PushInterViewTable_PushInterViewTable" Association="OutsourcingModel.FK_PushInterViewTable_PushInterViewTable">
+            <End Role="PushInterViewTable" EntitySet="PushInterViewTable" />
+            <End Role="PushInterViewTable1" EntitySet="PushInterViewTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PushInterViewTable_Requirement" Association="OutsourcingModel.FK_PushInterViewTable_Requirement">
+            <End Role="Requirement" EntitySet="Requirement" />
+            <End Role="PushInterViewTable" EntitySet="PushInterViewTable" />
+          </AssociationSet>
+          <EntitySet Name="PersonsEntrySet" EntityType="OutsourcingModel.PersonsEntrySet" />
+          <AssociationSet Name="FK_PersonsEntrySet_CustomerCompnay" Association="OutsourcingModel.FK_PersonsEntrySet_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="PersonsEntrySet" EntitySet="PersonsEntrySet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonsEntrySet_OutsourcingCompany" Association="OutsourcingModel.FK_PersonsEntrySet_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="PersonsEntrySet" EntitySet="PersonsEntrySet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonsEntrySet_PersonalInfo" Association="OutsourcingModel.FK_PersonsEntrySet_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="PersonsEntrySet" EntitySet="PersonsEntrySet" />
+          </AssociationSet>
+          <EntitySet Name="LeaveDetail" EntityType="OutsourcingModel.LeaveDetail" />
+          <EntitySet Name="PersonSettlement" EntityType="OutsourcingModel.PersonSettlement" />
+          <AssociationSet Name="FK_PersonSettlement_CustomerCompnay" Association="OutsourcingModel.FK_PersonSettlement_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="PersonSettlement" EntitySet="PersonSettlement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveDetail_PersonSettlement" Association="OutsourcingModel.FK_LeaveDetail_PersonSettlement">
+            <End Role="PersonSettlement" EntitySet="PersonSettlement" />
+            <End Role="LeaveDetail" EntitySet="LeaveDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonSettlement_OutsourcingCompany" Association="OutsourcingModel.FK_PersonSettlement_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="PersonSettlement" EntitySet="PersonSettlement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonSettlement_PersonalInfo" Association="OutsourcingModel.FK_PersonSettlement_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="PersonSettlement" EntitySet="PersonSettlement" />
+          </AssociationSet>
+          <EntitySet Name="InvoiceApplication" EntityType="OutsourcingModel.InvoiceApplication" />
+          <AssociationSet Name="FK_InvoiceApplication_CustomerCompnay" Association="OutsourcingModel.FK_InvoiceApplication_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="InvoiceApplication" EntitySet="InvoiceApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceApplication_OutsourcingCompany" Association="OutsourcingModel.FK_InvoiceApplication_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="InvoiceApplication" EntitySet="InvoiceApplication" />
+          </AssociationSet>
+          <EntitySet Name="InvoiceDetail" EntityType="OutsourcingModel.InvoiceDetail" />
+          <EntitySet Name="CooperativeContract" EntityType="OutsourcingModel.CooperativeContract" />
+          <AssociationSet Name="FK_CooperativeContract_CustomerCompnay" Association="OutsourcingModel.FK_CooperativeContract_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="CooperativeContract" EntitySet="CooperativeContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CooperativeContract_OutsourcingCompany" Association="OutsourcingModel.FK_CooperativeContract_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="CooperativeContract" EntitySet="CooperativeContract" />
+          </AssociationSet>
+          <EntitySet Name="EmployeeExpatriation" EntityType="OutsourcingModel.EmployeeExpatriation" />
+          <AssociationSet Name="FK_EmployeeExpatriation_CustomerCompnay" Association="OutsourcingModel.FK_EmployeeExpatriation_CustomerCompnay">
+            <End Role="CustomerCompnay" EntitySet="CustomerCompnay" />
+            <End Role="EmployeeExpatriation" EntitySet="EmployeeExpatriation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeExpatriation_OutsourcingCompany" Association="OutsourcingModel.FK_EmployeeExpatriation_OutsourcingCompany">
+            <End Role="OutsourcingCompany" EntitySet="OutsourcingCompany" />
+            <End Role="EmployeeExpatriation" EntitySet="EmployeeExpatriation" />
+          </AssociationSet>
+          <EntitySet Name="ImageFile" EntityType="OutsourcingModel.ImageFile" />
+          <EntitySet Name="My__Dictionary" EntityType="OutsourcingModel.My__Dictionary" />
+          <EntitySet Name="MyCertificate" EntityType="OutsourcingModel.MyCertificate" />
+          <EntitySet Name="MyElseinfo" EntityType="OutsourcingModel.MyElseinfo" />
+          <EntitySet Name="MyExpectations" EntityType="OutsourcingModel.MyExpectations" />
+          <EntitySet Name="MyLanguage" EntityType="OutsourcingModel.MyLanguage" />
+          <EntitySet Name="MyMajor" EntityType="OutsourcingModel.MyMajor" />
+          <EntitySet Name="MyPractice" EntityType="OutsourcingModel.MyPractice" />
+          <EntitySet Name="MyPrize" EntityType="OutsourcingModel.MyPrize" />
+          <EntitySet Name="MyProject" EntityType="OutsourcingModel.MyProject" />
+          <EntitySet Name="MyRated" EntityType="OutsourcingModel.MyRated" />
+          <EntitySet Name="MyRecruit" EntityType="OutsourcingModel.MyRecruit" />
+          <EntitySet Name="MyScholarship" EntityType="OutsourcingModel.MyScholarship" />
+          <EntitySet Name="MyTrain" EntityType="OutsourcingModel.MyTrain" />
+          <EntitySet Name="MyWorkexperience" EntityType="OutsourcingModel.MyWorkexperience" />
+          </EntityContainer>
+        <EntityType Name="OutsourcingCompany">
+          <Key>
+            <PropertyRef Name="CompnayId" />
+          </Key>
+          <Property Name="CompnayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyUserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompnayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LegalRepresentative" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LegalTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UnitResponsible" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ResponsibleTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EnterpriseNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nature" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessCertificate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EnterpriseNum2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatingPeriod" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RegistrationAuthority" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessScope" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Contract" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AuditingStatue" Type="Int32" />
+          <Property Name="IsDelete" Type="Int32" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PersonsEntrySet" Relationship="OutsourcingModel.FK_PersonsEntrySet_OutsourcingCompany" FromRole="OutsourcingCompany" ToRole="PersonsEntrySet" />
+          <NavigationProperty Name="PersonSettlement" Relationship="OutsourcingModel.FK_PersonSettlement_OutsourcingCompany" FromRole="OutsourcingCompany" ToRole="PersonSettlement" />
+          <NavigationProperty Name="InvoiceApplication" Relationship="OutsourcingModel.FK_InvoiceApplication_OutsourcingCompany" FromRole="OutsourcingCompany" ToRole="InvoiceApplication" />
+          <NavigationProperty Name="CooperativeContract" Relationship="OutsourcingModel.FK_CooperativeContract_OutsourcingCompany" FromRole="OutsourcingCompany" ToRole="CooperativeContract" />
+          <NavigationProperty Name="EmployeeExpatriation" Relationship="OutsourcingModel.FK_EmployeeExpatriation_OutsourcingCompany" FromRole="OutsourcingCompany" ToRole="EmployeeExpatriation" />
+        </EntityType>
+        <EntityType Name="CustomerCompnay">
+          <Key>
+            <PropertyRef Name="CompnayId" />
+          </Key>
+          <Property Name="CompnayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompnayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LegalRepresentative" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LegalTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UnitResponsible" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ResponsibleTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EnterpriseNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nature" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessCertificate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EnterpriseNum2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatingPeriod" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RegistrationAuthority" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessScope" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Contract" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AuditingStatue" Type="Int32" />
+          <Property Name="IsDelete" Type="Int32" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ContractManagement" Relationship="OutsourcingModel.FK_ContractManagement_CustomerCompnay" FromRole="CustomerCompnay" ToRole="ContractManagement" />
+          <NavigationProperty Name="PersonsEntrySet" Relationship="OutsourcingModel.FK_PersonsEntrySet_CustomerCompnay" FromRole="CustomerCompnay" ToRole="PersonsEntrySet" />
+          <NavigationProperty Name="PersonSettlement" Relationship="OutsourcingModel.FK_PersonSettlement_CustomerCompnay" FromRole="CustomerCompnay" ToRole="PersonSettlement" />
+          <NavigationProperty Name="InvoiceApplication" Relationship="OutsourcingModel.FK_InvoiceApplication_CustomerCompnay" FromRole="CustomerCompnay" ToRole="InvoiceApplication" />
+          <NavigationProperty Name="CooperativeContract" Relationship="OutsourcingModel.FK_CooperativeContract_CustomerCompnay" FromRole="CustomerCompnay" ToRole="CooperativeContract" />
+          <NavigationProperty Name="EmployeeExpatriation" Relationship="OutsourcingModel.FK_EmployeeExpatriation_CustomerCompnay" FromRole="CustomerCompnay" ToRole="EmployeeExpatriation" />
+        </EntityType>
+        <EntityType Name="PersonalInfo">
+          <Key>
+            <PropertyRef Name="PersonalInfoId" />
+          </Key>
+          <Property Name="PersonalInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OutsourcingCompanyId" Type="String" MaxLength="36" Unicode="true" FixedLength="false" />
+          <Property Name="PersonName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CaredID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GraduationSchool" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="GraduationDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Publications" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Attachment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Resume" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CVStatue" Type="Int32" />
+          <Property Name="PeopleStatue" Type="Int32" />
+          <Property Name="IsActivated" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PushStatue" Type="Int32" />
+          <Property Name="IsDelete" Type="Int32" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PushInterViewTable" Relationship="OutsourcingModel.FK_PushInterViewTable_PersonalInfo" FromRole="PersonalInfo" ToRole="PushInterViewTable" />
+          <NavigationProperty Name="PersonsEntrySet" Relationship="OutsourcingModel.FK_PersonsEntrySet_PersonalInfo" FromRole="PersonalInfo" ToRole="PersonsEntrySet" />
+          <NavigationProperty Name="PersonSettlement" Relationship="OutsourcingModel.FK_PersonSettlement_PersonalInfo" FromRole="PersonalInfo" ToRole="PersonSettlement" />
+          </EntityType>
+        <EntityType Name="PushedHistory">
+          <Key>
+            <PropertyRef Name="PushedHistoryId" />
+          </Key>
+          <Property Name="PushedHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequirementId" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerCompnayId" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="PersonalInfoId" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="OutsourcingCompanyId" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="PushDate" Type="DateTime" Precision="3" />
+          <Property Name="Mark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CustomFeedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CustPeopleMark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CustPeopleStatue" Type="Int32" />
+          <Property Name="IsDelete" Type="Int32" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CustomerOutsourc">
+          <Key>
+            <PropertyRef Name="CustomerOutID" />
+          </Key>
+          <Property Name="CustomerOutID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ContractManagement" Relationship="OutsourcingModel.FK_ContractManagement_CustomerOutsourc" FromRole="CustomerOutsourc" ToRole="ContractManagement" />
+        </EntityType>
+        <EntityType Name="Dictionary">
+          <Key>
+            <PropertyRef Name="DictionaryID" />
+          </Key>
+          <Property Name="DictionaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="DictionaryItem">
+          <Key>
+            <PropertyRef Name="DictionaryItemID" />
+          </Key>
+          <Property Name="DictionaryItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DictionaryID" Type="Int32" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Name="AttachmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForeignKey" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="AttachmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DocPath" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsDelete" Type="Int32" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Requirement">
+          <Key>
+            <PropertyRef Name="RequirementId" />
+          </Key>
+          <Property Name="RequirementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ArrivalTime" Type="DateTime" Precision="3" />
+          <Property Name="JobName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompnayId" Type="Int32" Nullable="false" />
+          <Property Name="Salary" Type="Int32" />
+          <Property Name="PublishTime" Type="DateTime" Precision="3" />
+          <Property Name="ProjectAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Property" Type="Int32" />
+          <Property Name="Experience" Type="Int32" />
+          <Property Name="Education" Type="Int32" />
+          <Property Name="RecNumber" Type="Int32" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ComProfile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JobCategory" Type="Int32" />
+          <Property Name="ComAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TecLanguage" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsDelete" Type="Int32" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PushInterViewTable" Relationship="OutsourcingModel.FK_PushInterViewTable_Requirement" FromRole="Requirement" ToRole="PushInterViewTable" />
+        </EntityType>
+        <EntityType Name="FinancialManagement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="BothEnds" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Money" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="EntryAndExit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExchangeHour" Type="DateTime" Precision="3" />
+          <Property Name="InvoiceStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ContractManagement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContractName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContractStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ContractTypes" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ContractPartner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegisterId" Type="Int32" />
+          <NavigationProperty Name="CustomerCompnay" Relationship="OutsourcingModel.FK_ContractManagement_CustomerCompnay" FromRole="ContractManagement" ToRole="CustomerCompnay" />
+          <NavigationProperty Name="CustomerOutsourc" Relationship="OutsourcingModel.FK_ContractManagement_CustomerOutsourc" FromRole="ContractManagement" ToRole="CustomerOutsourc" />
+          <Property Name="CreateTime" Type="DateTime" Precision="0" />
+          <Property Name="PartnerType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK_ContractManagement_CustomerCompnay">
+          <End Type="OutsourcingModel.CustomerCompnay" Role="CustomerCompnay" Multiplicity="0..1" />
+          <End Type="OutsourcingModel.ContractManagement" Role="ContractManagement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="ContractManagement">
+              <PropertyRef Name="RegisterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContractManagement_CustomerOutsourc">
+          <End Type="OutsourcingModel.CustomerOutsourc" Role="CustomerOutsourc" Multiplicity="0..1" />
+          <End Type="OutsourcingModel.ContractManagement" Role="ContractManagement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerOutsourc">
+              <PropertyRef Name="CustomerOutID" />
+            </Principal>
+            <Dependent Role="ContractManagement">
+              <PropertyRef Name="RegisterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PushInterViewTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="PersonalInfoId" Type="Int32" />
+          <Property Name="RequirementId" Type="Int32" />
+          <Property Name="PlushStatute" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FeedbackState" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="InterviewStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="InterviewTime" Type="DateTime" Precision="3" />
+          <Property Name="InterviewResult" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PersonalInfo" Relationship="OutsourcingModel.FK_PushInterViewTable_PersonalInfo" FromRole="PushInterViewTable" ToRole="PersonalInfo" />
+          <NavigationProperty Name="PushInterViewTable1" Relationship="OutsourcingModel.FK_PushInterViewTable_PushInterViewTable" FromRole="PushInterViewTable" ToRole="PushInterViewTable1" />
+          <NavigationProperty Name="PushInterViewTable2" Relationship="OutsourcingModel.FK_PushInterViewTable_PushInterViewTable" FromRole="PushInterViewTable1" ToRole="PushInterViewTable" />
+          <NavigationProperty Name="Requirement" Relationship="OutsourcingModel.FK_PushInterViewTable_Requirement" FromRole="PushInterViewTable" ToRole="Requirement" />
+        </EntityType>
+        <Association Name="FK_PushInterViewTable_PersonalInfo">
+          <End Type="OutsourcingModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
+          <End Type="OutsourcingModel.PushInterViewTable" Role="PushInterViewTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="PersonalInfoId" />
+            </Principal>
+            <Dependent Role="PushInterViewTable">
+              <PropertyRef Name="PersonalInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PushInterViewTable_PushInterViewTable">
+          <End Type="OutsourcingModel.PushInterViewTable" Role="PushInterViewTable" Multiplicity="1" />
+          <End Type="OutsourcingModel.PushInterViewTable" Role="PushInterViewTable1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PushInterViewTable">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PushInterViewTable1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PushInterViewTable_Requirement">
+          <End Type="OutsourcingModel.Requirement" Role="Requirement" Multiplicity="0..1" />
+          <End Type="OutsourcingModel.PushInterViewTable" Role="PushInterViewTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requirement">
+              <PropertyRef Name="RequirementId" />
+            </Principal>
+            <Dependent Role="PushInterViewTable">
+              <PropertyRef Name="RequirementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PersonsEntrySet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonalInfoId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerCompnayCompnayId" Type="Int32" Nullable="false" />
+          <Property Name="OutsourcingCompanyCompnayId" Type="Int32" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="EntryStatus" Type="Int16" Nullable="false" />
+          <Property Name="ResignedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CustomerCompnay" Relationship="OutsourcingModel.FK_PersonsEntrySet_CustomerCompnay" FromRole="PersonsEntrySet" ToRole="CustomerCompnay" />
+          <NavigationProperty Name="OutsourcingCompany" Relationship="OutsourcingModel.FK_PersonsEntrySet_OutsourcingCompany" FromRole="PersonsEntrySet" ToRole="OutsourcingCompany" />
+          <NavigationProperty Name="PersonalInfo" Relationship="OutsourcingModel.FK_PersonsEntrySet_PersonalInfo" FromRole="PersonsEntrySet" ToRole="PersonalInfo" />
+          <Property Name="EntryMoney" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_PersonsEntrySet_CustomerCompnay">
+          <End Type="OutsourcingModel.CustomerCompnay" Role="CustomerCompnay" Multiplicity="1" />
+          <End Type="OutsourcingModel.PersonsEntrySet" Role="PersonsEntrySet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="PersonsEntrySet">
+              <PropertyRef Name="CustomerCompnayCompnayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonsEntrySet_OutsourcingCompany">
+          <End Type="OutsourcingModel.OutsourcingCompany" Role="OutsourcingCompany" Multiplicity="1" />
+          <End Type="OutsourcingModel.PersonsEntrySet" Role="PersonsEntrySet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="PersonsEntrySet">
+              <PropertyRef Name="OutsourcingCompanyCompnayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonsEntrySet_PersonalInfo">
+          <End Type="OutsourcingModel.PersonalInfo" Role="PersonalInfo" Multiplicity="1" />
+          <End Type="OutsourcingModel.PersonsEntrySet" Role="PersonsEntrySet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="PersonalInfoId" />
+            </Principal>
+            <Dependent Role="PersonsEntrySet">
+              <PropertyRef Name="PersonalInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LeaveDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="PersonSettlementID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="LeaveType" Type="Int32" Nullable="false" />
+          <Property Name="LeaveMoney" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="PersonSettlement" Relationship="OutsourcingModel.FK_LeaveDetail_PersonSettlement" FromRole="LeaveDetail" ToRole="PersonSettlement" />
+          <Property Name="LeaveStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LeaveEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LeaveHours" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LeaveReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LeaveBack" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PersonSettlement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="OutCompanyID" Type="Int32" Nullable="false" />
+          <Property Name="SettlementDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WorkDays" Type="Double" Nullable="false" />
+          <Property Name="RealWorkDays" Type="Double" Nullable="false" />
+          <Property Name="LeaveDays" Type="Double" Nullable="false" />
+          <Property Name="OvertimeDays" Type="Double" Nullable="false" />
+          <Property Name="Wages" Type="Double" Nullable="false" />
+          <Property Name="RealWages" Type="Double" Nullable="false" />
+          <NavigationProperty Name="CustomerCompnay" Relationship="OutsourcingModel.FK_PersonSettlement_CustomerCompnay" FromRole="PersonSettlement" ToRole="CustomerCompnay" />
+          <NavigationProperty Name="LeaveDetail" Relationship="OutsourcingModel.FK_LeaveDetail_PersonSettlement" FromRole="PersonSettlement" ToRole="LeaveDetail" />
+          <NavigationProperty Name="OutsourcingCompany" Relationship="OutsourcingModel.FK_PersonSettlement_OutsourcingCompany" FromRole="PersonSettlement" ToRole="OutsourcingCompany" />
+          <NavigationProperty Name="PersonalInfo" Relationship="OutsourcingModel.FK_PersonSettlement_PersonalInfo" FromRole="PersonSettlement" ToRole="PersonalInfo" />
+        </EntityType>
+        <Association Name="FK_PersonSettlement_CustomerCompnay">
+          <End Type="OutsourcingModel.CustomerCompnay" Role="CustomerCompnay" Multiplicity="1" />
+          <End Type="OutsourcingModel.PersonSettlement" Role="PersonSettlement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="PersonSettlement">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveDetail_PersonSettlement">
+          <End Type="OutsourcingModel.PersonSettlement" Role="PersonSettlement" Multiplicity="1" />
+          <End Type="OutsourcingModel.LeaveDetail" Role="LeaveDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonSettlement">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LeaveDetail">
+              <PropertyRef Name="PersonSettlementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonSettlement_OutsourcingCompany">
+          <End Type="OutsourcingModel.OutsourcingCompany" Role="OutsourcingCompany" Multiplicity="1" />
+          <End Type="OutsourcingModel.PersonSettlement" Role="PersonSettlement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="PersonSettlement">
+              <PropertyRef Name="OutCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonSettlement_PersonalInfo">
+          <End Type="OutsourcingModel.PersonalInfo" Role="PersonalInfo" Multiplicity="1" />
+          <End Type="OutsourcingModel.PersonSettlement" Role="PersonSettlement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="PersonalInfoId" />
+            </Principal>
+            <Dependent Role="PersonSettlement">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="InvoiceApplication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerCompanyID" Type="Int32" Nullable="false" />
+          <Property Name="OutrCompanyID" Type="Int32" Nullable="false" />
+          <Property Name="SettlementYear" Type="Int32" />
+          <Property Name="SettlementMonth" Type="Int32" />
+          <Property Name="SettlementMoney" Type="Double" />
+          <Property Name="InvoiceOutState" Type="Int32" />
+          <Property Name="InvoiceCustomerState" Type="Int32" />
+          <Property Name="OperationUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OperationTime" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="CustomerCompnay" Relationship="OutsourcingModel.FK_InvoiceApplication_CustomerCompnay" FromRole="InvoiceApplication" ToRole="CustomerCompnay" />
+          <NavigationProperty Name="OutsourcingCompany" Relationship="OutsourcingModel.FK_InvoiceApplication_OutsourcingCompany" FromRole="InvoiceApplication" ToRole="OutsourcingCompany" />
+        </EntityType>
+        <Association Name="FK_InvoiceApplication_CustomerCompnay">
+          <End Type="OutsourcingModel.CustomerCompnay" Role="CustomerCompnay" Multiplicity="1" />
+          <End Type="OutsourcingModel.InvoiceApplication" Role="InvoiceApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="InvoiceApplication">
+              <PropertyRef Name="CustomerCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceApplication_OutsourcingCompany">
+          <End Type="OutsourcingModel.OutsourcingCompany" Role="OutsourcingCompany" Multiplicity="1" />
+          <End Type="OutsourcingModel.InvoiceApplication" Role="InvoiceApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="InvoiceApplication">
+              <PropertyRef Name="OutrCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="InvoiceDetail">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceType" Type="Int32" />
+          <Property Name="InvoiceName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="0" />
+          <Property Name="InvoiceCode" Type="String" MaxLength="8" FixedLength="true" Unicode="true" />
+          <Property Name="InvoiceMoney" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerTel" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="BuyerTaxpayerNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerBankDeposit" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerBankAccount" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SalesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalesAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SalesTel" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SalesTaxpayerNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SalesBankDeposit" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SalesBankAccount" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CooperativeContract">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="ContractCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ContractFirstParty" Type="Int32" />
+          <Property Name="ContractSecondParty" Type="Int32" />
+          <Property Name="SigningTime" Type="DateTime" Precision="0" />
+          <Property Name="FirstPartyStatus" Type="Int32" />
+          <Property Name="SecondPartyStatus" Type="Int32" />
+          <Property Name="FirstPartEffectiveStatus" Type="Int32" />
+          <Property Name="SecondPartyEffectiveStatus" Type="Int32" />
+          <Property Name="ContractStatus" Type="Int32" />
+          <Property Name="EffectiveTime" Type="DateTime" Precision="0" />
+          <Property Name="ReviewUserID" Type="Int32" />
+          <Property Name="ReviewTime" Type="DateTime" Precision="0" />
+          <Property Name="ContractContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContractBack" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirstOrSecondDownload" Type="Int32" />
+          <Property Name="UploadFilePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContactFileFul" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="back" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="back1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="back2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="CustomerCompnay" Relationship="OutsourcingModel.FK_CooperativeContract_CustomerCompnay" FromRole="CooperativeContract" ToRole="CustomerCompnay" />
+          <NavigationProperty Name="OutsourcingCompany" Relationship="OutsourcingModel.FK_CooperativeContract_OutsourcingCompany" FromRole="CooperativeContract" ToRole="OutsourcingCompany" />
+        </EntityType>
+        <Association Name="FK_CooperativeContract_CustomerCompnay">
+          <End Type="OutsourcingModel.CustomerCompnay" Role="CustomerCompnay" Multiplicity="0..1" />
+          <End Type="OutsourcingModel.CooperativeContract" Role="CooperativeContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="CooperativeContract">
+              <PropertyRef Name="ContractFirstParty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CooperativeContract_OutsourcingCompany">
+          <End Type="OutsourcingModel.OutsourcingCompany" Role="OutsourcingCompany" Multiplicity="0..1" />
+          <End Type="OutsourcingModel.CooperativeContract" Role="CooperativeContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="CooperativeContract">
+              <PropertyRef Name="ContractSecondParty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmployeeExpatriation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="FirstPartyID" Type="Int32" />
+          <Property Name="SecondPartyID" Type="Int32" />
+          <Property Name="FirstContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SecondContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PersonList" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirstPartyStatus" Type="Int32" />
+          <Property Name="SecondPartyStatus" Type="Int32" />
+          <Property Name="FirstPartEffectiveStatus" Type="Int32" />
+          <Property Name="SecondPartyEffectiveStatus" Type="Int32" />
+          <Property Name="ContractStatus" Type="Int32" />
+          <Property Name="ReviewUserID" Type="Int32" />
+          <Property Name="ReviewTime" Type="DateTime" Precision="0" />
+          <Property Name="ReviewContract" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="0" />
+          <Property Name="EffectiveTime" Type="DateTime" Precision="0" />
+          <Property Name="FirstOrSecondDownload" Type="Int32" />
+          <Property Name="UploadFilePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContactFileFul" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CustomerCompnay" Relationship="OutsourcingModel.FK_EmployeeExpatriation_CustomerCompnay" FromRole="EmployeeExpatriation" ToRole="CustomerCompnay" />
+          <NavigationProperty Name="OutsourcingCompany" Relationship="OutsourcingModel.FK_EmployeeExpatriation_OutsourcingCompany" FromRole="EmployeeExpatriation" ToRole="OutsourcingCompany" />
+        </EntityType>
+        <Association Name="FK_EmployeeExpatriation_CustomerCompnay">
+          <End Type="OutsourcingModel.CustomerCompnay" Role="CustomerCompnay" Multiplicity="0..1" />
+          <End Type="OutsourcingModel.EmployeeExpatriation" Role="EmployeeExpatriation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerCompnay">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="EmployeeExpatriation">
+              <PropertyRef Name="FirstPartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeExpatriation_OutsourcingCompany">
+          <End Type="OutsourcingModel.OutsourcingCompany" Role="OutsourcingCompany" Multiplicity="0..1" />
+          <End Type="OutsourcingModel.EmployeeExpatriation" Role="EmployeeExpatriation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutsourcingCompany">
+              <PropertyRef Name="CompnayId" />
+            </Principal>
+            <Dependent Role="EmployeeExpatriation">
+              <PropertyRef Name="SecondPartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ImageFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ImageFilePath" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImageContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="My__Dictionary">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MyCertificate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecruitId" Type="Int32" />
+          <Property Name="CertificateName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GetTime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MyElseinfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="RecruitId" Type="Int32" />
+          <Property Name="NameId" Type="Int32" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MyExpectations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecruitId" Type="Int32" Nullable="false" />
+          <Property Name="ExpectationsNature" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ExpectationsAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExpectationsProfession" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExpectationsIndustries" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExpectationsMoney" Type="Int32" />
+          <Property Name="WorkStatus" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MyLanguage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecruitId" Type="Int32" />
+          <Property Name="Foreignlanguage" Type="Int32" />
+          <Property Name="ForeignlanguageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReadAbility" Type="Int32" />
+          <Property Name="HearAbility" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MyMajor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="RecruitId" Type="Int32" />
+          <Property Name="MajorId" Type="Int32" />
+          <Property Name="MajorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UseTime" Type="Int32" />
+          <Property Name="Master" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MyPractice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReceruitId" Type="Int32" />
+          <Property Name="PracticeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PracticeTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PracticeDescribe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MyPrize">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecruitId" Type="Int32" />
+          <Property Name="GetPrize" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GetYear" Type="Int32" />
+          <Property Name="GetMonth" Type="Int32" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MyProject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecruitId" Type="Int32" />
+          <Property Name="ProjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectTime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IfIT" Type="Int32" />
+          <Property Name="SoftEnvironment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HardwareEnvironment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DevelopTool" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectDuty" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectDescribe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MyRated">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecruitId" Type="Int32" Nullable="false" />
+          <Property Name="RatedId" Type="Int32" />
+          <Property Name="RatedName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RatedContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MyRecruit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginId" Type="Int32" />
+          <Property Name="RecruitName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserSex" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TelPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AttendYear" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegisteredPerson" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NowAdress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IfMarried" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CredentialsStatus" Type="Int32" />
+          <Property Name="CredentialsNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OverseasStudent" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="PoliticsStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Private" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MyScholarship">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecruitId" Type="Int32" />
+          <Property Name="ScholarshipLevel" Type="Int32" />
+          <Property Name="ScholarshipStatus" Type="Int32" />
+          <Property Name="PostDescribe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MyTrain">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecruitId" Type="Int32" />
+          <Property Name="TrainMechanism" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TrainCourse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TrainAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GetCertificate" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DetailContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MyWorkexperience">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecruitId" Type="Int32" />
+          <Property Name="CorporateName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IndustriesClassifications" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PositionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WorkTime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PositionMoney" Type="Int32" />
+          <Property Name="WorkContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CorporateNature" Type="Int32" />
+          <Property Name="CorporateSize" Type="Int32" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OutsourcingModelStoreContainer" CdmEntityContainer="DB">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="OutsourcingModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="OutsourcingModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="Invalid" ColumnName="Invalid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="OutsourcingModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AccountRole_R" TypeName="OutsourcingModel.AccountRole_R" StoreEntitySet="AccountRole_R">
+            <EndProperty Name="Account">
+              <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RoleMenu_R" TypeName="OutsourcingModel.RoleMenu_R" StoreEntitySet="RoleMenu_R">
+            <EndProperty Name="Role">
+              <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+            </EndProperty>
+            <EndProperty Name="Menu">
+              <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="OutsourcingCompany">
+            <EntityTypeMapping TypeName="OutsourcingModel.OutsourcingCompany">
+              <MappingFragment StoreEntitySet="OutsourcingCompany">
+                <ScalarProperty Name="CompnayId" ColumnName="CompnayId" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AuditingStatue" ColumnName="AuditingStatue" />
+                <ScalarProperty Name="Contract" ColumnName="Contract" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="BusinessScope" ColumnName="BusinessScope" />
+                <ScalarProperty Name="RegistrationAuthority" ColumnName="RegistrationAuthority" />
+                <ScalarProperty Name="OperatingPeriod" ColumnName="OperatingPeriod" />
+                <ScalarProperty Name="EnterpriseNum2" ColumnName="EnterpriseNum2" />
+                <ScalarProperty Name="BusinessCertificate" ColumnName="BusinessCertificate" />
+                <ScalarProperty Name="Nature" ColumnName="Nature" />
+                <ScalarProperty Name="Telephone2" ColumnName="Telephone2" />
+                <ScalarProperty Name="Telephone1" ColumnName="Telephone1" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="EnterpriseNum" ColumnName="EnterpriseNum" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ResponsibleTelephone" ColumnName="ResponsibleTelephone" />
+                <ScalarProperty Name="UnitResponsible" ColumnName="UnitResponsible" />
+                <ScalarProperty Name="LegalTelephone" ColumnName="LegalTelephone" />
+                <ScalarProperty Name="LegalRepresentative" ColumnName="LegalRepresentative" />
+                <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
+                <ScalarProperty Name="CompnayName" ColumnName="CompnayName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="CompanyUserName" ColumnName="CompanyUserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerCompnay">
+            <EntityTypeMapping TypeName="IsTypeOf(OutsourcingModel.CustomerCompnay)">
+              <MappingFragment StoreEntitySet="CustomerCompnay">
+                <ScalarProperty Name="CompnayId" ColumnName="CompnayId" />
+                <ScalarProperty Name="CompanyUserName" ColumnName="CompanyUserName" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CompnayName" ColumnName="CompnayName" />
+                <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
+                <ScalarProperty Name="LegalRepresentative" ColumnName="LegalRepresentative" />
+                <ScalarProperty Name="LegalTelephone" ColumnName="LegalTelephone" />
+                <ScalarProperty Name="UnitResponsible" ColumnName="UnitResponsible" />
+                <ScalarProperty Name="ResponsibleTelephone" ColumnName="ResponsibleTelephone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EnterpriseNum" ColumnName="EnterpriseNum" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="Telephone1" ColumnName="Telephone1" />
+                <ScalarProperty Name="Telephone2" ColumnName="Telephone2" />
+                <ScalarProperty Name="Nature" ColumnName="Nature" />
+                <ScalarProperty Name="BusinessCertificate" ColumnName="BusinessCertificate" />
+                <ScalarProperty Name="EnterpriseNum2" ColumnName="EnterpriseNum2" />
+                <ScalarProperty Name="OperatingPeriod" ColumnName="OperatingPeriod" />
+                <ScalarProperty Name="RegistrationAuthority" ColumnName="RegistrationAuthority" />
+                <ScalarProperty Name="BusinessScope" ColumnName="BusinessScope" />
+                <ScalarProperty Name="Contract" ColumnName="Contract" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="AuditingStatue" ColumnName="AuditingStatue" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonalInfo">
+            <EntityTypeMapping TypeName="OutsourcingModel.PersonalInfo">
+              <MappingFragment StoreEntitySet="PersonalInfo">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="PushStatue" ColumnName="PushStatue" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsActivated" ColumnName="IsActivated" />
+                <ScalarProperty Name="PeopleStatue" ColumnName="PeopleStatue" />
+                <ScalarProperty Name="CVStatue" ColumnName="CVStatue" />
+                <ScalarProperty Name="Resume" ColumnName="Resume" />
+                <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+                <ScalarProperty Name="Publications" ColumnName="Publications" />
+                <ScalarProperty Name="GraduationDate" ColumnName="GraduationDate" />
+                <ScalarProperty Name="GraduationSchool" ColumnName="GraduationSchool" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="CaredID" ColumnName="CaredID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="OutsourcingCompanyId" ColumnName="OutsourcingCompanyId" />
+                <ScalarProperty Name="PersonalInfoId" ColumnName="PersonalInfoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PushedHistory">
+            <EntityTypeMapping TypeName="OutsourcingModel.PushedHistory">
+              <MappingFragment StoreEntitySet="PushedHistory">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="CustPeopleStatue" ColumnName="CustPeopleStatue" />
+                <ScalarProperty Name="CustPeopleMark" ColumnName="CustPeopleMark" />
+                <ScalarProperty Name="CustomFeedback" ColumnName="CustomFeedback" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="PushDate" ColumnName="PushDate" />
+                <ScalarProperty Name="OutsourcingCompanyId" ColumnName="OutsourcingCompanyId" />
+                <ScalarProperty Name="PersonalInfoId" ColumnName="PersonalInfoId" />
+                <ScalarProperty Name="CustomerCompnayId" ColumnName="CustomerCompnayId" />
+                <ScalarProperty Name="RequirementId" ColumnName="RequirementId" />
+                <ScalarProperty Name="PushedHistoryId" ColumnName="PushedHistoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerOutsourc">
+            <EntityTypeMapping TypeName="OutsourcingModel.CustomerOutsourc">
+              <MappingFragment StoreEntitySet="CustomerOutsourc">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="CompanyUserName" ColumnName="CompanyUserName" />
+                <ScalarProperty Name="CustomerOutID" ColumnName="CustomerOutID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dictionary">
+            <EntityTypeMapping TypeName="OutsourcingModel.Dictionary">
+              <MappingFragment StoreEntitySet="Dictionary">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="DictionaryID" ColumnName="DictionaryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DictionaryItem">
+            <EntityTypeMapping TypeName="OutsourcingModel.DictionaryItem">
+              <MappingFragment StoreEntitySet="DictionaryItem">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="DictionaryID" ColumnName="DictionaryID" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="DictionaryItemID" ColumnName="DictionaryItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attachment">
+            <EntityTypeMapping TypeName="OutsourcingModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachment">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="DocPath" ColumnName="DocPath" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="AttachmentName" ColumnName="AttachmentName" />
+                <ScalarProperty Name="ForeignKey" ColumnName="ForeignKey" />
+                <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requirement">
+            <EntityTypeMapping TypeName="OutsourcingModel.Requirement">
+              <MappingFragment StoreEntitySet="Requirement">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="TecLanguage" ColumnName="TecLanguage" />
+                <ScalarProperty Name="ComAddress" ColumnName="ComAddress" />
+                <ScalarProperty Name="JobCategory" ColumnName="JobCategory" />
+                <ScalarProperty Name="ComProfile" ColumnName="ComProfile" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="RecNumber" ColumnName="RecNumber" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="Property" ColumnName="Property" />
+                <ScalarProperty Name="ProjectAddress" ColumnName="ProjectAddress" />
+                <ScalarProperty Name="PublishTime" ColumnName="PublishTime" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="CompnayId" ColumnName="CompnayId" />
+                <ScalarProperty Name="JobName" ColumnName="JobName" />
+                <ScalarProperty Name="ArrivalTime" ColumnName="ArrivalTime" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="RequirementId" ColumnName="RequirementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinancialManagement">
+            <EntityTypeMapping TypeName="OutsourcingModel.FinancialManagement">
+              <MappingFragment StoreEntitySet="FinancialManagement">
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="InvoiceStatus" ColumnName="InvoiceStatus" />
+                <ScalarProperty Name="ExchangeHour" ColumnName="ExchangeHour" />
+                <ScalarProperty Name="EntryAndExit" ColumnName="EntryAndExit" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="BothEnds" ColumnName="BothEnds" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContractManagement">
+            <EntityTypeMapping TypeName="OutsourcingModel.ContractManagement">
+              <MappingFragment StoreEntitySet="ContractManagement">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="PartnerType" ColumnName="PartnerType" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="RegisterId" ColumnName="RegisterId" />
+                <ScalarProperty Name="ContractPartner" ColumnName="ContractPartner" />
+                <ScalarProperty Name="ContractTypes" ColumnName="ContractTypes" />
+                <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
+                <ScalarProperty Name="ContractName" ColumnName="ContractName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PushInterViewTable">
+            <EntityTypeMapping TypeName="OutsourcingModel.PushInterViewTable">
+              <MappingFragment StoreEntitySet="PushInterViewTable">
+                <ScalarProperty Name="InterviewResult" ColumnName="InterviewResult" />
+                <ScalarProperty Name="InterviewTime" ColumnName="InterviewTime" />
+                <ScalarProperty Name="InterviewStatus" ColumnName="InterviewStatus" />
+                <ScalarProperty Name="FeedbackState" ColumnName="FeedbackState" />
+                <ScalarProperty Name="PlushStatute" ColumnName="PlushStatute" />
+                <ScalarProperty Name="RequirementId" ColumnName="RequirementId" />
+                <ScalarProperty Name="PersonalInfoId" ColumnName="PersonalInfoId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonsEntrySet">
+            <EntityTypeMapping TypeName="OutsourcingModel.PersonsEntrySet">
+              <MappingFragment StoreEntitySet="PersonsEntrySet">
+                <ScalarProperty Name="EntryMoney" ColumnName="EntryMoney" />
+                <ScalarProperty Name="ResignedDate" ColumnName="ResignedDate" />
+                <ScalarProperty Name="EntryStatus" ColumnName="EntryStatus" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="OutsourcingCompanyCompnayId" ColumnName="OutsourcingCompanyCompnayId" />
+                <ScalarProperty Name="CustomerCompnayCompnayId" ColumnName="CustomerCompnayCompnayId" />
+                <ScalarProperty Name="PersonalInfoId" ColumnName="PersonalInfoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveDetail">
+            <EntityTypeMapping TypeName="OutsourcingModel.LeaveDetail">
+              <MappingFragment StoreEntitySet="LeaveDetail">
+                <ScalarProperty Name="LeaveBack" ColumnName="LeaveBack" />
+                <ScalarProperty Name="LeaveReason" ColumnName="LeaveReason" />
+                <ScalarProperty Name="LeaveHours" ColumnName="LeaveHours" />
+                <ScalarProperty Name="LeaveEndDate" ColumnName="LeaveEndDate" />
+                <ScalarProperty Name="LeaveStartDate" ColumnName="LeaveStartDate" />
+                <ScalarProperty Name="LeaveMoney" ColumnName="LeaveMoney" />
+                <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+                <ScalarProperty Name="PersonSettlementID" ColumnName="PersonSettlementID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonSettlement">
+            <EntityTypeMapping TypeName="OutsourcingModel.PersonSettlement">
+              <MappingFragment StoreEntitySet="PersonSettlement">
+                <ScalarProperty Name="RealWages" ColumnName="RealWages" />
+                <ScalarProperty Name="Wages" ColumnName="Wages" />
+                <ScalarProperty Name="OvertimeDays" ColumnName="OvertimeDays" />
+                <ScalarProperty Name="LeaveDays" ColumnName="LeaveDays" />
+                <ScalarProperty Name="RealWorkDays" ColumnName="RealWorkDays" />
+                <ScalarProperty Name="WorkDays" ColumnName="WorkDays" />
+                <ScalarProperty Name="SettlementDate" ColumnName="SettlementDate" />
+                <ScalarProperty Name="OutCompanyID" ColumnName="OutCompanyID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceApplication">
+            <EntityTypeMapping TypeName="OutsourcingModel.InvoiceApplication">
+              <MappingFragment StoreEntitySet="InvoiceApplication">
+                <ScalarProperty Name="OperationTime" ColumnName="OperationTime" />
+                <ScalarProperty Name="OperationUser" ColumnName="OperationUser" />
+                <ScalarProperty Name="InvoiceCustomerState" ColumnName="InvoiceCustomerState" />
+                <ScalarProperty Name="InvoiceOutState" ColumnName="InvoiceOutState" />
+                <ScalarProperty Name="SettlementMoney" ColumnName="SettlementMoney" />
+                <ScalarProperty Name="SettlementMonth" ColumnName="SettlementMonth" />
+                <ScalarProperty Name="SettlementYear" ColumnName="SettlementYear" />
+                <ScalarProperty Name="OutrCompanyID" ColumnName="OutrCompanyID" />
+                <ScalarProperty Name="CustomerCompanyID" ColumnName="CustomerCompanyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceDetail">
+            <EntityTypeMapping TypeName="OutsourcingModel.InvoiceDetail">
+              <MappingFragment StoreEntitySet="InvoiceDetail">
+                <ScalarProperty Name="SalesBankAccount" ColumnName="SalesBankAccount" />
+                <ScalarProperty Name="SalesBankDeposit" ColumnName="SalesBankDeposit" />
+                <ScalarProperty Name="SalesTaxpayerNumber" ColumnName="SalesTaxpayerNumber" />
+                <ScalarProperty Name="SalesTel" ColumnName="SalesTel" />
+                <ScalarProperty Name="SalesAddress" ColumnName="SalesAddress" />
+                <ScalarProperty Name="SalesName" ColumnName="SalesName" />
+                <ScalarProperty Name="BuyerBankAccount" ColumnName="BuyerBankAccount" />
+                <ScalarProperty Name="BuyerBankDeposit" ColumnName="BuyerBankDeposit" />
+                <ScalarProperty Name="BuyerTaxpayerNumber" ColumnName="BuyerTaxpayerNumber" />
+                <ScalarProperty Name="BuyerTel" ColumnName="BuyerTel" />
+                <ScalarProperty Name="BuyerAddress" ColumnName="BuyerAddress" />
+                <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+                <ScalarProperty Name="InvoiceMoney" ColumnName="InvoiceMoney" />
+                <ScalarProperty Name="InvoiceCode" ColumnName="InvoiceCode" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceName" ColumnName="InvoiceName" />
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CooperativeContract">
+            <EntityTypeMapping TypeName="OutsourcingModel.CooperativeContract">
+              <MappingFragment StoreEntitySet="CooperativeContract">
+                <ScalarProperty Name="back2" ColumnName="back2" />
+                <ScalarProperty Name="back1" ColumnName="back1" />
+                <ScalarProperty Name="back" ColumnName="back" />
+                <ScalarProperty Name="ContactFileFul" ColumnName="ContactFileFul" />
+                <ScalarProperty Name="UploadFilePath" ColumnName="UploadFilePath" />
+                <ScalarProperty Name="FirstOrSecondDownload" ColumnName="FirstOrSecondDownload" />
+                <ScalarProperty Name="ContractBack" ColumnName="ContractBack" />
+                <ScalarProperty Name="ContractContent" ColumnName="ContractContent" />
+                <ScalarProperty Name="ReviewTime" ColumnName="ReviewTime" />
+                <ScalarProperty Name="ReviewUserID" ColumnName="ReviewUserID" />
+                <ScalarProperty Name="EffectiveTime" ColumnName="EffectiveTime" />
+                <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
+                <ScalarProperty Name="SecondPartyEffectiveStatus" ColumnName="SecondPartyEffectiveStatus" />
+                <ScalarProperty Name="FirstPartEffectiveStatus" ColumnName="FirstPartEffectiveStatus" />
+                <ScalarProperty Name="SecondPartyStatus" ColumnName="SecondPartyStatus" />
+                <ScalarProperty Name="FirstPartyStatus" ColumnName="FirstPartyStatus" />
+                <ScalarProperty Name="SigningTime" ColumnName="SigningTime" />
+                <ScalarProperty Name="ContractSecondParty" ColumnName="ContractSecondParty" />
+                <ScalarProperty Name="ContractFirstParty" ColumnName="ContractFirstParty" />
+                <ScalarProperty Name="ContractCode" ColumnName="ContractCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeExpatriation">
+            <EntityTypeMapping TypeName="OutsourcingModel.EmployeeExpatriation">
+              <MappingFragment StoreEntitySet="EmployeeExpatriation">
+                <ScalarProperty Name="ContactFileFul" ColumnName="ContactFileFul" />
+                <ScalarProperty Name="UploadFilePath" ColumnName="UploadFilePath" />
+                <ScalarProperty Name="FirstOrSecondDownload" ColumnName="FirstOrSecondDownload" />
+                <ScalarProperty Name="EffectiveTime" ColumnName="EffectiveTime" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="ReviewContract" ColumnName="ReviewContract" />
+                <ScalarProperty Name="ReviewTime" ColumnName="ReviewTime" />
+                <ScalarProperty Name="ReviewUserID" ColumnName="ReviewUserID" />
+                <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
+                <ScalarProperty Name="SecondPartyEffectiveStatus" ColumnName="SecondPartyEffectiveStatus" />
+                <ScalarProperty Name="FirstPartEffectiveStatus" ColumnName="FirstPartEffectiveStatus" />
+                <ScalarProperty Name="SecondPartyStatus" ColumnName="SecondPartyStatus" />
+                <ScalarProperty Name="FirstPartyStatus" ColumnName="FirstPartyStatus" />
+                <ScalarProperty Name="PersonList" ColumnName="PersonList" />
+                <ScalarProperty Name="SecondContent" ColumnName="SecondContent" />
+                <ScalarProperty Name="FirstContent" ColumnName="FirstContent" />
+                <ScalarProperty Name="SecondPartyID" ColumnName="SecondPartyID" />
+                <ScalarProperty Name="FirstPartyID" ColumnName="FirstPartyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImageFile">
+            <EntityTypeMapping TypeName="OutsourcingModel.ImageFile">
+              <MappingFragment StoreEntitySet="ImageFile">
+                <ScalarProperty Name="ImageContent" ColumnName="ImageContent" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="My__Dictionary">
+            <EntityTypeMapping TypeName="OutsourcingModel.My__Dictionary">
+              <MappingFragment StoreEntitySet="My&#xD;&#xA;Dictionary">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AppInfo" ColumnName="AppInfo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyCertificate">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyCertificate">
+              <MappingFragment StoreEntitySet="MyCertificate">
+                <ScalarProperty Name="GetTime" ColumnName="GetTime" />
+                <ScalarProperty Name="CertificateName" ColumnName="CertificateName" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyElseinfo">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyElseinfo">
+              <MappingFragment StoreEntitySet="MyElseinfo">
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="NameId" ColumnName="NameId" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyExpectations">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyExpectations">
+              <MappingFragment StoreEntitySet="MyExpectations">
+                <ScalarProperty Name="WorkStatus" ColumnName="WorkStatus" />
+                <ScalarProperty Name="ExpectationsMoney" ColumnName="ExpectationsMoney" />
+                <ScalarProperty Name="ExpectationsIndustries" ColumnName="ExpectationsIndustries" />
+                <ScalarProperty Name="ExpectationsProfession" ColumnName="ExpectationsProfession" />
+                <ScalarProperty Name="ExpectationsAddress" ColumnName="ExpectationsAddress" />
+                <ScalarProperty Name="ExpectationsNature" ColumnName="ExpectationsNature" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyLanguage">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyLanguage">
+              <MappingFragment StoreEntitySet="MyLanguage">
+                <ScalarProperty Name="HearAbility" ColumnName="HearAbility" />
+                <ScalarProperty Name="ReadAbility" ColumnName="ReadAbility" />
+                <ScalarProperty Name="ForeignlanguageName" ColumnName="ForeignlanguageName" />
+                <ScalarProperty Name="Foreignlanguage" ColumnName="Foreignlanguage" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyMajor">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyMajor">
+              <MappingFragment StoreEntitySet="MyMajor">
+                <ScalarProperty Name="Master" ColumnName="Master" />
+                <ScalarProperty Name="UseTime" ColumnName="UseTime" />
+                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
+                <ScalarProperty Name="MajorId" ColumnName="MajorId" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyPractice">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyPractice">
+              <MappingFragment StoreEntitySet="MyPractice">
+                <ScalarProperty Name="PracticeDescribe" ColumnName="PracticeDescribe" />
+                <ScalarProperty Name="PracticeTime" ColumnName="PracticeTime" />
+                <ScalarProperty Name="PracticeName" ColumnName="PracticeName" />
+                <ScalarProperty Name="ReceruitId" ColumnName="ReceruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyPrize">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyPrize">
+              <MappingFragment StoreEntitySet="MyPrize">
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="GetMonth" ColumnName="GetMonth" />
+                <ScalarProperty Name="GetYear" ColumnName="GetYear" />
+                <ScalarProperty Name="GetPrize" ColumnName="GetPrize" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyProject">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyProject">
+              <MappingFragment StoreEntitySet="MyProject">
+                <ScalarProperty Name="ProjectDescribe" ColumnName="ProjectDescribe" />
+                <ScalarProperty Name="ProjectDuty" ColumnName="ProjectDuty" />
+                <ScalarProperty Name="DevelopTool" ColumnName="DevelopTool" />
+                <ScalarProperty Name="HardwareEnvironment" ColumnName="HardwareEnvironment" />
+                <ScalarProperty Name="SoftEnvironment" ColumnName="SoftEnvironment" />
+                <ScalarProperty Name="IfIT" ColumnName="IfIT" />
+                <ScalarProperty Name="ProjectTime" ColumnName="ProjectTime" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyRated">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyRated">
+              <MappingFragment StoreEntitySet="MyRated">
+                <ScalarProperty Name="RatedContent" ColumnName="RatedContent" />
+                <ScalarProperty Name="RatedName" ColumnName="RatedName" />
+                <ScalarProperty Name="RatedId" ColumnName="RatedId" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyRecruit">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyRecruit">
+              <MappingFragment StoreEntitySet="MyRecruit">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Private" ColumnName="Private" />
+                <ScalarProperty Name="PoliticsStatus" ColumnName="PoliticsStatus" />
+                <ScalarProperty Name="OverseasStudent" ColumnName="OverseasStudent" />
+                <ScalarProperty Name="CredentialsNumber" ColumnName="CredentialsNumber" />
+                <ScalarProperty Name="CredentialsStatus" ColumnName="CredentialsStatus" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="IfMarried" ColumnName="IfMarried" />
+                <ScalarProperty Name="NowAdress" ColumnName="NowAdress" />
+                <ScalarProperty Name="RegisteredPerson" ColumnName="RegisteredPerson" />
+                <ScalarProperty Name="AttendYear" ColumnName="AttendYear" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="TelPhone" ColumnName="TelPhone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="UserSex" ColumnName="UserSex" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="RecruitName" ColumnName="RecruitName" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyScholarship">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyScholarship">
+              <MappingFragment StoreEntitySet="MyScholarship">
+                <ScalarProperty Name="PostDescribe" ColumnName="PostDescribe" />
+                <ScalarProperty Name="ScholarshipStatus" ColumnName="ScholarshipStatus" />
+                <ScalarProperty Name="ScholarshipLevel" ColumnName="ScholarshipLevel" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyTrain">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyTrain">
+              <MappingFragment StoreEntitySet="MyTrain">
+                <ScalarProperty Name="DetailContent" ColumnName="DetailContent" />
+                <ScalarProperty Name="GetCertificate" ColumnName="GetCertificate" />
+                <ScalarProperty Name="TrainAddress" ColumnName="TrainAddress" />
+                <ScalarProperty Name="TrainCourse" ColumnName="TrainCourse" />
+                <ScalarProperty Name="TrainMechanism" ColumnName="TrainMechanism" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyWorkexperience">
+            <EntityTypeMapping TypeName="OutsourcingModel.MyWorkexperience">
+              <MappingFragment StoreEntitySet="MyWorkexperience">
+                <ScalarProperty Name="CorporateSize" ColumnName="CorporateSize" />
+                <ScalarProperty Name="CorporateNature" ColumnName="CorporateNature" />
+                <ScalarProperty Name="WorkContent" ColumnName="WorkContent" />
+                <ScalarProperty Name="PositionMoney" ColumnName="PositionMoney" />
+                <ScalarProperty Name="WorkTime" ColumnName="WorkTime" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="IndustriesClassifications" ColumnName="IndustriesClassifications" />
+                <ScalarProperty Name="CorporateName" ColumnName="CorporateName" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

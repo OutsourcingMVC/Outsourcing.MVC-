@@ -1,0 +1,443 @@
+﻿@*@using Webdiyer.WebControls.Mvc*@
+@using PagedList
+@using PagedList.Mvc
+@model OutsourcingWeb.MVC.Areas.Personal.Models.PersonalRequirementViewModel
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead  id="theadId">
+        <tr class="caption">
+            &nbsp;项目名称: 【@Model.Requirement.ProjectName】
+            技术: 【@Model.Requirement.JobName】&nbsp;&nbsp;                       
+        </tr>
+        <tr>
+            @*<th>
+                    @Html.ActionLink("RoleName", "Index", new { sortOrder = ViewBag.RoleNameParm, currentFilter = ViewBag.CurrentFilter })
+                </th>*@
+            <th>选择</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>毕业时间</th>
+            <th>学历</th>
+            <th>技能</th>
+            @*<th>推送状态</th>*@
+            <th>反馈状态</th>
+            <th>面试时间</th>
+            <th>面试状态</th>
+            <th>面试操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.Personals.Count > 0)
+            {
+                foreach (var item in Model.Personals)
+                {
+                    <tr>
+                        <td>
+                            <input class="states checkbox" type="checkbox" name="ids" value="@item.PersonalInfoId" />                            
+                        </td>
+                        <td>
+                            @Html.HiddenFor(modelItem => item.PersonalInfoId)
+                            @Html.DisplayFor(modelItem => item.PersonName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sex)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GraduationDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Education)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Publications)
+                        </td>
+                        <td>
+                            @{
+                                Outsourcing.EF.PushInterViewTable pushview = (new Outsourcing.EF.DAL.PushInterViewTableDAL()).GetModelList(string.Empty).FirstOrDefault(c => c.RequirementId == Model.Requirement.RequirementId && c.PersonalInfoId == item.PersonalInfoId);
+
+                                string FeedbackState = pushview == null ? "未匹配" : pushview.FeedbackState == "0" ? "匹配" : "不匹配";
+                                if (FeedbackState == "匹配")
+                                {
+                                   <span class="text-success">
+                                       @FeedbackState
+                                   </span>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => FeedbackState)
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            @if (pushview != null)
+                            {
+                                @pushview.InterviewTime;
+                            }
+                        </td>
+                        <td>
+                            @{
+                                //0未面试；1面试成功；2面试失败; 
+                                string style = "text-warning";
+                                string InterviewStatusStr = "未面试";
+                                if (pushview != null)
+                                {
+                                    switch (pushview.InterviewStatus)
+                                    {
+                                        case "1":
+                                            InterviewStatusStr = "成功";
+                                            style = "text-success";
+                                            break;
+                                        case "2":
+                                            InterviewStatusStr = "失败";
+                                            style = "text-danger";
+                                            break;
+                                        default:
+                                            InterviewStatusStr = "未面试";
+                                            style = "text-warning";
+                                            break;
+                                    }
+                                }
+                            }
+                            @Html.Label(InterviewStatusStr, new { @class = style })
+                        </td>
+                        <td>
+                            @{if (FeedbackState == "匹配")
+                                {
+                                    if (InterviewStatusStr == "未面试")
+                                    {
+                                        <button type="button" onclick="javascript:$('#personID').val('@item.PersonalInfoId');" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                                            时间
+                                        </button>
+                                        @*当面试时间为空时不能操作其他*@
+                                        if (pushview != null && pushview.InterviewTime != null)
+                                        {
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary btn-xs" data-toggle="dropdown">
+                                                    结果 <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-left" role="menu" style="min-width: 50px;">
+                                                    <li><a onclick="SetSetInverViewSuccess(@item.PersonalInfoId)" href="#">成功</a></li>
+                                                    <li><a onclick="javascript: $('#pid').val(@item.PersonalInfoId);" href="#" data-toggle="modal" data-target="#myModalStatus">失败</a></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                }
+                                    else if (InterviewStatusStr == "失败")
+                                    {
+                                        <button id="FairDetail" type="button" onclick="showFariMessage(@Model.Requirement.RequirementId,@item.PersonalInfoId);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalMessage">
+                                            详情
+                                        </button>
+                                    }
+                                }
+                                else
+                                {
+                                <a id="interViewFeedback" onclick="LoadAjaxContent('/Personal/Personal/Edit?loginid=@ViewBag.LoginID&rid=@Model.Requirement.RequirementId&pid=@item.PersonalInfoId')" href="#">匹配</a>
+                                    }
+                                            if (InterviewStatusStr == "成功")
+                                            {
+                                    <button type="button" onclick="SetEntryVal(@item.PersonalInfoId,@item.OutsourcingCompanyId,@Model.Requirement.CompnayId,@Model.Requirement.RequirementId)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EntryModal">
+                                        入职
+                                    </button>
+                                    }
+                                }
+                       </td>
+                    </tr>
+                          }
+                                    }
+                                    else
+                                    {
+                     <tr><td colspan="10" style="text-align:center;">未查询到任何记录</td></tr>
+                                    }
+                                }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                @*<div class="form-group">
+                <div class="input-group col-xs-12">
+                    <div class="input-group-btn">*@
+                        <span class="form-inline">                           
+                            <input id="checkall" class="checkbox" type="checkbox" /> 全选
+                        </span>
+                    @*</div>
+                        <a href="#">推送简历</a>
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" id="search_submit" type="submit">Go</button>
+                        </span>
+                    </div>
+                    </div>*@
+
+                </td>
+            <td colspan="9">
+                @*<input id="allPush" class="btn btn-default btn-sm btn-info" type="button" value="推送简历" />
+                <input id="reSet" class="btn btn-default btn-sm btn-info" type="button" value="重置" />*@
+                @*<input class="btn-default btn-info " type="button"  value="推送简历"/>*@               
+            </td>
+            </tr>
+    </tfoot>
+</table>
+<br />
+
+<!-- 按钮触发模态框 -->
+<!-- 模态框（Modal）面试时间 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="Modalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">面试时间选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker2'>
+                                <input id="personID" type="hidden" />
+                                <input id="dateSelect" type='text' class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="dateSelectOK" type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 模态框（Modal）入职时间 -->
+<div class="modal fade" id="EntryModal" tabindex="-1" role="dialog" aria-labelledby="myModalEntryLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="EntryModalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalEntryLabel">入职时间和薪资</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_host">日期:</label>
+                            <div class="col-sm-5">
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input id="EntrypersonID" type="hidden" />
+                                    <input id="EntryComID" type="hidden" />
+                                    <input id="EntryComRID" type="hidden" />
+                                    <input id="EntryOutID" type="hidden" />
+                                    <input id="EntryDateSelect" type='text' class="form-control" style="width:150px;" />
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_name">薪资:</label>
+                            <div class="col-sm-8">
+                                <input id="EntryMoney" type='text' class="form-control" style="width:150px;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_name">等级:</label>
+                            <div class="col-sm-8">
+                                <select id="PersonLevel" name="PersonLevel" class="form-control select" >
+                                    <option value="初级工程师" selected>初级工程师</option>
+                                    <option value="中级工程师" selected>中级工程师</option>
+                                    <option value="高级工程师" selected>高级工程师</option>
+                                </select>
+                            </div>
+                        </div>
+                     </form>
+                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="EntryDateSelectOK" type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 模态框（Modal）面试失败 -->
+<div class="modal fade" id="myModalStatus" tabindex="-1" role="dialog" aria-labelledby="myModalStatusLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form role="form" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="StatusModalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalStatusLabel">面试失败</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <input id="pid" name="pid" type="hidden" />
+                            <input id="status" type="hidden" value="2" />
+                            <textarea id="InterViewResult" class="form-control" rows="5" style="width:100%;" placeholder="请输入面试失败原因"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="btnSubmit" type="button" class="btn btn-primary">确认</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </form>    
+    </div><!-- /.modal -->
+</div>
+
+<!-- 模态框（Modal）面试失败描述 -->
+<div class="modal fade" id="myModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalStatusLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form role="form" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="MessageModalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalStatusLabel">面试失败详情</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <p id="fairMessage"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </form>
+    </div><!-- /.modal -->
+</div>
+
+    <div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.Personals.PageCount 页 @Model.Personals.TotalItemCount 条记录，当前为第 @Model.Personals.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.Personals, page => Url.Action("Index",
+    new { page, loginid = ViewBag.LoginID, rid = Model.Requirement.RequirementId }))
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        replacePageUrl() });
+
+    $('#dateSelect').datetimepicker({
+        language: 'zh-CN',  //日期
+        autoclose: 1
+    })
+
+    $('#EntryDateSelect').datetimepicker({
+        language: 'zh-CN',  //日期
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    })
+
+    $("#dateSelectOK").click(function () {
+        $("#Modalclose").click();
+        var url='/Personal/Personal/SetInterViewTime?loginid=@ViewBag.LoginID&rid=@Model.Requirement.RequirementId&pid=' + $("#personID").val() + "&time=" + $("#dateSelect").val();
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "text",
+            success: function (data)
+            {
+                //debugger;
+                if (data != "")
+                {
+                    LoadAjaxContent('/Personal/Personal/Index?'+data);
+                }
+            }
+        });
+        $("#dateSelect").val("");
+        $("#personID").val("");
+    })
+
+    //提交面试失败以及内容
+    $("#btnSubmit").click(function () {
+        $("#StatusModalclose").click();
+        var data={loginid: @ViewBag.LoginID,
+                  rid:@Model.Requirement.RequirementId,
+                pid:$("#pid").val(),
+                InterViewResult:$("#InterViewResult").val(),
+            status:2}
+        SetInverViewStatus(data);
+    })
+
+    //设置面试成功
+    function SetSetInverViewSuccess(cpid)
+    {
+        var data={loginid: @ViewBag.LoginID,
+            rid:@Model.Requirement.RequirementId,
+            pid:cpid,
+            status:1}
+        SetInverViewStatus(data);
+    }
+
+    //提交信息
+    function SetInverViewStatus(datas)
+    {
+        $.ajax({
+            url: "/Personal/Personal/SetInterStatus",
+            type: "POST",
+            data: datas,
+            success:function(data)
+            {
+                //debugger;
+                if (data != "") {
+                    LoadAjaxContent('/Personal/Personal/Index?' + data);
+                }
+            }
+        });
+    }
+
+    //显示面试失败原因
+    function showFariMessage(rid,pid)
+    {
+        $("#MessageModalclose").click();
+        $.ajax({
+            url: "/Personal/Personal/GetInterResult",
+            type: "GET",
+            data: { rid:rid,pid:pid},
+            success:function(data)
+            {
+                //debugger;
+                if (data != "") {
+                    $("#fairMessage").html(data);
+                }
+            }
+        });
+    }
+
+    //入职提交
+    $("#EntryDateSelectOK").click(function(){
+        $("#EntryModalclose").click();
+        debugger;
+        var datas={loginid: @ViewBag.LoginID,
+                    comid:$("#EntryComID").val(),
+                    pid:$("#EntrypersonID").val(),                    
+                    outcid:$("#EntryOutID").val(),
+                    rid:$("#EntryComRID").val(),
+                    time:$("#EntryDateSelect").val(),
+                    money:$("#EntryMoney").val(),
+                    PersonLevel: $("#PersonLevel").val()}
+        $.ajax({
+            url: "/Personal/Personal/PersonEntry",
+            type: "POST",
+            data:datas,
+            success:function(data)
+            {
+                if (data != "") {
+                    LoadAjaxContent('/Personal/Personal/Index?' + data);
+                }
+            }
+        });
+    })
+
+    function SetEntryVal(pid ,outcid,comid,rid)
+    {
+        $("#EntrypersonID").val(pid);
+        $("#EntryComID").val(comid);
+        $("#EntryOutID").val(outcid);
+        $("#EntryComRID").val(rid);
+    }
+</script>

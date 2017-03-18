@@ -1,0 +1,165 @@
+﻿@model Outsourcing.EF.Model.Recruit.PersonalShowModel
+@{
+    Layout = "~/Views/Shared/_indexLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>个人简历</title>
+    <style type="text/css">
+        #td_personal tr {
+            height: 60px;
+            font-size: 16px;
+        }
+
+            #td_personal tr td {
+                border: none;
+            }
+
+        #td_personal {
+            margin-top: 30px;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        #work {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .PersonalInfor {
+            width: 700px;
+            min-height:20px;
+            max-height:200px;
+            margin-top:20px;
+            text-align:left;
+            margin-left:350px;
+            margin-bottom:20px;
+        }
+       .Personallogo{
+           width:1190px;
+           border-bottom:1px solid #dddbdb;
+           margin-top:20px;
+           height:50px;
+           margin:0 auto;
+           
+       }
+       #Copyer{
+           width:1190px;
+           margin:0 auto;
+       }
+    </style>
+</head>
+<body>
+    <div id="target">
+        <div style="margin-left:200px; width:1190px; margin:0 auto;">
+            <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:20px;height:50px;">
+                <span style="font-weight:800;font-size:24px;color:red;top:30px;">个人信息</span>
+            </div>
+            <table id="td_personal">
+                <tr>
+                    <td style="text-align:right;">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+                    <td>@Model.PersonName</td>
+                    <td style="text-align:right;">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                    <td>@Model.Sex</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：</td>
+                    <td>@Model.Birthday</td>
+                    <td style="text-align:right;">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历：</td>
+                    <td>@Model.Education</td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:right;">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</td>
+                    <td>*******</td>
+                    @*<td>@Model.Email</td>*@
+                    <td style="text-align:right;">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：</td>
+                    <td>*******</td>
+                    @*<td>@Model.Telphone</td>*@
+                </tr>
+                <tr>
+                    <td style="text-align:right;">毕业院校：</td>
+                    <td>@Model.GraduationSchool</td>
+                    <td style="text-align:right;">毕业时间：</td>
+                    <td>@Model.GraduationDate</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;">求职意向：</td>
+                    <td>@Model.Publications</td>
+                    <td style="text-align:right;">所属公司：</td>
+                    <td>@Model.CompnayName</td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:right;">到岗时间：</td>
+                    <td>@Model.PersonalInfoId 周内</td>
+                </tr>
+            </table>
+        </div>
+        <div class="Personallogo" @*style="width:100%; border-bottom:1px solid #dddbdb;margin-top:20px;height:50px;"*@>
+            <span style="font-weight:800;font-size:24px;color:red;top:30px;">自我评价</span>
+        </div>
+
+        <div class="PersonalInfor">
+            @Model.Remark
+        </div>
+
+        <div class="Personallogo" @*style="width:100%;border-bottom:1px solid #dddbdb;margin-top:20px;height:50px;"*@>
+            <span style="font-weight:800;font-size:24px;color:red;top:30px; ">工作经历</span>
+        </div>
+
+        <div class="PersonalInfor">
+            @Model.Resume
+        </div>
+
+
+
+
+        <div class="Personallogo" @*style="width:100%;border-bottom:1px solid #dddbdb;margin-top:20px;height:50px;"*@>
+            <span style="font-weight:800; font-size:24px;color:red;top:30px;">教育背景</span>
+        </div>
+
+        <div class="PersonalInfor">
+
+            @Model.Educations
+
+
+            @*<p style="float:left; margin-top:30px;">@Model.Educations</p>*@
+        </div>
+
+        <div id="Copyer">
+            <button type="button" id="ExportWord" onclick="ExportWord()" class="btn btn-default btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
+                <span class="glyphicon" aria-hidden="true"></span>导出
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" id="PrintWord" onclick="CopyerWord()" class="btn btn-default btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
+                <span class="glyphicon" aria-hidden="true"></span>打印
+            </button>
+           
+        </div>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    Copyer();
+    //})
+    //获取要获取数据的ID值
+    
+    
+    //导出简历并抓取数据
+    $("#ExportWord").click(function () {
+
+       
+        window.location.href = "/Recruit/RecruitHome/ExportWord?id=@Model.PersonalInfoId";
+    })
+    $("#PrintWord").click(function () {
+      
+        var html = $("#target").html();
+        window.location.href = "/Recruit/RecruitHome/PrintWord?id=@Model.PersonalInfoId";
+    })
+</script>

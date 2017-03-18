@@ -1,0 +1,176 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using System.Text;
+@model PagedList<Outsourcing.EF.OutsourcingCompany>
+
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.ActionLink("RoleName", "Index", new { sortOrder = ViewBag.RoleNameParm, currentFilter = ViewBag.CurrentFilter })
+                </th>*@
+            <th>公司名称</th>
+            <th>用户名</th>
+            <th>性质</th>
+            <th>联系电话</th>
+            <th>审核状态</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.CompnayId)
+                        @Html.DisplayFor(modelItem => item.CompnayName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyUserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nature)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telephone1)
+                    </td>
+                    <td>
+                        @{
+                            string auditStatue = "";
+                            switch (item.AuditingStatue)
+                            {
+                                case 0:
+                                    auditStatue = "未通过";
+                                    break;
+                                case 1:
+                                    auditStatue = "通过";
+                                    break;
+                                case 2:
+                                    auditStatue = "禁用";
+                                    break;
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => auditStatue)
+                    </td>
+                    <td>
+                        @{
+                            string date = item.CreateTime.Value.ToString();
+                        }
+
+                        @Html.DisplayFor(modelItem => date)
+                    </td>
+
+                    <td>
+                        <div class="btn-group">
+                                @{
+                                    if (item.AuditingStatue != 1 && item.AuditingStatue!=2)
+                                    {
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            审核
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a onclick="LoadAjaxContent('Outsourcing/BasicInformation/Edit/@item.CompnayId?pageIndex=@Model.PageNumber&reviewed=1&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">通过</a></li>
+                                            <li><a onclick="LoadAjaxContent('Outsourcing/BasicInformation/Edit/@item.CompnayId?pageIndex=@Model.PageNumber&reviewed=0&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">未通过</a></li>                                            
+                                        </ul>                                        
+                                    }
+                                    else
+                                    {
+                                        if (item.AuditingStatue == 2) //如果当前状态为通过时，设置当前操作为禁用,否则显示解除禁止
+                                        {
+                                           <a onclick="LoadAjaxContent('Outsourcing/BasicInformation/Edit/@item.CompnayId?pageIndex=@Model.PageNumber&reviewed=3&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">解禁</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="LoadAjaxContent('Outsourcing/BasicInformation/Edit/@item.CompnayId?pageIndex=@Model.PageNumber&reviewed=2&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">禁用</a>
+                                            }
+                                        }
+                                    }
+                                    &nbsp;|
+                                    @*<a id="btnEdit" onclick="LoadAjaxContent('Outsourcing/BasicInformation/Edit/@item.CompnayId?pageIndex=@Model.PageNumber&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">审核</a>|*@
+                            <a id="btnDetails" onclick="LoadAjaxContent('Outsourcing/BasicInformation/Details/@item.CompnayId?pageIndex=@Model.PageNumber&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">详情</a>|
+                            <a id="btnDelete" onclick="del(this,@item.CompnayId);" href="#">删除</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="3" style="text-align:center;">未查询到任何记录</td></tr>
+        }
+        }
+    </tbody>
+</table>
+<br />
+<div>
+
+    @*<script src="~/Scripts/mvcpager.js"></script>*@
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.PageCount 页 @Model.TotalItemCount 条记录，当前为第 @Model.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, companyusername = (ViewBag.CurrentFilter != null ? ViewBag.CurrentFilter : string.Empty) }))
+    @*mvcpager分页，带ajax支持*@
+    @*@Ajax.Pager(Model.StaffMembers, new PagerOptions
+        {
+            PageIndexParameterName = "page",
+            ShowPageIndexBox = true,
+            PageIndexBoxType = PageIndexBoxType.DropDownList,
+            ShowGoButton = false,
+            ShowNumericPagerItems = true,
+
+        },
+        new MvcAjaxOptions
+        {
+            UpdateTargetId = "datalist",
+            HttpMethod = "Post",
+            DataFormId = "searchForm",
+            EnablePartialLoading = true,
+            Url = "OA/AttendanceMonthStatistical/Index"
+        }, new { style = "float:right" })*@
+</div>
+@*@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}*@
+<script type="text/javascript">
+    $(document).ready(function () { replacePageUrl() });
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+
+        //debugger;
+        //var alist = $('#datalist a');
+        //alist.innerHtml = "";
+        //var divlist = $('div#pagerleft').next();
+        //if (divlist) {
+        //debugger;
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                //debugger;
+                //alert(index);
+                //if (index >= 6) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    //debugger;
+                    //var splitUrl = element.href.split('/')
+                    var splitUrl = element.href.split('?');
+                    //var newhref = "LoadAjaxContent('" + splitUrl[3] + splitUrl[4] + "')";
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('Outsourcing/BasicInformation/Index?' + splitUrl[1]);
+                    });
+                    //$(this).on("click", function () {
+                    //    LoadAjaxContent('OA/AttendanceMonthStatistical/Index?page=2');
+                    //});
+                    $(this).attr("href", "#");
+                }
+
+                //}
+            });
+        }
+        //}
+    }
+
+
+</script>

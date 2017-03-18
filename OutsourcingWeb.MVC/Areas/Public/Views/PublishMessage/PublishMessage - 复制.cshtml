@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "发布信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--时间控件-->
+<script type="text/javascript" src="~/Scripts/calendar/js/jquery-1.5.1.js"></script>
+<script type="text/javascript" src="~/Scripts/calendar/js/lyz.calendar.min.js"></script>
+<link href="~/Scripts/calendar/css/lyz.calendar.css" rel="stylesheet" />
+<!--消息提示框-->
+<link rel="stylesheet" href="~/Scripts/sweetalert/sweetalert.css" />
+<script type="text/javascript" src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+
+<style type="text/css">
+    #edit td {
+        border: 1px solid #A6A6D2;
+        height: 30px;
+    }
+
+    /*input {
+        width: 400px;
+    }*/
+
+    #edit {
+        margin-top: -450px;
+        margin-left: 260px;
+    }
+</style>
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<div class="spacer8"></div>
+<div class="spacer8"></div><div id="reg" class="bgwhite" style="height:10px;"></div>
+<div id="edit">
+    <table>
+        <tr>
+            <td style="width:100px; text-align:center;">
+                职位名称
+            </td>
+            <td>
+                <input id="JobName" type="text" style="border:1px solid #A6A6D2; height:20px;" />
+            </td>
+        @*</tr>
+        <tr>*@
+            <td style="width:100px; text-align:center;">招聘人数</td>
+            <td>
+                <input id="RecNumber" type="text" style="border:1px solid #A6A6D2; height:20px;" />
+            </td>
+        </tr>
+        <tr>
+           <td style="width:100px; text-align:center;">项目名称</td>
+           <td>
+              <input id="ProjectName" type="text" style="border:1px solid #A6A6D2; height:20px;" />
+           </td>
+        @*</tr>
+        <tr>*@
+           <td style="width:100px; text-align:center;">备注</td>
+           <td>
+              <input id="Remark" type="text" style="border:1px solid #A6A6D2; height:20px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:center;">工作地点</td>
+            <td>
+                <input id="ProjectAddress" type="text" style="border:1px solid #A6A6D2; height:20px;" />
+                @*<select style="border:1px solid #A6A6D2; width:200px; height:27px;">
+                        <option value="1">东城区</option>
+                        <option value="2">西城区</option>
+                        <option value="3">朝阳区</option>
+                        <option value="4">丰台区</option>
+                        <option value="5">石景山区</option>
+                        <option value="6">海淀区</option>
+                        <option value="7">门头沟区</option>
+                        <option value="8">房山区</option>
+                        <option value="9">通州区</option>
+                        <option value="10">顺义区</option>
+                        <option value="11">昌平区</option>
+                        <option value="12">大兴区</option>
+                        <option value="13">怀柔区</option>
+                        <option value="14">平谷区</option>
+                        <option value="15">密云区</option>
+                        <option value="16">延庆区</option>
+                        <option value="17">其他</option>
+                    </select>*@
+            </td>
+        @*</tr>
+        <tr>*@
+            <td style="width:100px; text-align:center;">到岗时间</td>
+            <td>
+               <input id="ArrivalTime" type="text" style="border:1px solid #A6A6D2; height:20px; width:187px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:center;">发布日期</td>
+            <td><input id="PublishTime" type="text" style="border:1px solid #A6A6D2; height:20px; width:187px;" /></td>
+        @*</tr>
+        <tr>*@
+            <td style="width:100px; text-align:center;">职位月薪</td>
+            <td>
+                <select id="Salary" style="border:1px solid #A6A6D2; width:200px; height:27px;">
+                    <option value="1">4000</option>
+                    <option value="2">4000元-6000元</option>
+                    <option value="3">6000元-8000元</option>
+                    <option value="4">8000元-10000元</option>
+                    <option value="5">10000元以上</option>
+                    <option value="6">面议</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:center;">工作性质</td>
+            <td>
+                <select id="Property" style="border:1px solid #A6A6D2; width:200px; height:27px;">
+                    <option value="1">不限</option>
+                    <option value="2">全职</option>
+                    <option value="3">兼职</option>
+                    <option value="4">实习</option>
+                </select>
+            </td>
+        @*</tr>
+        <tr>*@
+            <td style="width:100px; text-align:center;">工作经验</td>
+            <td>
+                <select id="Experience" style="border:1px solid #A6A6D2; width:200px; height:27px;">
+                    <option value="1">不限</option>
+                    <option value="2">无经验</option>
+                    <option value="3">1年以下</option>
+                    <option value="4">1-3年</option>
+                    <option value="5">3-5年</option>
+                    <option value="6">5-10年</option>
+                    <option value="7">10年以上</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:center;">最低学历</td>
+            <td>
+                <select id="Education" style="border:1px solid #A6A6D2; width:200px; height:27px;">
+                    <option value="1">不限</option>
+                    <option value="2">无学历要求</option>
+                    <option value="3">高中/中转/中技及以下</option>
+                    <option value="4">大专及等同学历</option>
+                    <option value="5">本科学历</option>
+                    <option value="6">硕士学历</option>
+                    <option value="7">博士及以上</option>
+                    <option value="8">其他</option>
+                </select>
+            </td>
+        @*</tr>
+        <tr>*@
+            <td style="width:100px; text-align:center;">技术语言</td>
+            <td>
+                <select id="TecLanguage" style="border:1px solid #A6A6D2; width:200px; height:27px;">
+                    <option value="1">Java</option>
+                    <option value="2">C/C++</option>
+                    <option value="3">C#/Asp.Net</option>
+                    <option value="4">HTML</option>
+                    <option value="5">PHP</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:center;">职位类别</td>
+            <td>
+                <select id="JobCategory" style="border:1px solid #A6A6D2; width:200px; height:27px;">
+                    <option value="1">web应用开发</option>
+                    <option value="2">移动应用开发</option>
+                    <option value="3">微信开发</option>
+                    <option value="4">应用桌面开发</option>
+                    <option value="5">系统分析设计</option>
+                    <option value="6">数据分析设计</option>
+                </select>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td style="width:100px; text-align:center; background-color:#e9ecf0;">
+                <h4 style="width:30px; font-size:24px; margin-left:35px;">职位描述</h4>
+            </td>
+            <td colspan="3">
+                <script id="JobDescription" type="text/plain" style="width:700px;height:300px; ">
+                </script>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:center; background-color:#e9ecf0;">
+                <h4 style="width:30px; font-size:24px; margin-left:35px;">公司简介</h4>
+            </td>
+            <td colspan="3">
+                <script id="ComProfile" type="text/plain" style="width:700px;height:300px;">
+                </script>
+            </td>
+        </tr>
+        <tr style="background-color:#A6A6D2;" align="center" ;>
+            <td colspan="4">
+                <input id="submit" onclick="btnSubmit();" type="button" value="保存" style="width:60px; margin-right:20px; background-color:#e9ecf0;" />
+                <input type="button" value="重置" style="width:60px; margin-left:20px; background-color:#e9ecf0;" />
+            </td>
+        </tr>
+    </table>
+    <div></div>
+</div>
+<!-- 编辑器样式 -->
+<script type="text/javascript" charset="utf-8" src="~/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="~/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var jobDescription = UE.getEditor('JobDescription');
+    var comProfile = UE.getEditor('ComProfile');
+    //保存
+    function btnSubmit() {
+        var JobName = $("#JobName").val();
+        var RecNumber = $("#RecNumber").val();
+        var ProjectName = $("#ProjectName").val();
+        var ArrivalTime = $("#ArrivalTime").val();
+        var Remark = $("#Remark").val();
+        var ProjectAddress = $("#ProjectAddress").val();
+        var PublishTime = $("#PublishTime").val();
+        var Salary = $("#Salary").val();
+        var Property = $("#Property").val();
+        var Experience = $("#Experience").val();
+        var Education = $("#Education").val();
+        var TecLanguage = $("#TecLanguage").val();
+        var JobCategory = $("#JobCategory").val();
+        var JobDescription = jobDescription.getContent();
+        var ComProfile = comProfile.getContent();
+        $.ajax({
+            type: "POST",
+            url: "/Public/PublishMessage/AddDate",
+            data: {
+                JobName: JobName, RecNumber: RecNumber, ProjectName: ProjectName,
+                ArrivalTime: ArrivalTime, Remark: Remark, ProjectAddress: ProjectAddress, PublishTime: PublishTime,
+                Salary: Salary, Property: Property, Experience: Experience, Education: Education,
+                TecLanguage: TecLanguage, JobCategory: JobCategory, JobDescription: encodeURIComponent(JobDescription), ComProfile: encodeURIComponent(ComProfile)
+            },
+            success: function (msg) {
+                if (msg == "添加成功") {
+                    swal("信息发布成功!", "", "success");
+                }
+                else { swal("信息发布失败!", "", "error"); }
+            }
+        });
+    };
+    //时间控件
+    $(function () {
+        $("#PublishTime").calendar();
+        $("#ArrivalTime").calendar();
+    });
+</script>

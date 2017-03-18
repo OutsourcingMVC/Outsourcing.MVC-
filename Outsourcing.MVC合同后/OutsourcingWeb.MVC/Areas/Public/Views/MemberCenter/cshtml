@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "会员中心";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+<!--第一部分样式-->
+<link href="~/Scripts/styles/base.css" rel="stylesheet" />
+<link href="~/Scripts/styles/extends/loginreg/loginreg.css" rel="stylesheet" />
+<link href="~/Scripts/styles/nav.css" rel="stylesheet" />
+<!-- 扩展CSS -->
+<link rel="stylesheet" type="text/css" href="~/Scripts/styles/extends/reg.css" />	
+<!--按钮样式-->
+<link href="~/Scripts/styles/common.css" rel="stylesheet" />
+<!--消息提示框-->
+<script type="text/javascript" src="~/Scripts/calendar/js/jquery-1.5.1.js"></script>
+<script type="text/javascript" src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+<link rel="stylesheet" href="~/Scripts/sweetalert/sweetalert.css" />
+<style type="text/css">
+    .tdcss {
+        width: 120px;
+    }
+
+    #bigdiv {
+        margin-left: 140px;
+        margin-top: 50px;
+    }
+</style>
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<input type="hidden" name="types" id="types" value="@ViewBag.Type"> 
+<div id="bigdiv">
+    <div style="font-size: 30px; font-weight: bold; margin: 35px auto auto 30px;">修改密码</div>
+    <div style="font-size: 16px; font-weight: bold; margin: 20px auto 0px 90px;">请保管好您的密码！</div>
+    <table style="margin-top:20px;">
+        <tr style="display:block; margin:5px;">
+            <td><div class="tdcss"><font color="#F1423C">*</font>原密码</div></td>
+            <td><input autocomplete="off" type="password" class="text" name="password" id="person_password" placeholder="请输入原密码"> </td>
+        </tr>
+        <tr style="display:block; margin:5px;">
+            <td><div class="tdcss"><font color="#F1423C">*</font>新密码</div></td>
+            <td><input autocomplete="off" type="password" class="text" name="newPassword" id="person_password" placeholder="请输入新密码"> </td>
+        </tr>
+        <tr style="display:block; margin:5px;">
+            <td><div class="tdcss"><font color="#F1423C">*</font>重复密码</div></td>
+            <td>
+                <input autocomplete="off" type="password" class="text" name="againPassword" id="person_password" placeholder="请再次输入新密码"
+                       onfocus="getsubmit();">
+            </td>
+        </tr>
+        <tr>
+            <td style=" float:right;"><span id="anchor" style="display:none;color:#FF0000;">两次输入密码不相同！</span></td>
+        </tr>
+    </table>
+    <div class="control-group">
+        <div style="float:left;">
+            <button id="buttonId" type="button" class="kbtn kbtn_orange kbtn30 font10"
+                    style="margin: 10px auto 0px 90px; height:30px; width:140px; font-size:20px;">
+                保&nbsp;&nbsp;&nbsp;&nbsp;存
+            </button>
+        </div>
+        <div style="float:left;">
+            <button id="buttonId" type="button" class="kbtn kbtn_orange kbtn30 font10"
+                    style="margin: 10px auto 0px 45px; height:30px; width:140px; font-size:20px;" onClick="clean();">
+                重&nbsp;&nbsp;&nbsp;&nbsp;置
+            </button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //判断密码是否相同
+    function getsubmit() {
+        document.getElementById("anchor").style.display = "block";
+    }
+    $(document).ready(function () {
+        $('[name="againPassword"]').keyup(function () {
+            var value = $('[name="newPassword"]').val();
+            var values = $('[name="againPassword"]').val();
+            if (value == values) {
+                document.getElementById("anchor").style.display = "none";
+            }
+            else {
+                document.getElementById("anchor").style.display = "block";
+            }
+        });
+    });
+
+
+    //保存
+    $(function () {
+        $("#buttonId").click(function () {
+            swal("Good!", "修改密码成功", "success");
+        });
+    });
+
+    //重置
+    function clean() {
+        $(function () {
+            $('[name="password"]').attr("value", "");
+            $('[name="newPassword"]').attr("value", "");
+            $('[name="againPassword"]').attr("value", "");
+        });
+    }
+</script>

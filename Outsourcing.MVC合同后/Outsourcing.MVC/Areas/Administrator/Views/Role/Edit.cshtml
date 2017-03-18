@@ -1,0 +1,237 @@
+﻿@model Outsourcing.MVC.Areas.Administrator.Models.RoleViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a onclick="LoadAjaxContent('Administrator/Role/Index?page=@ViewBag.pageIndex&RoleName=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)');" href="#">返回列表页</a></li>
+            @*<li><a href="#">Tables</a></li>
+                <li><a href="#">Data Tables</a></li>*@
+        </ol>
+        @*<div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>*@
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>编辑系统角色</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <p>注意：标红的字段必填</p>
+                <form id="defaultForm" method="post" action="Administrator/Role/Edit" class="form-horizontal">
+                    <fieldset>
+                        @{
+                            if (Model.Role != null)
+                            {
+                                <div class="col-sm-4 control-label" style="background-color:#ffffff;">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" style="color:#ff0000">角色名称</label>
+                                        <div class="col-sm-7">
+                                            @Html.Hidden("roleid", @Model.Role.RoleID, new { id = "roleid" })
+                                            <input type="text" class="form-control" name="rolename" id="rolename" value="@Model.Role.RoleName" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">角色描述</label>
+                                        <div class="col-sm-7">
+                                            @*@Html.DropDownList("staffname", ViewBag.memberSelectList as SelectList, "-请选择-", new { id = "staffname", @class = "form-control" })*@
+                                            <input type="text" class="form-control" name="roledescription" id="roledescription" value="@Model.Role.RoleDescription" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">系统角色关联的权限</label>
+                                        <div class="col-sm-7">
+                                            <div class="zTreeDemoBackground left">
+                                                <ul id="treeDemo" class="ztree"></ul>
+                                            </div>
+
+
+                                            @*通过隐藏字段将选中的菜单ID提交到服务端*@
+                                            @Html.Hidden("hidTreeID", string.Empty, new { id = "hidTreeID" })
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </fieldset>
+
+                    <div class="form-group">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            @*防止ajax重复提交，将type=submit改为type=button*@
+                            <button id="btnSubmit" type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+                <div id="outputdiv" role="alert">
+                    @*<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/plugins/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+<script src="~/plugins/zTree_v3/js/jquery.ztree.core-3.5.min.js"></script>
+<script src="~/plugins/zTree_v3/js/jquery.ztree.excheck-3.5.min.js"></script>
+<script src="~/Scripts/jquery.form.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Add Drag-n-Drop feature
+        WinMove();
+        LoadBootstrapValidatorScript(DemoFormValidator);
+        //为form的ajax提交准备参数
+        var options = {
+            //target: '#outputdiv',//不能启用target，否则将导致提示框不显示关闭按钮，已改到responseText方法中处理
+            //beforeSubmit: showRequest,
+            success: showResponse
+        };
+        
+        $('#btnSubmit').on('click', function () {
+            //debugger;
+            var rolename = $('#rolename').val();
+            if (rolename) {
+                $(this).attr("type", "button");
+                //alert($(this).attr("type"));
+                $('#hidTreeID').val("");
+                var treeObj = $.fn.zTree.getZTreeObj('treeDemo');
+                var selectedNodes = treeObj.getCheckedNodes();
+                if (selectedNodes && selectedNodes.length > 0) {
+                    $(selectedNodes).each(function () {
+                        //debugger;
+                        $('#hidTreeID').val($('#hidTreeID').val() + $(this)[0].id + ",");
+                    });
+                    $('#hidTreeID').val($('#hidTreeID').val().substring(0,$('#hidTreeID').val().length - 1));
+                }
+                $('#defaultForm').ajaxSubmit(options);
+                $(this).attr("type", "submit");
+                return false;
+            } else {
+                $(this).attr("type", "submit");
+                return true;
+            }
+        });
+        InitTree();
+    });
+
+    //初始化权限树
+    function InitTree() {
+        var setting = {
+            check: {
+                enable: true
+            },
+            view: {
+                dblClickExpand: false,
+                showLine: true
+            },
+            data: {
+                key: {
+                    checked: "ischecked",
+                    title: "title"
+                },
+                simpleData: {
+                    enable: true
+                    //checked: true
+                }
+            }
+            ,
+            callback: {
+                onCheck: onNodeCheck
+            }
+        }
+        //请求树状数据，初始化树
+        //var zNodes =[
+        //    { id:1, pId:0, name:"父节点1 - 展开", open:true},
+        //{ id:11, pId:1, name:"父节点11 - 折叠"}];
+        //返回的数据格式,如上，注意一点自己拼接字符串返回的会有问题
+        //debugger;
+        $.ajax({
+            type: 'post',
+            url: 'Administrator/Role/GetMenuJsonByRole',
+            data: { roleid: $("form#defaultForm input[name='roleid']").val() },//$("#roleid").val()
+            dataType: "json", //可以是text，如果用text，返回的结果为字符串；如果需要json格式的，可是设置为json
+            success: function (data) {
+                //debugger;
+                $.fn.zTree.init($("#treeDemo"), setting, data);
+            },
+            error: function (msg) {
+                //debugger;
+                alert(" 数据加载失败！" + msg);
+            }
+        });
+        //var zNodes =
+        //$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    }
+
+    function onNodeCheck()
+    {
+        //debugger;
+        
+        //var ab=$("form#defaultForm input[name='roleid']").val();
+    }
+
+    function DemoFormValidator() {
+        $('#defaultForm').bootstrapValidator({
+            message: '输入的值无效',
+            fields: {
+                rolename: {
+                    validators: {
+                        notEmpty: {
+                            //message: 'The username is required and can\'t be empty'
+                            message: '角色名称必填'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function showRequest(formData, jqForm, options) {
+        //alert('发送前');
+        return true;
+    }
+
+    function showResponse(responseText, statusText) {
+        //alert(statusText);
+        $('#outputdiv').fadeIn(1000);
+        if (responseText == '保存成功') {
+            $('#outputdiv').attr("class", "alert alert-success alert-dismissible");
+
+        } else {
+            $('#outputdiv').attr("class", "alert alert-danger alert-dismissible");
+        }
+        $('#outputdiv').html("<strong>" + responseText + "</strong>");
+        $('#outputdiv').fadeOut(3000);
+
+    }
+
+</script>

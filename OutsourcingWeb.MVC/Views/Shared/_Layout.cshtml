@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!--消息提示框-->
+    <script src="~/Scripts/js/jquery-1.8.0.js"></script>
+    <!--title图标-->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Scripts/styles/images/yjylogo.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--菜单样式-->
+    <link href="~/Scripts/styles/base.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/extends/loginreg/loginreg.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/nav.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="~/Scripts/sweetalert/sweetalert.css" />
+    <script type="text/javascript" src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+
+</head>
+<body>
+    <div>
+        <div class="hphead">
+            <a href="/System/Index"><img src="~/Scripts/styles/images/yjylogo.png" style="height:80px; margin-top:12px; margin-left:70px;" /></a>
+            <!-- <a style="font-size:20px; float:left;">翼聚源</a>	-->
+            <ul id="shouye">
+                <li>
+                    <a href="/System/Index?loginid=@ViewBag.LoginID">首页</a>
+                </li>
+                <li>
+                    <a href="javascript:;" id="btn-login-show">登录</a>
+                </li>
+                <li>
+                    <a target="_blank" href="/Public/Identity/Identity" id="zhuce">注册</a>
+                </li>
+                <li><a href="/Public/MemberCenter/PersonaData?loginid=@ViewBag.LoginID" id="hyzx">会员中心</a></li>
+                @{
+                    if (!string.IsNullOrWhiteSpace(ViewBag.LoginID))
+                    {
+                        <li><a href="/Recruit/Recruit/RecruitCenter?loginid=@ViewBag.LoginID" id="hyzx">招聘中心</a></li>
+                    }
+                }
+                <li>
+                    <a href="javascript:;">文档下载</a>
+                    <ul>
+                        <li><a href="javascript:;">企业合同</a></li>
+                        <li><a href="javascript:;">简历模板</a></li>
+                    </ul>
+                </li>
+                <li><a target="_blank" href="http://www.bjyijuyuan.com/">技术团队</a></li>
+                <li><a href="javascript:;" onclick="Quit()" id="Quit">退出</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- 登录 -->
+    <div id="loginbg" style="display:none;"></div>
+    <div id="b-reg-login" style="display:none;">
+        <div class="b-login-div">
+            <div class="login-close" id="login-btn-close"></div>
+            <div class="login-head-logo"><span id="logo">用户登录</span></div>
+            <div style="" class="ks-login" id="ks-login">
+                <!-- 登录标题 -->
+                <!-- 登录标题END -->
+                <!--  登录form开始  -->
+                <form name="loginFrm" id="loginFrm" method="post" action="">
+                    <div id="errorbox" class="errorbox" style="display: none;">
+                        <i>!</i>
+                        <span></span>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <i class="login_icon_account_b"></i><input type="text" placeholder="请输入账号" class="text login-user" id="j_loginid" name="j_loginid" autocomplete="off">
+                            <div id="msg_id" class="errorfield"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <i class="login_icon_password_b"></i><input type="password" placeholder="请输入密码" onKeyDown="keyDownEvent(event)" class="text login-pw" id="j_password" name="j_password">
+                            <div id="msg" class="errorfield" style="display: none;"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="auto-login">
+                        <div class="spacer8"></div>
+                        <a class="floatleft" id="forget-password" target="_blank" href="/Public/ResetPassword/ResetPassword">忘记密码?</a>
+                        <span class="floatright"><a id="register-forhome" target="_blank" href="/Public/Identity/Identity">立即注册</a></span>
+                        <div class="clear"></div>
+                        <div class="spacer8"></div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div onClick="submitForm()" class="btn-login-b" type="button" id="submit_button">
+                                <span class="bold">登录</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="control-group">
+                        <div class="controls" style="float:left">
+                            其它方式登录 <a><img src="styles/extends/loginreg/images/qq-icon.png"  style="width:24px;height:24px"/></a>
+                                       &nbsp;&nbsp;&nbsp;
+                                       <a><img src="styles/extends/loginreg/images/weixin.png"  style="width:24px;height:24px"/></a>
+                        </div>
+                    </div>-->
+                </form>
+                <!--  登录form结束  -->
+            </div>
+        </div>
+    </div>
+    <div id="ajax-content">@RenderBody()</div>
+
+    <footer>
+        <div id="indexfoot" style="height:70px; background-color:#CCCCCC;" align="center" ;>
+            <div align="center" ; style=" font-size:15px; padding-top:15px;">
+                <ul>
+                    <li style="font-family:Arial;">
+                        Copyright &copy; 2010-<em id="nowyear">2015</em> 北京翼聚源软件科技有限公司  京ICP备14028280号-1  传真：010-62572268 <br>
+                        地址：北京市海淀区上地十街1号院西6号楼437室（辉煌国际大厦）  邮编：100084   电话：010-62626810
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<script type="text/javascript">
+
+    function nowYear() {
+        var year = new Date().getFullYear();
+        $("#nowyear").html(year);
+    }
+    nowYear();
+    function set() {
+        var loginid = $("#loginid").val();
+        var hyzx = $("#hyzx");
+        var dl = $("#btn-login-show");
+        var zhuce = $("#zhuce");
+        if (loginid && loginid != "") {
+            dl.hide();
+            zhuce.hide();
+            hyzx.show();
+        }
+        else {
+            hyzx.hide();
+        }
+    }
+    set();
+    debugger
+    //退出登录
+    $(function () {
+        $("#Quit").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Home/Quit",
+                data: "",
+                success: function (msg) {
+                    swal({
+                        title: "退出登录",
+                        text: "您确定要退出登录吗？",
+                        type: "warning",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        confirmButtonText: "确认",
+                        confirmButtonColor: "#ec6c62"
+                    }, function () {
+                        window.location.href = '/Home/Index';
+                    });
+                }
+            });
+        });
+    });
+    //打开登录窗口
+    function setImgMargin() {
+        var bw = $("body").width();
+        var imgw = 1920;
+        var curMarg = "";
+        if (bw < 1920) {
+            curMarg = (Math.round((bw - imgw) / 2) + "px");
+            $(".carousel-inner img").css("margin-left", curMarg);
+        } else {
+            $(".carousel-inner img").css("margin", "0 auto");
+        }
+
+    }
+
+    (function () {
+        setImgMargin();
+    })();
+
+    //登录窗口隐藏
+    $("#login-btn-close").click(function () {
+        $("#b-reg-login,#loginbg").hide();
+        $("#ksinput_j_loginid,#ksinput_j_password").remove();
+    })
+    //登录窗口显示
+    $("#btn-login-show").click(function () {
+        $("#b-reg-login").show();
+        $("#loginbg").show();
+        $("#ksinput_j_loginid,#ksinput_j_password").css({ "z-index": "100008", "position": "fixed", "width": "238" })
+    })
+    $("body").keyup(function (e) {
+        if (e.keyCode == "27" && $("#loginbg").css("display") != "none") {
+            $("#b-reg-login,#loginbg").hide();
+            $("#ksinput_j_loginid,#ksinput_j_password").remove();
+        }
+    })
+    window.onresize = function () {
+        $("#ksinput_j_loginid,#ksinput_j_password").remove();
+        $("#ksinput_j_loginid,#ksinput_j_password").css({ "z-index": "100008", "position": "fixed", "width": "268" });
+        setImgMargin();
+    }
+
+    //回车键绑定登录事件
+    function keyDownEvent(event) {
+        //debugger;
+        var keyCode = (event.keyCode ? event.keyCode : event.which);
+        if (keyCode == '13') {
+            submitForm();
+        }
+    }
+
+    //登录账号
+    function submitForm() {
+        var name = loginFrm.j_loginid.value;
+        var pass = loginFrm.j_password.value;
+        if (name == null || name == "") {
+            //$("#msg_id").html("帐号不能为空").show();
+            $("#errorbox").slideDown(500, function () {
+                $("#ksinput_j_password,#ksinput_j_loginid").remove();
+                $("#ksinput_j_password,#ksinput_j_loginid").css("z-index", "9999").css("width", "238")
+            });
+            $("#errorbox span").attr("id", "span-login").html("帐号不能为空");
+            $("#j_loginid").focus();
+            return false;
+        }
+        if (pass == null || pass == "") {
+            //$("#msg").html("密码不能为空").show();
+            $("#errorbox").slideDown(500, function () {
+                $("#ksinput_j_password,#ksinput_j_loginid").remove();
+                $("#ksinput_j_password,#ksinput_j_loginid").css("z-index", "9999").css("width", "238")
+            });
+            $("#errorbox span").attr("id", "span-password").html("密码不能为空");
+            $("#j_password").focus();
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/System/Login",
+            data: { CompanyUserName: name, Pwd: pass },
+            success: function (text) {
+                var msg = text.msg;
+                var loginid = text.LoginID;
+                if (msg == "该账号不存在") {
+                    $("#errorbox").slideDown(500, function () { });
+                    $("#errorbox span").attr("id", "span-password").html("该账号不存在");
+                    return false;
+                }
+                if (msg == "密码错误") {
+                    $("#errorbox").slideDown(500, function () { });
+                    $("#errorbox span").attr("id", "span-password").html("密码错误");
+                    return false;
+                }
+                if (msg == "登录成功") {
+                    $("#submit_button span.bold").html("登录中...");
+                    window.location.href = '/System/Index?loginid=' + loginid;
+                }
+            }
+        });
+
+        //loginFrm.j_password.value = pass;
+        //document.getElementById("j_loginid").value = name;
+        //document.getElementById("j_password").value = pass;
+        //setCookie("j_loginid", name);
+        //document.loginFrm.submit();
+        //$("#submit_button span.bold").html("登录中...");
+        //$("#submit_button").removeAttr("onclick");
+    }
+</script>

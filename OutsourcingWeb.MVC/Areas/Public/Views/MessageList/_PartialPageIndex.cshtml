@@ -1,0 +1,104 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using System.Text;
+@model OutsourcingWeb.MVC.Areas.Public.Models.MessageListViewModel
+<table class="table table-striped table-hover" style="width: 100%;">
+    <thead id="theadId">
+        <tr>
+            <th data-field="JobName">职位名称</th>
+            <th data-field="CompnayId">公司名称</th>
+            <th data-field="Salary">职位月薪</th>
+            <th data-field="PublishTime">发布日期</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.Requirement.Count > 0)
+            {
+                foreach (var item in Model.Requirement)
+                {
+                    <tr>
+                        <td>
+                            <a href="javascript:;" onclick="JumpPage(@item.RequirementId)">
+                                @Html.DisplayFor(modelItem => item.JobName)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompnayId)
+                        </td>
+                        @{
+                            if (item.Salary == 1)
+                            {
+                                <td>4000元以下</td>}
+                            else if (item.Salary == 2)
+                            {
+                                <td>4000元-6000元</td>}
+                            else if (item.Salary == 3)
+                            {
+                                <td>6000元-8000元</td>}
+                            else if (item.Salary == 4)
+                            {
+                                <td>8000元-10000元</td>}
+                            else if (item.Salary == 5)
+                            {
+                                <td>10000元以上</td>}
+                            else if (item.Salary == 6)
+                            {
+                                <td>面议</td>}
+                        }
+                        @{
+                            if (item.PublishTime == null)
+                            {
+                                <td>@Html.DisplayFor(modelItem => item.PublishTime)</td>
+                            }
+                            else
+                            {
+                                <td>@item.PublishTime.Value.ToString("yyyy-MM-dd")</td>
+                            }
+
+                        }
+
+                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="13" style="text-align:center; background-color:white;">未查询到任何记录</td></tr>
+                            }
+        }
+    </tbody>
+</table>
+<br />
+<div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.Requirement.PageCount 页 @Model.Requirement.TotalItemCount 条记录，当前为第 @Model.Requirement.PageNumber 页
+    </div>
+    @Html.PagedListPager((IPagedList)Model.Requirement, page => Url.Action("MessageList",
+            new { page, sortOrder = ViewBag.CurrentSort, PersonName = (ViewBag.CurrentFilter != null ? ViewBag.CurrentFilter : string.Empty) }))
+</div>
+<script src="~/Scripts/jquery.form.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.preloader').hide();
+        replacePageUrl()
+    });
+    function replacePageUrl() {
+        //debugger;
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    var splitUrl = element.href.split('?');
+                    debugger;
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('/Public/MessageList/MessageList?' + splitUrl[1]);
+                    });
+                    $(this).attr("href", "#");
+                }
+            });
+        }
+    }
+
+    function JumpPage(RequirementId) {
+        window.open("/Public/Details/Details?RequirementId=" + RequirementId + "");
+    }
+</script>

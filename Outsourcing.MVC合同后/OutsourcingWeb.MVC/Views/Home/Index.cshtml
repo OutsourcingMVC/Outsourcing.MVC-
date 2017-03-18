@@ -1,0 +1,320 @@
+﻿@model Outsourcing.EF.Model.Index.IndexShow
+@{
+    Layout = "~/Views/Shared/_indexLayout.cshtml";
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="~/Scripts/styles/extends/Index/index.css" rel="stylesheet" />
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://localhost:22731/Content/sweetalert/docs.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+
+    <style type="text/css">
+        #td_require {
+            width: 70%;
+            margin-top: 30px;
+            margin-left: 40px;
+        }
+
+            #td_require tbody tr {
+                height: 50px;
+                font-size: 12px;
+                color: black;
+            }
+
+        .ptrc-list li a:hover {
+            font-size: 14px;
+            font-weight: 800;
+            color: red;
+        }
+        #IndustryState{
+            width:1190px;
+            margin:0 auto;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+    @*<div class="content">
+        <div class="weather-box clearfix">
+            <div class="bgbox">
+                <img src="@Url.Action("GetImg")"/>
+
+            </div>*@
+            <input type="hidden" id="hideInput" value="@ViewBag.Types" />
+           
+            <!--------------------第三部 工作页面--------------------------->
+            <div class="bigbox clearfix" style="height:500px;">
+                <div class="bigbox-left" >
+                    @{
+                        if (Model != null)
+                        {
+                            if (ViewBag.Types == "")
+                            {
+                    <img src="../../../../img/bj0.jpg" style="height:100%;width:1190px;" />
+                            }
+                            if (ViewBag.Types == "1")
+                            {
+                                Html.RenderPartial("~/Views/Home/Requirement.cshtml", Model.requirementList);
+                            }
+                            if (ViewBag.Types == "2")
+                            {
+                                Html.RenderPartial("~/Views/Home/PersionalInfo.cshtml", Model.persionalInfoList);
+                            }
+
+                        }
+                    }
+                    @*<ul>
+                            <li>外包-客户需求</li>
+                            <li>客户-个人状态</li>
+                            <li>猎头-公司需求</li>
+                            <li>个人-平台-公司</li>
+                            <li></li>
+                        </ul>*@
+                </div>
+
+            </div>
+           
+           
+            
+    <div>
+
+    </div>
+            <div style="margin-top: 30px; background-color:#f5f5f5;height:170px;width:100%;">
+                <div class="ptrc-box clearfix" >
+                    <h2 >平台人才</h2>
+                   @if (ViewBag.Types =="1")
+                   {
+                    <ul class="ptrc-list clearfix">
+                        <li><a href="javascript:void(0)" style="color:white;" attr="JAVA工程师">Java</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="C#工程师">C#</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="C++高级工程师">C/C++</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="Web前端工程师">Web前端</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="PHP工程师">PHP</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="ANDROID/IOS">ANDROID/IOS</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="UI">UI</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="PYTHON">PYTHON</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="HTML">HTML</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="测试">测试</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="售前">售前</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="售后">售后</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="微信开发">微信开发</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="脚本开发">脚本开发</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="产品经理">产品经理</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="架构师">架构师</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="美工">美工</a></li>
+
+                    </ul>
+                   }
+                   else
+                   {
+                    <ul class="ptrc-list clearfix">
+                        <li><a href="javascript:void(0)" style="color:white;" attr="Java">Java</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="C#">C#</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="C/C++">C/C++</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="Web">Web前端</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="PHP">PHP</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="ANDROID/IOS">ANDROID/IOS</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="UI">UI</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="PYTHON">PYTHON</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="HTML">HTML</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="测试">测试</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="售前">售前</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="售后">售后</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="微信开发">微信开发</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="脚本开发">脚本开发</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="产品经理">产品经理</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="架构师">架构师</a></li>
+                        <li><a href="javascript:void(0)" style="color:white;" attr="美工">美工</a></li>
+
+                    </ul>
+                   }
+
+                </div>
+            </div>
+             <div class="photo" style="" ><h2>工程师的具体图片</h2></div>
+            <!第五部分---------------------------案例展示------------------------->
+            <div class="alzs" style="margin-top:30px; height:875px;">
+                <h2 >案例展示</h2>
+                <table style="margin-top:30px;margin-bottom:50px;" id="tb_img">
+                    <tr style="height:400px; width:100%">
+                        @{
+                            for (int i = 1; i < 4; i++)
+                            {
+                        <td style="width:33%;border:none;">
+                            @if (Url.Action("GetImg", "Home", new { id = i, type = "Web项目" }) != null)
+                                    {
+                                      <a href="javascript:void()"><img src="@Url.Action("GetImg", "Home", new { id = i,type="Web项目"})" attr="@i" style="width:80%;  margin-left:40px;margin-right:10px;margin-top:40px;margin-bottom:40px;" /></a>
+                                    }
+                        </td>
+                            }
+                        }
+                    </tr>
+                    <tr style="height:400px; width:100%">
+                        @{
+                            for (int i = 4; i < 7; i++)
+                            {
+                        <td style="width:33%;border:none;">
+                            @if (Url.Action("GetImg", "Home", new { id = i, type = "Web项目" }) != null)
+                                    {
+                                    <a href="javascript:void()"><img src="@Url.Action("GetImg", "Home", new { id = i, type = "Web项目" })" attr="@i" style="width:80%;  margin-left:40px;margin-right:10px;margin-top:40px;margin-bottom:40px;" /></a>
+                                    }
+                        </td>
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+           
+            <!------------------第五部 精准匹配--------------------------->
+            <div style="text-align:center; width: 100%;" class="jzpp-div">
+                <ul class="jzpp-list clearfix" >
+                    <li>交易可信</li>
+                    <li>精准匹配</li>
+                    <li>权益保障</li>
+                    <li>可靠支付</li>
+                    <li>服务专业</li>
+
+                </ul>
+            </div>
+          
+                <div style="height:200px;width:1190px;margin:0 auto">
+                    图片
+                </div>
+                <!--<li></li>
+        <li></li>
+        <li></li>
+        <li></li>-->
+               
+           
+           
+            <!------------------第七部 面试--------------------------->
+           
+                <div class="msbox clearfix">
+                    <div class="msbox-left" style="float:left;width:30%;">
+
+                        <!-- <img src="img/dhms.jpg"/>-->
+                        <h2>电话面试</h2>
+                        <a href="#"></a>
+                    </div>
+                    <div class="bigbox-right clearfix" style="text-align:center;margin:0 auto;width:40%;">
+                        <h2 style="font-size:20px;">明星服务单位</h2>
+                        <ul></ul>
+                        <h3 style="font-size:20px;">评分</h3>
+                    </div>
+                    <div class="msbox-right" style="float:right;width:30%;">
+                        <h2>视频面试</h2>
+                        <!--<img src="img/spms.jpg"/>-->
+                        <!--<a href="#"><img src="img/sxt.png"/ ></a>-->
+
+                    </div>
+                </div>
+        <!------------------第六部 交易流程--------------------------->
+    <div style="margin-top: 30px; background-color:grey;height:170px;width:100%;">
+        <div class="ptrc-box clearfix " style="margin-top:50px;clear:both;width:1190px;margin:0 auto">
+            <h2 >交易流程</h2><p style="clear:both;"></p>
+            <div class="liucheng">
+                <ul style="text-align:center;" class="ptrc-list clearfix">
+                    <li style="color:white;" >企业要求</li>
+                    <li style="color:white;" >人才甄选</li>
+                    <li style="color:white;" >人才委派</li>
+                    <li style="color:white;" >企业面试</li>
+                    <li style="color:white;" >签订合同</li>
+                    <li style="color:white;" >人员到岗</li>
+                    <li style="color:white;" >结算</li>
+                </ul>    
+            </div>
+            </div>
+            <!---------------------第八部 平台活动--------------------->
+            <div class="alzs" id="" style="height:400px;">
+                <h2 >平台活动</h2>
+                <div id="dv_img" class="dv_img">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height:100%;margin-bottom:30px;">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0"
+                                class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                        </ol>
+                        <div class="carousel-inner" style="height:100%;">
+                            @{
+                                for (int i = 1; i < 6; i++)
+                                {
+                                    if (i == 1)
+                                    {
+                                        <div class="item active">
+                                            <img src="@Url.Action("GetImg", "Home", new { id = i, type = "平台活动" })" alt="First slide" attr="@i" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="item">
+                                            <img src="@Url.Action("GetImg", "Home", new { id = i, type = "平台活动" })" alt="Second slide" attr="@i" />
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        <a style="cursor:pointer;">@*<img src="@Url.Action("GetPlatformImage", "Home", new { type="平台活动" })" /></a>*@
+
+                        </a>
+
+                    </div>
+                    <!---------------------尾部 ------------------------------->
+
+
+                </div>
+            </div>
+        
+       
+        </div>
+
+    
+</body>
+</html>
+
+<script type="text/javascript">
+    $(".ptrc-list li").click(function () {
+        debugger;
+
+        if ($("#hideInput").val() != "" && $("#hideInput").val() != null) {
+            var name = $(this).find("a").attr("attr");
+            //alert(name);
+            //alert(encodeURIComponent(name));
+            var url = "/Recruit/RecruitHome/GetDateByType?name=" + encodeURIComponent(name);
+            window.location.href = url;
+        }
+        else {
+            //alert("未登录，请先登录！");
+        }
+
+    })
+
+    $("#tb_img tr td").click(function () {
+        var id = $(this).find("img").attr("attr");
+        var url = "/Recruit/RecruitHome/GetImageFile?id=" + id + "&type=Web项目";
+        window.location.href = url;
+    })
+
+    $("#dv_img img").click(function () {
+        var id = $(this).attr("attr");
+        var url = "/Recruit/RecruitHome/GetImageFile?id=" + id + "&type=平台活动";
+        window.location.href = url;
+    })
+</script>

@@ -1,0 +1,368 @@
+﻿@model List<Outsourcing.EF.Model.Recruit.RequiredModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style type="text/css">
+    #td_require {
+        width: 70%;
+        margin-left: 40px;
+    }
+
+        #td_require thead tr {
+            height: 50px;
+            font-size: 16px;
+            font-weight: bolder;
+            font-family: 黑体,隶书;
+        }
+
+        #td_require tbody tr {
+            height: 50px;
+            font-size: 14px;
+            color: black;
+        }
+
+            #td_require tbody tr:hover {
+                height: 50px;
+                font-size: 16px;
+                color: red;
+                cursor: pointer;
+            }
+
+            #td_require tbody tr td {
+                border: none;
+                text-align: center;
+            }
+
+        #td_require thead td {
+            border: none;
+            text-align: center;
+        }
+
+    #personalinfo {
+        width: 66.7%;
+        float: right;
+    }
+
+    #personinfor {
+        width: 1190px;
+        margin: 0 auto;
+        height: 500px;
+    }
+
+    #personinforth tr td {
+        font-size: 20px;
+    }
+
+
+
+
+
+    #Service {
+        width: 100%;
+        float: left;
+    }
+
+    #Star {
+        width: 100%;
+        float: right;
+    }
+
+    #personalinfo {
+        width: 100%;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    table {
+        position: relative;
+        margin-top: 20px;
+    }
+
+    th, td {
+        height: 40px;
+        border: 1px solid #ffffff;
+        text-align: center;
+        box-sizing: border-box;
+        transition: all 1s;
+    }
+
+    th {
+        background: #ccc;
+        position: relative;
+        z-index: 999;
+        margin-top: 20px;
+        width: 120px;
+    }
+
+    tbody tr {
+    }
+
+    .Address {
+        margin-right: 300px;
+        margin-top: 20px;
+    }
+
+    .Need a{
+        color: red;
+        text-decoration: solid;
+        float:left;
+      
+    }
+     
+        .Talent{
+                   float:left;
+                   width:32%
+        }
+        .Join{
+            float:right;
+        }
+</style>
+@*<div align="center" id="demo" style="overflow:hidden;height:500px;border-width:1px 1px 1px 1px;border-style:dotted dotted dotted dotted;">
+    <div id="td_content">*@
+<div id="personinfor" style="border:1px solid rgba(245, 237, 237, 0.66);box-shadow:rgba(0,0,0,0,4) 10px 10px inset ">
+    <ul style="list-style:none">
+        <li class="Talent">
+            <div id="Service">
+                <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:20px;">
+                    <h3 class="Need"><a href="">最新需求</a></h3> <a class="Join" href="/Public/Identity/Identity">我要报名</a>
+                </div>
+
+                <select class="Address">
+                    <option>北京</option>
+                    <option>上海</option>
+                </select>
+                <table id="td_require" style="overflow:hidden; height:350px;">
+                    <thead>
+                        <tr>
+                            <th>项目名</th>
+                            <th>项目金额</th>
+                            <th>发布时间</th>
+                            <th>发布公司</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody" style="z-index:1; top:50px; position:absolute; ">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="width:88px;">@item.ProjectName</td>
+                                <td style="width:88px;">@item.Salary 万元</td>
+                                <td style="width:89px;">@item.UpdateTime</td>
+                                <td style="width:89px;">@item.CompnayId</td>
+                            </tr>
+                        }
+                    </tbody>
+
+
+                </table>
+
+            </div>
+        </li>
+        <li class="Talent" >
+            <div id="Star">
+                <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:20px;">
+                    <h3 class="Need"><a href="">热门需求</a></h3> <a href="/Public/Identity/Identity" class="Join">发布需求</a>
+                </div>
+                <select class="Address">
+                    <option>北京</option>
+                    <option>上海</option>
+                </select>
+                <table id="td_require" style="overflow:hidden; height:350px;">
+                    <thead>
+                        <tr>
+                            <th>项目名</th>
+                            <th>项目金额</th>
+                            <th>关注人数</th>
+                            <th>发布公司</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="tbody" style="z-index:1; top:50px; position:absolute; ">
+                        @foreach (var item in Model)
+            {
+                            <tr>
+                                <td style="width:89px;">@item.ProjectName</td>
+                                <td style="width:89px;">@item.Salary 万元</td>
+                                <td style="width:88px;">@item.RequirementId k</td>
+                                <td style="width:88px;">@item.CompnayId</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </li>
+        <li class="Talent">
+            <div id="personalinfo">
+                <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:20px;">
+                    <h3 class="Need"><a href="">接包榜单</a></h3><a href="/Public/Identity/Identity" class="Join">我要参加</a>
+                </div>
+                <table id="td_require" style="margin-top:58px;margin-left:60px;  overflow:hidden; height:350px;">
+                    <thead>
+                        <tr>
+                            <th>接包企业</th>
+                            <th>累计金额</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody" style="z-index:1; top:50px; position:absolute; ">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="width:132px;">@item.CompnayId</td>
+                                <td style="width:133px;">@item.Salary 万元</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+        </li>
+    </ul>
+    
+
+
+
+    
+    
+</div>
+
+
+
+@*</div>*@
+@*<div id="copyContent"></div>
+
+    </div>*@
+
+
+<script type="text/javascript">
+    //var demo = document.getElementById("demo");
+    //var demo1 = document.getElementById("td_content");
+    //var demo2 = document.getElementById("copyContent");
+    //var speed = 20;    //数值越大滚动速度越慢
+    //demo2.innerHTML = demo1.innerHTML;
+
+    ////demo.scrollTop = demo.scrollHeight + 'px';
+
+    //function Marquee() {
+    //    if (demo2.offsetTop - demo.scrollTop <= 0)    //当滚动至demo1与demo2交界时
+    //        demo.scrollTop -= demo1.offsetHeight    //demo跳到最顶端
+    //    else {
+    //        demo.scrollTop++
+    //    }
+    //}
+
+    //var MyMar = setInterval(Marquee, speed);
+    //demo.onmouseover = function () { clearInterval(MyMar) }
+    //demo.onmouseout = function () { MyMar = setInterval(Marquee, speed) }
+
+    //$("#marqueefirst").onmouseover=new function("stopscroll=true");
+
+</script>
+
+<script type="text/javascript">
+    debugger;
+    @*$("#td_require tr").not("#td_require tr:first").click(function () {
+        var id = $(this).attr("attr");
+        window.location.href = "/Recruit/RecruitHome/PersonalInfo?id=" + id + "&loginid=@ViewBag.LoginID";
+    })*@
+
+    $("#td_require tr").click('#td_require tr:first', function () {
+        var id = $(this).attr("attr");
+        window.location.href = "/Public/Identity/Identity";
+    })
+    // body对象
+    var tBody = document.getElementsByClassName('tbody')[0];    //
+    // body 下的 tr
+    var aTr = tBody.getElementsByTagName('tr');
+
+    var bH = tBody.offsetHeight;    // body的高
+    var rH = aTr[0].offsetHeight;   // tr的高
+
+    // 克隆 body
+    var newBody = tBody.cloneNode(true);    // 创建 new body
+    newBody.style.top = (bH + rH) + 'px';  // new body 的top
+    tBody.parentNode.appendChild(newBody);  // 插入 new body
+
+
+    var iBody = document.getElementsByClassName('tbody');
+
+    for (var i = 0; i < iBody.length; i++) {
+        iBody[i].onmouseover = function () {
+            clearInterval(times1);
+            clearInterval(times2);
+            clearInterval(times3);
+        };
+        iBody[i].onmouseout = function () {
+            autoUp(time1, time2);
+            upRoll();
+        };
+
+    }
+
+    var times1;
+    var times2;
+    var times3;
+    var time1 = 2000,
+        time2 = 800;
+
+
+    upRoll();
+    function upRoll() {
+        clearInterval(times1);
+
+        times1 = setInterval(function () {
+            for (var i = 0; i < iBody.length; i++) {
+                iBody[i].style.top = iBody[i].offsetTop - 1 + "px";
+
+                if (iBody[i].offsetTop <= -rH * (aTr.length - 1)) {
+                    iBody[i].style.top = (bH + rH) + 'px';
+                }
+            }
+
+        }, 30);
+
+    }
+
+
+    autoUp(time1, time2);
+    function autoUp(t1, t2) {
+        times2 = setInterval(function () {
+            clearInterval(times1);
+            console.log('停止状态');
+
+            times3 = setTimeout(function () {
+                upRoll();
+                console.log('开始状态');
+            }, t2);
+
+        }, t1);
+
+    }
+
+
+    //滚动数据加上停顿的代码
+    //var Omar = document.getElementById("Mar");
+
+    //var timesIn = null;
+    //var timesOut = null;
+
+    //var time1 = 7500;
+    //var time2 = 6500;
+    //function timerMar(obj, t1, t2) {
+    //    timesIn = setInterval(function () {
+    //        obj.stop();
+    //        timesOut = setTimeout(function () {
+    //            obj.start();
+    //        }, t2);
+    //    }, t1);
+    //}
+    //timerMar(Omar, time1, time2);
+
+
+</script>
+

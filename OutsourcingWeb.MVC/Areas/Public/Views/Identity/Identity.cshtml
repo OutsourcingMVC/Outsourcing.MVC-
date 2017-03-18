@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "欢迎注册";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--中部样式-->
+<link rel="stylesheet" type="text/css" href="~/Scripts/styles/common.css" />
+<link href="~/Scripts/styles/extends/register/css/zhucebox.css" rel="stylesheet" type="text/css">
+@*<link rel="stylesheet" type="text/css" href="~/Scripts/styles/fk.api.css">*@
+<script type="text/javascript" src="~/Scripts/styles/js/biz.jquery.js"></script>
+<div class="spacer8"></div>
+<div class="spacer8"></div>
+<div id="hpheadse"></div>
+<div class="w1190 ">
+    <div class="zctop">
+    </div>
+    <div class="mar300">
+        <h2 class="font18 sftit">请选择身份：</h2>
+        <div class="xzbox" onClick="identitySwitch('outsource');">
+            <div><span id="outsource" class="radio-select"></span><span class="spanvertical">人才方</span></div>
+            <p>我是人才公司，我们的员工有经验、有能力，我们希望在平台上<b>寻找项目合作者</b></p>
+        </div>
+        <div class="xzbox" onClick="identitySwitch('customer');">
+            <div><span id="customer" class="radio-moren"></span><span class="spanvertical">项目方</span></div>
+            <p>我有项目，要找有经验、有能力的人干活，要在平台上<b>寻找人才</b></p>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a class="kbtn kbtn_green organbg" href="javascript:;" style="display: inline-block; margin-left: 110px;" onClick="submit()">立即注册</a>
+    </div>
+    <div class="zctop">
+    </div>
+</div>
+@*<form id="regForm" name="regForm" method="post" action="/Public/Identity/Register">
+        <input type="hidden" id="order_permisflag" name="order_permisflag" />
+    </form>*@
+<script type="text/javascript">
+    var value;
+    function identitySwitch(divId, number) {
+        var obj = $("#" + divId);
+        if (obj.attr("class") == "radio-moren") {
+            $("span").filter(".radio-select").removeClass("radio-select").addClass("radio-moren");
+            obj.removeClass("radio-moren").addClass("radio-select");
+        }
+        if (divId == "outsource") {
+            number = 1;
+        }
+        if (divId == "customer") {
+            number = 2;
+        }
+        this.value = number;
+        return this.value;
+    }
+
+    function submit() {
+        var num = this.value;
+        if (num == null)
+        {
+            this.value = 1;
+        }
+        window.location.href = "/Public/Identity/Register?act="+value+"";
+    }
+</script>

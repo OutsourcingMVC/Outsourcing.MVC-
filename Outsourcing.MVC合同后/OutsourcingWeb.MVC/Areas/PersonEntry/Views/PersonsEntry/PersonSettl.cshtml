@@ -1,0 +1,375 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model OutsourcingWeb.MVC.Areas.PersonEntry.Models.PersonSettlViewModel
+@{
+    ViewBag.Title = "会员中心";
+    Layout = null;
+}
+<!--时间控件-->
+<script src="~/Scripts/js/jquery-1.8.0.js"></script>
+<link href="~/Scripts/devoops/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<style type="text/css">
+    #shouye {
+        font-family: "Microsoft YaHei",微软雅黑;
+    }
+
+    #theadId th {
+        text-align: center;
+        vertical-align: middle;
+        height: 15px;
+        font-weight: bold;
+    }
+
+
+    tbody {
+        text-align: center;
+    }
+
+    #tfootId {
+        text-align: center;
+    }
+
+    #outsidePage {
+        width: 900px;
+    }
+
+    #topDiv {
+        height: 40px;
+    }
+
+    #leftPage {
+        float: left;
+        margin-top: -10px;
+    }
+
+    #rightPage {
+        float: right;
+        margin-top: -10px;
+    }
+
+    #exampleModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+    }
+
+    #exampleModal tr {
+        height: 50px;
+    }
+
+    #exampleModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #exampleModal input {
+        height: 35px;
+    }
+
+    #EditModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+        margin-bottom: -20px;
+    }
+
+    #EditModal tr {
+        height: 50px;
+    }
+
+    #EditModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #EditModal input {
+        height: 35px;
+    }
+
+    .datetimepicker {
+        width: 200px;
+    }
+</style>
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<input type="hidden" name="types" id="types" value="@ViewBag.Type">
+<input type="hidden" name="PersonID" id="PersonID" value="@ViewBag.PersonID">
+<input type="hidden" name="CustomerID" id="CustomerID" value="@ViewBag.CustomerID">
+<input type="hidden" name="OutCompanyID" id="OutCompanyID" value="@ViewBag.OutCompanyID">
+<input type="hidden" name="PersonSettlementID" id="PersonSettlementID" value="@ViewBag.PersonSettlementID">
+<div id="rightId">
+    <div class="panel-body" id="topDiv">
+        <div class="list-op" id="leftPage">
+            <button type="button" class="btn btn-default btn-sm btn-info" onclick="LoadAjaxContent('/PersonEntry/PersonsEntry/PersonsEntryList?loginid=@ViewBag.LoginID&&type=@ViewBag.Type&&page=@Model.LeaveDetail.PageNumber')">
+                    <span class="glyphicon" aria-hidden="true"></span>返回列表
+                </button>
+            @if (ViewBag.Type == 2)
+            {
+            <button type="button" class="btn btn-default btn-sm btn-info" data-toggle="modal" data-target="#myModal">新增</button>
+            }
+        </div>
+        <div class="list-op" id="rightPage">
+        </div>
+    </div>
+    <div id="datalist">
+       <table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width:15%; text-align:center;">开始日期</th>
+                            <th style="width:15%;text-align:center;">结束日期</th>
+                            <th style="width:20%;text-align:center;">时长(单位:时)</th>
+                            <th style="width:10%;text-align:center;">类型</th>
+                            <th style="text-align:center; width:30%">事由</th>
+                            @*<th>备注</th>*@
+                            @if (ViewBag.Type == 2)
+                            {
+                            <th style="width:10%;text-align:center;">操作</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.LeaveDetail != null && Model.LeaveDetail.Count > 0)
+                        {
+                            foreach (var item in Model.LeaveDetail)
+                            {
+                            <tr>
+                                <td>@item.LeaveStartDate</td>
+                                <td>@item.LeaveEndDate</td>
+                                <td>
+                                    @{
+                                        TimeSpan ts = item.LeaveEndDate.Subtract(item.LeaveStartDate);
+                                        }
+                                    @ts.TotalHours
+                                </td>
+                                
+                                    @{
+                                        switch (item.LeaveType)
+                                        {
+                                            case 1://事假
+                                                <td>事假</td>
+                                                break;
+                                            case 2: //加班补助
+                                                <td>加班(补助)</td>
+                                                break;
+                                            case 3://事假调休
+                                                <td>事假(调休)</td>
+                                                break;
+                                            case 4://加班(调休)
+                                                <td>加班(调休)</td>                                               
+                                                break;
+                                        }
+                                    }                                               
+                                <td>@item.LeaveReason</td>
+                                @if (ViewBag.Type == 2)
+                                {
+                                <td>
+                                    <a class="btn-sm btn-info" href="#" onclick="DelLeaveDetail('@HttpUtility.UrlEncode(item.ID)')">
+                                        删除
+                                    </a>                                    
+                                </td>
+                                }
+                            </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6">无记录</td>
+                            </tr>
+                            }
+                </tbody>
+            </table>
+    </div>
+</div>
+<div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.LeaveDetail.PageCount 页 @Model.LeaveDetail.TotalItemCount 条记录，当前为第 @Model.LeaveDetail.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.LeaveDetail, page => Url.Action("Index",
+    new { page, loginid = ViewBag.LoginID }))
+</div>
+<!-- 按钮触发模态框 -->
+<!-- 模态框（Modal）新增考勤记录 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:630px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="Modalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">新增考勤记录</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_host">开始时间</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="dateStartSelect" type="text" placeholder="请输入开始时间" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="ds_name">结束时间</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="dateEndSelect" type="text" placeholder="请选择结束时间" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @*<label class="col-sm-2 control-label" for="ds_username">时长</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="dateHours" type="text" placeholder="时间值" />
+                                </div>*@
+                            <label class="col-sm-2 control-label" for="ds_username">金额基数</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="Moneys" type="text" placeholder="金额基数" value="@Model.Money" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="ds_password">类型</label>
+                            <div class="col-sm-4">
+                                <select id="leaveType" class="form-control">
+                                    <option value="1">事假</option>
+                                    <option value="2">加班(补助)</option>
+                                    <option value="3">事假(调休)</option>
+                                    <option value="4">加班(调休)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_username">事由</label>
+                            <div class="col-sm-10">
+                                <textarea id="LeaveReason" class="form-control" rows="8"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="dateSelectOK" type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+       replacePageUrl() ;
+
+        $("form:input").blur(function(){
+                                                var $parent=$(this).parent();
+            $parent.find(".formtips").remove();//删除以前的提醒元素
+                                                debugger;
+                                                //验证开始时间
+                                                if($(this).is("#dateStartSelect"))
+            {
+                                                    if(this.value=="")
+                                                    {
+                    $parent.append('<span class="formtips onError">不能为空</span>');
+                                                    }else
+                                                    {
+                    $parent.append('<span class="formtips onSuccess"></span>');
+                                                    }
+                                                }
+
+                                                //验证结束时间
+                                                if($(this).is("#dateEndSelect"))
+            {
+                                                    if(this.value=="")
+                                                    {
+                    $parent.append('<span class="formtips onError">不能为空</span>');
+                                                    }else
+                                                    {
+                    $parent.append('<span class="formtips onSuccess"></span>');
+                                                    }
+                                                }
+                                            })
+
+    });
+
+    //添加个人考勤明细
+    $("#dateSelectOK").click(function () {
+        $("#Modalclose").click();
+        debugger;
+        var datas={
+            loginid:@ViewBag.LoginID,
+            stime:$("#dateStartSelect").val(),
+            etime:$("#dateEndSelect").val(),
+            Moneys:$("#Moneys").val(),
+            leaveType:$("#leaveType").val(),
+            LeaveReason:$("#LeaveReason").val(),
+            PersonID:$("#PersonID").val(),
+            CustomerID:$("#CustomerID").val(),
+            OutCompanyID:$("#OutCompanyID").val(),
+            ID:$("#PersonSettlementID").val()
+        };
+        $.ajax({
+            url:"/PersonEntry/PersonsEntry/AddPersonLeaveDetail",
+            type: "Post",
+            data:datas,
+            dataType: "text",
+            success: function (data)
+            {
+                //debugger;
+                if (data != "")
+                {
+                    LoadAjaxContent('/PersonEntry/PersonsEntry/PersonSettl?' + data);
+                }
+            }
+        });
+        $("#dateSelect").val("");
+        $("#ID").val("");
+    })
+
+    $('#dateStartSelect').datetimepicker({
+        language: 'zh-CN',  //日期
+        //format: 'yyyy-mm-dd',
+        //minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    })
+
+    $('#dateEndSelect').datetimepicker({
+        language: 'zh-CN',  //日期
+        //format: 'yyyy-mm-dd',
+        //minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    })
+
+    function DelLeaveDetail(id)
+    {
+        debugger;
+        var datas={
+            loginid:@ViewBag.LoginID,
+            page:@Model.LeaveDetail.PageNumber,
+            PersonID:$("#PersonID").val(),
+            CustomerID:$("#CustomerID").val(),
+            OutCompanyID:$("#OutCompanyID").val(),
+            ID:id
+            };
+
+        //弹出对话框
+        swal({
+            title: "删除数据",
+            text: "您确定要删除这条数据？",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "是的，我要删除",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
+          $.ajax({
+              url: "/PersonEntry/PersonsEntry/DelPersonLeaveDetail",
+              type:"POST",
+              dataType: "text",
+              data:datas
+          }).done(function(data) {
+              debugger;
+              if (data != "")
+              {
+                  swal("操作成功!", "已成功删除数据！", "success");
+                  LoadAjaxContent('/PersonEntry/PersonsEntry/PersonSettl' + data);
+              }
+
+            }).error(function(data) {
+                swal("OMG", "删除操作失败了!", "error");
+            });
+          });
+    }
+</script>
+

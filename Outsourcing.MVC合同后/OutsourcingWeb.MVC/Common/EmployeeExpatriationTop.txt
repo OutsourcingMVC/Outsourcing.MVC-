@@ -1,0 +1,44 @@
+<p>
+    <span style="font-family: 宋体;"></span>
+</p>
+<p align="center" style="margin: 0cm 0cm 0pt; text-align: center; line-height: 150%;">
+    <strong style="mso-bidi-font-weight: normal;"><span style="line-height: 150%; font-family: 宋体; font-size: 16pt;"></span></strong>
+</p>
+<p style="text-align: center; line-height: 150%;">
+    <strong><span style="line-height: 150%; font-family: 宋体; font-size: 21px;">人 员 到 岗 单</span></strong>
+</p>
+<p style="line-height: 150%;">
+    <strong><span style="line-height: 150%; font-family: 宋体; font-size: 16px;"><span>&nbsp;&nbsp;&nbsp; </span></span></strong><span style="line-height: 150%; font-family: 宋体; font-size: 16px;">双方协商同意：{乙方}（乙方）向{甲方}（甲方）提供以下人员，为甲方提供软件开发服务：<span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>
+</p>
+<p style="line-height: 150%;">
+    <span style="line-height: 150%; font-family: 宋体; font-size: 16px;"><span>&nbsp;&nbsp;&nbsp; </span></span><span style="line-height: 150%; font-family: 宋体; font-size: 16px;">开发开始时间：&nbsp; 年&nbsp;&nbsp; 月<span><span>&nbsp; </span></span>日，开发结束时间：<span>&nbsp;&nbsp; </span>年<span><span>&nbsp;&nbsp; </span></span>月<span><span>&nbsp;&nbsp;&nbsp; </span></span>日。</span>
+</p>
+<table width="604" style="border: currentColor; border-image: none; border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr style="height: 26px;">
+            <td width="64" style="background: rgb(243, 243, 243); border-width: 2px 1px 1px 2px; border-style: double solid solid double; border-color: windowtext; padding: 0px 7px; width: 64px; height: 26px;">
+                <p style="line-height: 150%; text-indent: 21px;">
+                    <strong><span style="line-height: 150%;font-family:宋体">姓名</span></strong>
+                </p>
+            </td>
+            <td width="102" style="background: rgb(243, 243, 243); border-width: 2px 1px 1px 0px; border-style: double solid solid none; border-color: windowtext windowtext windowtext rgb(0, 0, 0); padding: 0px 7px; width: 102px; height: 26px;">
+                <p style="text-align: center; line-height: 150%;">
+                    <strong><span style="line-height: 150%;font-family:宋体">岗位</span></strong>
+                </p>
+            </td>
+            <td width="134" style="background: rgb(243, 243, 243); border-width: 2px 1px 1px 0px; border-style: double solid solid none; border-color: windowtext windowtext windowtext rgb(0, 0, 0); padding: 0px 7px; width: 134px; height: 26px;">
+                <p style="text-align: center; line-height: 150%;">
+                    <strong><span style="line-height: 150%;font-family:宋体">级别</span></strong>
+                </p>
+            </td>
+            <td width="139" style="background: rgb(243, 243, 243); border-width: 2px 1px 1px 0px; border-style: double solid solid none; border-color: windowtext windowtext windowtext rgb(0, 0, 0); padding: 0px 7px; width: 139px; height: 26px;">
+                <p style="text-align: center; line-height: 150%;">
+                    <strong><span style="line-height: 150%;font-family:宋体">到岗时间</span></strong>
+                </p>
+            </td>
+            <td width="165" style="background: rgb(243, 243, 243); border-width: 2px 2px 1px 0px; border-style: double double solid none; border-color: windowtext windowtext windowtext rgb(0, 0, 0); padding: 0px 7px; width: 165px; height: 26px;">
+                <p style="line-height: 150%;">
+                    <strong><span style="line-height: 150%;font-family:宋体">费用结算单价（单位：元）</span></strong>
+                </p>
+            </td>
+        </tr>

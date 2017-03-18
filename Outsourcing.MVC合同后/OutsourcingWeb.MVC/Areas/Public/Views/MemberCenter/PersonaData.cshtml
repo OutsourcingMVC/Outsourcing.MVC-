@@ -1,0 +1,196 @@
+﻿@model OutsourcingWeb.MVC.Areas.Public.Models.MemberCenterViewModel
+@{
+    ViewBag.Title = "会员中心";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+<style>
+    #begin, #end {
+        width: 90px;
+    }
+
+    #spanid {
+        padding-left: 15px;
+        text-align: center;
+        vertical-align: middle;
+        padding-top: 20px;
+    }
+
+    .form-control {
+        width: 250px;
+    }
+
+    td {
+        font-size: 14px;
+        text-align: right;
+        padding-top: 5px;
+    }
+
+    .datetimepicker {
+        width: 250px;
+        height: 300px;
+    }
+
+    .datetimepicker-days {
+        padding-left: 20px;
+    }
+</style>
+<!--按钮样式-->
+<link href="~/Scripts/styles/common.css" rel="stylesheet" />
+<!--消息提示框-->
+<script type="text/javascript" src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+<link rel="stylesheet" href="~/Scripts/sweetalert/sweetalert.css" />
+<!--时间控件-->
+<script src="~/Scripts/js/jquery-1.8.0.js"></script>
+<link href="~/Scripts/devoops/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<input type="hidden" name="types" id="types" value="@ViewBag.Type">
+<div style="margin:30px 0 0 150px;">
+    <span style="font-size:40px; margin-left:-60px;">标<font color="#F1423C">*</font>为必填项</span>
+    <form role="form" id="defaultForm">
+        <div class="form-group">
+            <table>
+                <tr>
+                    <td style="padding-right:5px;"><font color="#F1423C">*</font>公司名称</td>
+                    <td><input name="CompnayName" class="form-control" value="" placeholder="请输入公司名称"> </td>
+                    <td style="padding-right:5px;">英文名称</td>
+                    <td><input name="EnglishName" class="form-control" placeholder="请输入公司英文名称"> </td>
+                </tr>
+                <tr>
+                    <td style="padding-right:5px;"><font color="#F1423C">*</font>负责人姓名</td>
+                    <td style="padding-right:50px;"><input name="UnitResponsible" class="form-control" placeholder="请输入负责人姓名"> </td>
+                    <td style="padding-right:5px;"><font color="#F1423C">*</font>负责人电话</td>
+                    <td><input name="ResponsibleTelephone" class="form-control" placeholder="请输入负责人联系电话"> </td>
+                </tr>
+                <tr>
+                    <td style="padding-right:5px;">公司地址</td>
+                    <td><input name="Address" class="form-control" placeholder="请输入公司地址"></td>
+                    <td style="padding-right:5px;">成立日期</td>
+                    <td><input id="EstablishDate" class="form-control" placeholder="请选择公司成立日期"></td>
+                </tr>
+                <tr>
+                    <td style="padding-right:5px;">法人姓名</td>
+                    <td><input name="LegalRepresentative" class="form-control" placeholder="请输入法人姓名"> </td>
+                    <td style="padding-right:5px;"><font color="#F1423C">*</font>联系电话</td>
+                    <td><input name="LegalTelephone" class="form-control" placeholder="请输入法人联系电话"> </td>
+                </tr>
+                <tr>
+                    <td style="padding-right:5px;">上传营业证书</td>
+                    <td></td>
+                    <td style="padding-right:5px;">上传合同</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="padding-right:5px;">注册号</td>
+                    <td><input name="EnterpriseNum2" class="form-control" placeholder="请输入公司注册号"> </td>
+                    <td style="padding-right:5px;">公司性质</td>
+                    <td>
+                        <select class="form-control" id="nature" name="nature">
+                            <option value="1">有限责任公司</option>
+                            <option value="2">股份有限公司</option>
+                            <option value="3">国有独资公司</option>
+                            <option value="4">个人独资公司</option>
+                            <option value="5">外商投资公司</option>
+                            <option value="6">其他性质</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right:5px;">经营范围</td>
+                    <td><input name="BusinessScope" class="form-control" placeholder="请输入公司经营范围"> </td>
+                    <td style="padding-right:5px;">登记机关</td>
+                    <td><input name="RegistrationAuthority" class="form-control" placeholder="请输入登记机关"> </td>
+                </tr>
+            </table>           
+        </div>
+    </form>
+    <div class="control-group">
+        <button onclick="submit();" id="buttonId" type="button" class="kbtn kbtn_orange kbtn30 font14"
+                style="margin: 10px auto 15px 220px; height:50px; width:300px; font-size:30px;">
+            保&nbsp;&nbsp;&nbsp;&nbsp;存
+        </button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        //debugger;
+        $.ajax({
+            type: "POST",
+            url: "/Public/MemberCenter/GetData",
+            dataType: "json",
+            success: function (text) {
+                //debugger;
+                //if (text.outConmpany != null) {
+                var dataObj=$.parseJSON(text);
+                if (!$.isEmptyObject(dataObj)) {
+                    $('[name="CompnayName"]').val(dataObj[0].CompnayName),
+                    $('[name="EnglishName"]').val(dataObj[0].EnglishName),
+                    $('[name="LegalRepresentative"]').val(dataObj[0].LegalRepresentative),
+                    $('[name="LegalTelephone"]').val(dataObj[0].LegalTelephone),
+                    $('[name="UnitResponsible"]').val(dataObj[0].UnitResponsible),
+                    $('[name="ResponsibleTelephone"]').val(dataObj[0].ResponsibleTelephone),
+                    $('[name="Address"]').val(dataObj[0].Address),
+                    $('[name="BusinessScope"]').val(dataObj[0].BusinessScope),
+                    $('[name="EnterpriseNum2"]').val(dataObj[0].EnterpriseNum2),
+                    $('[name="RegistrationAuthority"]').val(dataObj[0].RegistrationAuthority),
+                    $('[name="nature"]').val(dataObj[0].Nature)
+                }
+                //}
+                //else {
+                //    $('[name="CompnayName"]').val(text.custConmpany[0].CompnayName),
+                //    $('[name="EnglishName"]').val(text.custConmpany[0].EnglishName),
+                //    $('[name="LegalRepresentative"]').val(text.custConmpany[0].LegalRepresentative),
+                //    $('[name="LegalTelephone"]').val(text.custConmpany[0].LegalTelephone),
+                //    $('[name="UnitResponsible"]').val(text.custConmpany[0].UnitResponsible),
+                //    $('[name="ResponsibleTelephone"]').val(text.custConmpany[0].ResponsibleTelephone),
+                //    $('[name="Address"]').val(text.custConmpany[0].Address),
+                //    $('[name="BusinessScope"]').val(text.custConmpany[0].BusinessScope),
+                //    $('[name="EnterpriseNum2"]').val(text.custConmpany[0].EnterpriseNum2),
+                //    $('[name="RegistrationAuthority"]').val(text.custConmpany[0].RegistrationAuthority),
+                //    $('[name="nature"]').val(text.custConmpany[0].Nature)
+                //}
+            }
+        });
+    })
+
+
+    //保存
+    function submit() {
+        var CompnayName = $('[name="CompnayName"]').val();
+        var EnglishName = $('[name="EnglishName"]').val();
+        var LegalRepresentative = $('[name="LegalRepresentative"]').val();
+        var LegalTelephone = $('[name="LegalTelephone"]').val();
+        var UnitResponsible = $('[name="UnitResponsible"]').val();
+        var ResponsibleTelephone = $('[name="ResponsibleTelephone"]').val();
+        var Address = $('[name="Address"]').val();
+        var EnterpriseNum2 = $('[name="EnterpriseNum2"]').val();
+        var RegistrationAuthority = $('[name="RegistrationAuthority"]').val();
+        var BusinessScope = $('[name="BusinessScope"]').val();
+        var Nature = $("#nature").val();
+        $.ajax({
+            type: "POST",
+            url: "/Public/MemberCenter/SaveData",
+            data: { CompnayName: CompnayName, EnglishName: EnglishName, LegalRepresentative: LegalRepresentative, LegalTelephone: LegalTelephone, UnitResponsible: UnitResponsible, ResponsibleTelephone: ResponsibleTelephone, Address: Address, EnterpriseNum2: EnterpriseNum2, RegistrationAuthority: RegistrationAuthority, BusinessScope: BusinessScope, Nature: Nature },
+            success: function (msg) {
+                swal("资料保存成功!", "", "success");
+            }
+        });
+    }
+
+    $(function () {
+        //$("#txtBeginDate").calendar();
+        //$("#txtEndDate").calendar();
+        //$("#begin").calendar();
+        //$("#end").calendar();
+    });
+
+    $('#EstablishDate').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        //todayBtn: 1,
+        autoclose: 1
+    });
+</script>

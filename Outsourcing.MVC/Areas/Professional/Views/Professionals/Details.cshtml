@@ -1,0 +1,168 @@
+﻿@model Outsourcing.EF.PersonalInfo
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a onclick="LoadAjaxContent('Professional/Professionals/Index?page=@ViewBag.pageIndex&personname=@HttpUtility.UrlEncodeUnicode(ViewBag.SearchString)')" href="#">返回列表页</a></li>
+            @*<li><a href="#">Tables</a></li>
+                <li><a href="#">Data Tables</a></li>*@
+        </ol>
+        @*<div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>*@
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>查看人才信息</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <form id="defaultForm" method="post"  class="form-horizontal">
+                    <fieldset>
+                        @{
+                            if (Model != null)
+                            {
+                                <div class="col-sm-4 control-label" style="background-color:#ffffff;">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" style="color:#ff0000">姓名</label>
+                                        <div class="col-sm-7">
+                                            @Html.Hidden("personalinfoId", @Model.PersonalInfoId)
+                                            <label class="control-label">@Model.PersonName</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" style="color:#ff0000">性别</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.Sex</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">生日</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.Birthday</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">联系方式</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.Telephone</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">电子邮件</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">身份证号</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.CaredID</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">学历</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.Education</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">毕业院校</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.GraduationSchool</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">毕业时间</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.GraduationDate</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">技术服务</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.Publications</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">毕业证书</label>
+                                        <div class="col-sm-7">
+                                            @*<div class="bjceng">
+                <img src="@Model.StaffMember.ContactFile"/>
+            </div>*@
+                                            <a id="@Model.Attachment" href="/res/web/viewer.html?file=@Model.Attachment" class="contactfile">浏览</a>
+                                            @*<a class="de" href="@Model.StaffMember.ContactFile">合同浏览</a>*@
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">简历</label>
+                                        <div class="col-sm-7">
+                                            @*<div class="bjceng">
+                    <img src="@Model.StaffMember.ContactFile"/>
+                </div>*@
+                                            <a id="@Model.Resume" href="/res/web/viewer.html?file=@Model.Resume" class="contactfile">浏览</a>
+                                            @*<a class="de" href="@Model.StaffMember.ContactFile">合同浏览</a>*@
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">人才状态</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.PeopleStatue</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">推送状态</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.PushStatue</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">备注</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.Remark</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Add Drag-n-Drop feature
+        WinMove();
+    });
+</script>
+

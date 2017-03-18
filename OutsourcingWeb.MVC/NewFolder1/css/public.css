@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*reset*/
+body,h1,h2,h3,h4,h5,p,dl,dd,ul,ol,form,input,textarea,th,td,select { margin:0; padding:0; }
+em { font-style:normal; }
+li { list-style:none; }
+a { text-decoration:none; }
+img { border:none; vertical-align:top; }
+table { border-collapse:collapse; }
+input,textarea { outline:none; }
+textarea { resize:none; overflow:auto; }
+body { font-size:12px; font-family:"微软雅黑"; background: #f3f5f3 url(../image/bg.png) no-repeat;}
+/* end reset*/
+
+
+/* public*/
+.clear{ zoom:1;}
+.clear:after{ content:''; display:block; clear:both;}
+.fl{ float:left;}
+.fr{ float:right;}
+
+/*页眉*/
+.header{ height:31px; background:#1e5ea5;}
+.welcome{ height:31px; width:1100px; margin:0 auto;}
+.welcome p{ height:31px; line-height:31px; font-size:12px; color:#FFF;}
+
+/*logo部分*/
+.logo{ width:1100px; margin:0 auto; margin-top:32px; margin-bottom:45px;}
+.logo-inner{}
+.annimate{ margin-top:34px;}
+
+/*导航下滑菜单*/
+.nav{ width:1100px; height:45px; margin:0 auto; position:relative;}
+.nav a{ width:120px; height:45px; display:inline-block; padding-top:12px; font-size:16px; color:#FFF; text-align:center;}
+.nav #nav a:hover{ background:#144d8b;}
+.nav #nav a:hover .content{#144d8b;}
+#nav{ width:836px; height:45px; background:#1e5ea5; overflow:hidden;}
+.nav a img{ vertical-align:middle; margin-right:6px; fliter:alpha(opacity:50); opacity:0.5;}
+.nav .left{ width:836px; height:45px; background:#1e5ea5;}
+.nav .right{ width:243px; height:45px;  background:#1e5ea5;}
+.nav .right input{ width:180px; height:28px; line-height:28px; text-indent:1em; border: solid 2px #3a81cd; border-right:none; font-size:14px; color:#999999; }
+.nav .right div{ margin:7px 5px; }
+.content{line-height:20px; position:absolute;top:45px; background:#144e8e;}
+.content li{ color: #FFF; width:120px; height:40px;}
+.content li a{ font-size:13px;}
+.width1 , .width2 , .width3 , .width4 , .width5 , .width6{ width:120px; display:none;}  
+.width1{left:0px;}
+.width2{left:120px;}
+.width3{left:240px;}
+.width4{left:360px;}
+.width5{left:480px;}
+.width6{left:600px;}
+#bar{ z-index:1;}
+#bar #nav a{ display:block; width:120px; float:left;}
+
+
+
+
+/*页脚*/
+.footer{ height:164px; background:#1d5ea4; margin-top:40px;}
+.footer_inner{ width:568px; margin:0 auto; padding-top:22px; }
+.footer_inner p{ text-align:center; font-size:12px; color:#FFF; margin-bottom:10px;}
+/* end public*/

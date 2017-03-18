@@ -1,0 +1,28 @@
+
+        <tr style="height: 26px;">
+            <td width="64" style="border-width: 0px 1px 2px 2px; border-style: none solid double double; border-color: rgb(0, 0, 0) windowtext windowtext; padding: 0px 7px; width: 64px; height: 26px; background-color: transparent;">
+                <p style="line-height: 150%;">
+                    <span><span style="undefinedfont-family:宋体">{Name}</span></span>
+                </p>
+            </td>
+            <td width="102" valign="top" style="border-width: 0px 1px 2px 0px; border-style: none solid double none; border-color: rgb(0, 0, 0) windowtext windowtext rgb(0, 0, 0); padding: 0px 7px; width: 102px; height: 26px; background-color: transparent;">
+                <p style="text-align: center; line-height: 150%;">
+                    <span style="line-height: 150%; font-size: 16px;font-family:宋体">{Job}</span>
+                </p>
+            </td>
+            <td width="134" valign="top" style="border-width: 0px 1px 2px 0px; border-style: none solid double none; border-color: rgb(0, 0, 0) windowtext windowtext rgb(0, 0, 0); padding: 0px 7px; width: 134px; height: 26px; background-color: transparent;">
+                <p style="text-align: center; line-height: 150%;">
+                    <span style="undefinedfont-family:宋体">{Level}</span>
+                </p>
+            </td>
+            <td width="139" style="border-width: 0px 1px 2px 0px; border-style: none solid double none; border-color: rgb(0, 0, 0) windowtext windowtext rgb(0, 0, 0); padding: 0px 7px; width: 139px; height: 26px; background-color: transparent;">
+                <p style="text-align: center; line-height: 150%;">
+                    <span style="undefinedfont-family:宋体">{ArrivalTime}</span>
+                </p>
+            </td>
+            <td width="165" style="border-width: 0px 2px 2px 0px; border-style: none double double none; border-color: rgb(0, 0, 0) windowtext windowtext rgb(0, 0, 0); padding: 0px 7px; width: 165px; height: 26px; background-color: transparent;">
+                <p style="text-align: center; line-height: 150%;">
+                    <span style="undefinedfont-family:宋体">{Money}</span>
+                </p>
+            </td>
+        </tr>

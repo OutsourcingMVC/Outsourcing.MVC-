@@ -1,0 +1,119 @@
+﻿@model Outsourcing.MVC.Areas.FinancialManagement.Models.FinancialManagementViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a onclick="LoadAjaxContent('FinancialManagement/Financial/Index?page=@ViewBag.pageIndex&AccountName=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">返回列表页</a></li>
+            @*<li><a href="#">Tables</a></li>
+                <li><a href="#">Data Tables</a></li>*@
+        </ol>
+        @*<div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>*@
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>查看财务详细</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">                
+                <form id="defaultForm" method="post" action="FinancialManagement/Financial/Details" class="form-horizontal">
+                    <fieldset>
+                        @{
+                            if (Model.FinancialManagement != null)
+                            {
+                                <div class="col-sm-4 control-label" style="background-color:#ffffff;">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">编号</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.Code</label>
+                                        </div>
+                                        <label class="col-sm-4 control-label">收支</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.BothEnds</label>
+                                        </div>
+                                    </div>  
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">金额</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.Money</label>
+                                        </div>
+                                        <label class="col-sm-4 control-label">出入方</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.EntryAndExit</label>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">交易时间</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.ExchangeHour.ToString("yyyy-MM-dd")</label>
+                                        </div>
+                                        <label class="col-sm-4 control-label">发票状态</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.InvoiceStatus</label>
+                                        </div>
+                                    </div>  
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">付款状态</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.PaymentStatus</label>
+                                        </div>
+                                        <label class="col-sm-4 control-label">明细</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.Detail</label>
+                                        </div>
+                                    </div>  
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">发票种类</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.InvoiceType</label>
+                                        </div>
+                                        @*<label class="col-sm-4 control-label" style="color:#ff0000">明细</label>
+                                        <div class="col-sm-7">
+                                            <label class="control-label">@Model.FinancialManagement.Detail</label>
+                                        </div>*@
+                                    </div>           
+                                </div>
+                            }
+                        }
+                    </fieldset>                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Add Drag-n-Drop feature
+        WinMove();
+    });
+</script>
+

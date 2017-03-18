@@ -1,0 +1,691 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model  OutsourcingWeb.MVC.Areas.EmployeeExpatriationA.Models.EmployeeExpatriationViewModel
+@{
+    ViewBag.Title = "会员中心";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+    int currentPage = 1;
+}
+<!--时间控件-->
+<script src="~/Scripts/js/jquery-1.8.0.js"></script>
+<link href="~/Scripts/devoops/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<!-- 实习bootstrap多选结束 -->
+<style type="text/css">
+    #shouye {
+        font-family: "Microsoft YaHei",微软雅黑;
+    }
+
+    #theadId th {
+        text-align: center;
+        vertical-align: middle;
+        height: 15px;
+        font-weight: bold;
+    }
+
+
+    tbody {
+        text-align: center;
+    }
+
+    #tfootId {
+        text-align: center;
+    }
+
+    #outsidePage {
+        width: 900px;
+    }
+
+    #topDiv {
+        padding: 0px;
+        padding-left: 5px;
+        height: auto;
+    }
+
+
+    #leftPage {
+        float: left;
+        margin-top: -10px;
+    }
+
+    #rightPage {
+        float: right;
+        margin-top: -10px;
+    }
+
+    #exampleModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+    }
+
+    #exampleModal tr {
+        height: 50px;
+    }
+
+    #exampleModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #exampleModal input {
+        height: 35px;
+    }
+
+    #EditModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+        margin-bottom: -20px;
+    }
+
+    #EditModal tr {
+        height: 50px;
+    }
+
+    #EditModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #EditModal input {
+        height: 35px;
+    }
+
+    .datetimepicker {
+        width: 200px;
+    }
+
+    #wordImport {
+        height: 440px;
+        position: relative;
+        overflow-y: auto;
+    }
+</style>
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<input type="hidden" name="types" id="types" value="@ViewBag.Type">
+<input type="hidden" name="types" id="types" value="@ViewBag.OldPage">
+
+<div id="rightId">
+    <div class="panel-body" id="topDiv">
+        <div class="list-op" id="leftPage">
+        </div>
+        <form class="form-horizontal">
+            <legend>               
+                <span style="font-size: 13px;">
+                    <a href="/CooperativeContractA/CooperativeContractC/CooperativeContractIndex?loginid=@ViewBag.LoginID&&type=@ViewBag.Type&&page=@ViewBag.OldPage">
+                        合同列表
+                    </a>
+                    >>
+                    <strong> 人员派遣单</strong>
+                </span>
+            </legend>
+            @*<div class="form-group">
+                <label class="col-sm-1 control-label" for="ds_name" style="min-width:100px;">开始月份:</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="DatepickerStart" style="width: 150px;" type="text" placeholder="">
+                </div>
+                <label class="col-sm-1 control-label" style="width: 100px;" for="ds_username">结束月份：</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="DatepickerEnd" style="width: 150px;" type="text" placeholder="">
+                </div>
+                <div class="col-sm-1">
+                    <button id="QuerySettlement" type="button" onclick="submitQuerySettement()" class="btn btn-default btn-sm btn-info">查询</button>
+                </div>
+            </div>*@
+        </form>
+    </div>
+    <div id="datalist">
+        <table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+            <thead id="theadId">
+                <tr>
+                    <th>甲方公司</th>
+                    <th>乙方公司</th>
+                    <th>甲方状态</th>
+                    <th>乙方状态</th>
+                    <th>合同状态</th>
+                    <th>生效时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{if (Model != null && Model.List != null && Model.List.Count > 0)
+                    {
+                        foreach (var item in Model.List)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CustomerCompnay.CompnayName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OutsourcingCompany.CompnayName)
+                                </td>
+                                <td>
+                                    @if (item.FirstPartyStatus == 1)
+                                    {
+                                        <span class="btn-danger">审阅中</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="btn-success">同意</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.SecondPartyStatus == 1)
+                                    {
+                                        <span class="btn-danger">审阅中</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="btn-success">同意</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.ContractStatus == 0)
+                                    {
+                                        <span class="btn-danger">未生效</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="btn-success">生效</span>
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        string CurrentDate = string.Format("{0:yyyy-MM-dd}", item.EffectiveTime);
+                                    }
+                                    @CurrentDate
+
+                                </td>
+                                <td>
+                                    @if (item.FirstPartyStatus == 0 && item.SecondPartyStatus == 0)
+                                    {
+                                        string str = ViewBag.Type;
+                                        switch (str)
+                                        {
+                                            case "1":
+                                                if (item.FirstOrSecondDownload == 0)
+                                                {
+                                                    if (!string.IsNullOrEmpty(item.ContactFileFul))
+                                                    {
+                                                        <a href="/EmployeeExpatriationA/EmployeeExpatriationC/DownFile?ID=@HttpUtility.UrlEncode(item.ID)" class="btn btn-primary btn-xs">下载</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" onclick="NoDown()" class="btn btn-primary btn-xs">下载</a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <button title="下载合同模板" onclick="ShowWordContent('@item.ID')" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#WordModal">
+                                                        下载
+                                                    </button>
+                                                }
+                                                break;
+                                            case "2":
+                                                if (item.FirstOrSecondDownload == null)
+                                                {
+                                                    <button title="下载合同模板" onclick="ShowWordContent('@item.ID')" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#WordModal">
+                                                        下载
+                                                    </button>
+                                                }
+                                                else if (item.FirstOrSecondDownload == 0)
+                                                {
+                                                    <button title="下载合同模板" onclick="ShowWordContent('@item.ID')" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#WordModal">
+                                                        下载
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    if (!string.IsNullOrEmpty(item.ContactFileFul))
+                                                    {
+                                                        <a href="/EmployeeExpatriationA/EmployeeExpatriationC/DownFile?ID=@HttpUtility.UrlEncode(item.ID)" class="btn btn-primary btn-xs">下载</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" onclick="NoDown()" class="btn btn-primary btn-xs">下载</a>
+                                                    }
+                                                }
+                                                break;
+                                        }
+                                        if (item.ContractStatus == 0)
+                                        {
+                                            <button title="上传盖章合同" onclick="upLoadFile('@item.ID','')" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#UploadModal">
+                                                上传
+                                            </button>
+                                            <button title="合同生效" onclick="Effective('@item.ID')" type="button" class="btn btn-primary btn-xs">
+                                                生效
+                                            </button>
+                                        }
+                                        @*else
+                                        {
+                                            <button title="人员派遣合同" onclick="Effective('@item.ID')" type="button" class="btn btn-primary btn-xs">
+                                                人员派遣
+                                            </button>
+                                        }*@
+                                    }
+                                    else
+                                    {
+                                        <button title="同意合同" type="button" onclick="AgreenContract('@item.ID');" class="btn btn-primary btn-xs">
+                                            同意
+                                        </button>
+                                        <button title="审阅合同" type="button" onclick="ShowReviewDetail('@item.ID');" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                                            审阅
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td colspan="7" style="text-align:center;">未查询到任何记录</td></tr>
+                                        }
+                }
+            </tbody>
+        </table>
+        <br />
+        <div>
+            @if (Model != null && Model.List != null)
+            {
+                currentPage = Model.List.PageNumber;
+                <div id="pagerlist" style="float:left;width:50%">
+                    共 @Model.List.PageCount 页 @Model.List.TotalItemCount 条记录，当前为第 @Model.List.PageNumber 页
+                </div>
+                @*PagedList分页，不带ajax支持*@
+                @Html.PagedListPager((IPagedList)Model.List, page => Url.Action("EmployeeExpatriationIndex", new { page, loginid = ViewBag.LoginID,type=ViewBag.Type,
+                                                                                                                   oldPage = ViewBag.oldPage, FirstID= ViewBag.FirstID,
+                                                                                                                   SecondID =ViewBag.SecondID }))
+
+            }
+        </div>
+    </div>
+</div>
+<!-- 按钮触发模态框 -->
+<!-- 模态框（Modal）合同审阅 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="Modalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">合同审阅记录</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="height:550px;">
+                    <table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width:100%; height:auto;">
+                        <thead>
+                            <tr>
+                                <td>合同模板内容</td>
+                                <td>合同修改备注</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="hidden" id="IDv" />
+                                    <script id="detail" type="text/plain" style="width:475px;">
+                                    </script>
+                                </td>
+                                <td>
+                                    <script id="JobDescription1" type="text/plain" style="width:475px;">
+                                    </script>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="dateSelectOK" onclick="ViewContract()" type="button" class="btn btn-primary">审阅</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- 按钮触发模态框 -->
+<!-- 模态框（Modal）合同内容导出word -->
+<div class="modal fade" id="WordModal" tabindex="-1" role="dialog" aria-labelledby="WordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="WordModalModalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="WordModalModalLabel">合同内容下载</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="height: 450px;">
+                    <input id="wordID" type="hidden" />
+                    <div id="wordImport"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="SaveToWord" type="button" class="btn btn-primary">导出Word</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 按钮触发模态框 -->
+<!-- 模态框（Modal）文件上传 -->
+@*<link href="~/Scripts/uploadify/uploadify.css" rel="stylesheet" />
+    <script src="~/Scripts/uploadify/jquery.uploadify.min.js"></script>*@
+<div class="modal fade" id="UploadModal" tabindex="-1" role="dialog" aria-labelledby="UploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="UploadModalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="UploadModalLabel">盖章合同上传</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="upFile" action="/EmployeeExpatriationA/EmployeeExpatriationC/Upload" method="post" enctype="multipart/form-data">
+                        <table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width:100%; height:auto;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" id="ContractNum" name="ContractNum" />
+                                        <input type="hidden" id="IDf" name="IDf" />
+                                        <span>文件:</span>
+                                    </td>
+                                    <td>
+                                        <input type="file" id="fileData" name="fileData" style="width:100%;" value="选择" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="fileUpload" type="button" class="btn btn-primary">上传</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery.form.min.js"></script>
+<!-- html内容保存为word -->
+<script type="text/javascript" src="~/Scripts/word/FileSaver.js"></script>
+<script type="text/javascript" src="~/Scripts/word/jquery.wordexport.js"></script>
+<!-- 编辑器样式 -->
+<script type="text/javascript" charset="utf-8" src="~/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="~/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DatepickerStart').datetimepicker({
+            //language: 'zh-CN',  //日期
+            startView: 3,
+            minView:3,
+            format: 'yyyy-mm',
+            autoclose: 1
+        });
+
+        $('#DatepickerEnd').datetimepicker({
+            //language: 'zh-CN',  //日期
+            startView: 3,
+            minView: 3,
+            format: 'yyyy-mm',
+            autoclose: 1
+        });
+
+        //$('#usertype').multipleSelect(); //多选初始化
+
+        var detail = UE.getEditor('detail',{
+            //这里可以选择自己需要的工具按钮名称
+            toolbars:[['']],
+            //关闭字数统计
+            wordCount:false,
+            //默认的编辑区域高度
+            initialFrameHeight:470,
+            scaleEnabled:true});
+
+        var jobDescription = UE.getEditor('JobDescription1' ,{
+            //这里可以选择自己需要的工具按钮名称
+            toolbars:[['']],
+            //关闭字数统计
+            wordCount:false,
+            //默认的编辑区域高度
+            initialFrameHeight:470,
+            scaleEnabled:true});
+
+        var wordImport = UE.getEditor('wordImport' ,{
+            //这里可以选择自己需要的工具按钮名称
+            toolbars:[['']],
+            //关闭字数统计
+            wordCount:false,
+            //默认的编辑区域高度
+            initialFrameHeight:470,
+            scaleEnabled:true});
+    })
+
+
+    //提交上传文件表单
+    $("#fileUpload").click(function(){
+        //debugger;
+        $("#upFile").ajaxSubmit({
+            //target: '#output',          //把服务器返回的内容放入id为output的元素中
+            //beforeSubmit: showRequest,  //提交前的回调函数
+            //url: url,                 //默认是form的action， 如果申明，则会覆盖
+            //type: type,               //默认是form的method（get or post），如果申明，则会覆盖
+            dataType: "json",           //html(默认), xml, script, json...接受服务端返回的类型
+            //clearForm: true,          //成功提交后，清除所有表单元素的值
+            resetForm: true,          //成功提交后，重置所有表单元素的值
+            timeout: 3000 ,              //限制请求的时间，当请求大于3秒后，跳出请求
+            success: function(responseText, statusText){//提交后的回调函数
+                //debugger;
+                swal("上传提示","上传成功","success");
+                $("#UploadModalclose").click();
+            }
+        });
+        return false;   //阻止表单默认提交
+
+    })
+
+    //设置上传文件标识
+    function upLoadFile(id,code)
+    {
+        $("#IDf").val(id);
+        $("#ContractNum").val(code);
+    }
+
+    //将模板合同保存为word
+    $("#SaveToWord").click(function(){
+        $("#wordImport").wordExport();
+        var datas={
+            type:@ViewBag.Type,
+            ID:$("#wordID").val()};
+        $.ajax({
+            url:"/EmployeeExpatriationA/EmployeeExpatriationC/UpdateDownByFirstOrSecond",
+            type: "Post",
+            data:datas,
+            dataType: "text",
+            success: function (data)
+            {
+                debugger;
+                $("#WordModalModalclose").click();
+                //swal("下载提示","下载成功","success");
+            } });
+    })
+
+
+    //审阅合同内容
+    function ViewContract()
+    {
+        $("#Modalclose").click();
+        //debugger;
+        var s=UE.getEditor('JobDescription1').getContent();
+        var datas={
+            loginid:@ViewBag.LoginID,
+            ID:$("#IDv").val(),
+            ReviewContent:encodeURIComponent(UE.getEditor('JobDescription1').getContent())
+        };
+        $.ajax({
+            url:"/EmployeeExpatriationA/EmployeeExpatriationC/UpdateContractReview",
+            type: "Post",
+            data:datas,
+            dataType: "text",
+            success: function (data)
+            {
+                swal("审阅提示","审阅成功","success");
+            }
+        });
+    }
+
+    //查询验证参数并提交
+    function submitQuerySettement()
+    {
+        debugger;
+        var usetype = $("#usertype").val();
+
+        //验证数据
+        var ds=$('#DatepickerStart').val();
+        var de = $('#DatepickerEnd').val();
+        if ($.isEmptyObject(ds))
+        {
+            swal("参数提示!", "开始月份不能为空！", "error");
+            return false;
+        }
+        if (de == "")
+        {
+            swal("参数提示!", "结束月份不能为空！", "error");
+            return false;
+        }
+
+        if (ds > de)
+        {
+            swal("参数提示!", "开始月份不能大于结束月份", "error");
+            return false;
+        }
+        //LoadAjaxContent('/CompanySettlement/CompanySettlement/Index?loginid=@ViewBag.LoginID&&type=@ViewBag.Type&&isQueryCurrentMonth=@ViewBag.QueryMonth&&startD=' + $("#DatepickerStart").val() + '&&endD=' + $("#DatepickerEnd").val() + "&&partner=" + usetype);
+    }
+
+
+    //查看合同
+    function ShowReviewDetail(id) {
+        $("#Modalclose").click();
+        //debugger;
+        $("#IDv").val(id);
+        var datas={
+            loginid:@ViewBag.LoginID,
+            type:@ViewBag.Type,
+            ID:id};
+        $.ajax({
+            url:"/EmployeeExpatriationA/EmployeeExpatriationC/GetContract",
+            type: "Post",
+            data:datas,
+            dataType: "text",
+            success: function (datas)
+            {
+                //debugger;
+                var data= $.parseJSON(datas);
+                if (datas=="")
+                {
+                    UE.getEditor('detail').setContent("<p>无合同内容</p>");
+                    //$('#detail').html("无合同内容");
+                }
+                else
+                {
+                    //debugger;
+                    UE.getEditor('detail').setContent(data.ContractContent);
+                    UE.getEditor('JobDescription1').setContent(data.ReviewContent);
+                    //$('#detail').html(datas);
+                }
+                //$("#Modalclose").click();
+            }
+        });
+    }
+
+    //显示合同和备注
+    function ShowWordContent(id) {
+        $("#WordModalclose").click();
+        //debugger;
+        $("#wordID").val(id);
+        var datas={
+            loginid:@ViewBag.LoginID,
+            type:@ViewBag.Type,
+            ID:id};
+        $.ajax({
+            url:"/EmployeeExpatriationA/EmployeeExpatriationC/GetContract",
+            type: "Post",
+            data:datas,
+            dataType: "text",
+            success: function (datas)
+            {
+                //debugger;
+                var data= $.parseJSON(datas);
+                if (datas=="")
+                {
+                    UE.getEditor('wordImport').setContent("<p>无合同内容</p>");
+                    //$('#detail').html("无合同内容");
+                }
+                else
+                {
+                    var str=data.ContractContent+data.ReviewContent;
+                    $("#wordImport").html(str);
+                }
+                $("#WordModalclose").click();
+            }
+        });
+    }
+
+    //同意合同
+    function AgreenContract(id) {
+        debugger;
+        var datas={
+            loginid:@ViewBag.LoginID,
+            type:@ViewBag.Type,
+            ID:id,
+            FirstID:@ViewBag.FirstID,
+            SecondID:@ViewBag.SecondID,
+            oldPage:@ViewBag.oldPage,
+            page:@currentPage };
+        $.ajax({
+            url:"/EmployeeExpatriationA/EmployeeExpatriationC/AgreenContract",
+            type: "Post",
+            data:datas,
+            dataType: "text",
+            success: function (datas)
+            {
+                location.href ="/EmployeeExpatriationA/EmployeeExpatriationC/EmployeeExpatriationIndex?"+datas;
+                //swal("审阅提示","审阅成功","success");
+            }
+        });
+    }
+    //下载未上传盖章合同时
+    function NoDown()
+    {
+        swal("下载提示","盖章合同暂未上传，请等待...","warning");
+    }
+
+    //合同生效
+    function Effective(id)
+    {
+        debugger;
+        var datas={
+            loginid:@ViewBag.LoginID,
+            type:@ViewBag.Type,
+            ID:id,
+            FirstID:@ViewBag.FirstID,
+            SecondID:@ViewBag.SecondID,
+            oldPage:@ViewBag.oldPage,
+            page:@currentPage };
+        $.ajax({
+            url:"/EmployeeExpatriationA/EmployeeExpatriationC/EffectiveStatusUpdate",
+            type: "Post",
+            data:datas,
+            dataType: "text",
+            success: function (txt)
+            {
+                debugger;
+                var cc=decodeURIComponent(txt);
+                location.href ="/EmployeeExpatriationA/EmployeeExpatriationC/EmployeeExpatriationIndex?"+decodeURIComponent(txt);
+                //swal("审阅提示","审阅成功","success");
+            }
+        });
+    }
+</script>
+

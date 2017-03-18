@@ -1,0 +1,142 @@
+﻿
+@*@using Webdiyer.WebControls.Mvc*@
+@using PagedList
+@using PagedList.Mvc
+@model Outsourcing.MVC.Areas.Requirement.Models.RequirementModel
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.ActionLink("RoleName", "Index", new { sortOrder = ViewBag.RoleNameParm, currentFilter = ViewBag.CurrentFilter })
+                </th>*@
+            <th>项目姓名</th>
+            <th>招聘人数</th>
+            <th>专业名称</th>
+            <th>要求到岗时间</th>
+            <th>所属客户公司</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.Requirements.Count > 0)
+            {
+                foreach (var item in Model.Requirements)
+                {
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(modelItem => item.RequirementId)
+                            @Html.DisplayFor(modelItem => item.ProjectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RecNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobName)
+                        </td>
+                        <td>
+                            @{
+                                string ArrivalTime = item.ArrivalTime.Value.ToString("yyyy-MM-dd");
+                            }
+                            @Html.DisplayFor(modelItem => ArrivalTime)
+                        </td>
+                        @{
+                            var compnay = Model.CustomerCompnays.FirstOrDefault(a => a.CompnayId == item.CompnayId);
+
+                            string companyName = compnay == null ? "" : compnay.CompnayName;
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => companyName)
+                        </td>
+
+                        <td>
+                            @{
+                                string date = item.CreateTime.Value.ToString("yyyy-MM-dd");
+                            }
+
+                            @Html.DisplayFor(modelItem => date)
+                        </td>
+                        <td>
+                            @*<a id="btnEdit" onclick="LoadAjaxContent('Professional/Professionals/Edit/@item.PersonalInfoId?pageIndex=@Model.PageNumber&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">审核</a>|*@
+                            <a id="btnDetails" onclick="LoadAjaxContent('Requirement/Requirement/Details/@item.RequirementId?pageIndex=@Model.Requirements.PageNumber&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">详情</a>|
+                            <a id="btnDelete" onclick="del(this,@item.RequirementId);" href="#">删除</a>
+                        </td>
+                    </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td colspan="3" style="text-align:center;">未查询到任何记录</td></tr>
+                                }
+        }
+    </tbody>
+</table>
+<br />
+<div>
+
+    @*<script src="~/Scripts/mvcpager.js"></script>*@
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.Requirements.PageCount 页 @Model.Requirements.TotalItemCount 条记录，当前为第 @Model.Requirements.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.Requirements, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, ProjectName = (ViewBag.CurrentFilter != null ? ViewBag.CurrentFilter : string.Empty) }))
+    @*mvcpager分页，带ajax支持*@
+    @*@Ajax.Pager(Model.StaffMembers, new PagerOptions
+        {
+            PageIndexParameterName = "page",
+            ShowPageIndexBox = true,
+            PageIndexBoxType = PageIndexBoxType.DropDownList,
+            ShowGoButton = false,
+            ShowNumericPagerItems = true,
+
+        },
+        new MvcAjaxOptions
+        {
+            UpdateTargetId = "datalist",
+            HttpMethod = "Post",
+            DataFormId = "searchForm",
+            EnablePartialLoading = true,
+            Url = "OA/AttendanceMonthStatistical/Index"
+        }, new { style = "float:right" })*@
+</div>
+@*@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}*@
+<script type="text/javascript">
+    $(document).ready(function () { replacePageUrl() });
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+
+        //debugger;
+        //var alist = $('#datalist a');
+        //alist.innerHtml = "";
+        //var divlist = $('div#pagerleft').next();
+        //if (divlist) {
+        //debugger;
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                //debugger;
+                //alert(index);
+                //if (index >= 6) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    //debugger;
+                    //var splitUrl = element.href.split('/')
+                    var splitUrl = element.href.split('?');
+                    //var newhref = "LoadAjaxContent('" + splitUrl[3] + splitUrl[4] + "')";
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('Requirement/Requirement/Index?' + splitUrl[1]);
+                    });
+                    //$(this).on("click", function () {
+                    //    LoadAjaxContent('OA/AttendanceMonthStatistical/Index?page=2');
+                    //});
+                    $(this).attr("href", "#");
+                }
+
+                //}
+            });
+        }
+        //}
+    }
+
+
+</script>

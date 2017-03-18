@@ -1,0 +1,168 @@
+﻿@model OutsourcingWeb.MVC.Areas.PersonResigned.Models.PersonsResignedViewModel
+@{
+    ViewBag.Title = "会员中心";
+    Layout = null;
+}
+<!--时间控件-->
+<script src="~/Scripts/js/jquery-1.8.0.js"></script>
+
+<style type="text/css">
+    #shouye {
+        font-family: "Microsoft YaHei",微软雅黑;
+    }
+
+    #theadId th {
+        text-align: center;
+        vertical-align: middle;
+        height: 15px;
+        font-weight: bold;
+    }
+
+
+    tbody {
+        text-align: center;
+    }
+
+    #tfootId {
+        text-align: center;
+    }
+
+    #outsidePage {
+        width: 900px;
+    }
+
+    #topDiv {
+        height: 40px;
+    }
+
+    #leftPage {
+        float: left;
+        margin-top: -10px;
+    }
+
+    #rightPage {
+        float: right;
+        margin-top: -10px;
+    }
+
+    #exampleModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+    }
+
+    #exampleModal tr {
+        height: 50px;
+    }
+
+    #exampleModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #exampleModal input {
+        height: 35px;
+    }
+
+    #EditModal table {
+        margin-right: 70px;
+        margin-top: -10px;
+        margin-bottom: -20px;
+    }
+
+    #EditModal tr {
+        height: 50px;
+    }
+
+    #EditModal td {
+        text-align: right;
+        width: 150px;
+    }
+
+    #EditModal input {
+        height: 35px;
+    }
+
+    .datetimepicker {
+        width: 200px;
+    }
+</style>
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<input type="hidden" name="types" id="types" value="@ViewBag.Type">
+<div id="rightId">
+    <div class="panel-body" id="topDiv">
+        <div class="list-op" id="leftPage">
+            @*<button type="button" class="btn btn-default btn-sm btn-info" onclick="LoadAjaxContent('/Ectocyst/MemberCenter/TalentManagement?loginid=@ViewBag.LoginID&&type=@ViewBag.Type')">
+                    <span class="glyphicon" aria-hidden="true"></span>返回列表
+                </button>*@
+            @if (ViewBag.Type == 1)
+            {
+                <form class="form-inline definewidth m20" action="" method="get">
+                    入职公司：
+                    <input type="text" name="rolename" id="rolename" class="abc input-default" placeholder="请输入公司名
+                           " value="">&nbsp;&nbsp;
+                    <button type="button" onclick="btnSubmit()" class="btn btn-primary btn-sm">查询</button>@*&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增机构</button>*@
+                </form>
+
+            }
+            else
+            {
+                <form class="form-inline definewidth m20" action="" method="get">
+                    所属公司：
+                    <input type="text" name="rolename" id="rolename" class="abc input-default" placeholder="请输入公司名" value="">&nbsp;&nbsp;
+                    <button type="button" id="btnSubmit" onclick="btnSubmit()" class="btn btn-primary btn-sm">查询</button>@*&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增机构</button>*@
+                </form>
+            }
+        </div>
+        <div class="list-op" id="rightPage">
+        </div>
+    </div>
+    <div id="datalist">
+        @Html.Partial("Resigned_PartialPageIndex", Model)
+    </div>
+    <div id="outputdiv" role="alert">
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Add Drag-n-Drop feature
+        //WinMove();
+        //思路:使用jquery替换方式替换掉mvcpager生成的分页文本
+        replacePageUrl();
+        btnsubmits();
+    });
+
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    var splitUrl = element.href.split('/')
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('/Ectocyst/MemberCenter/TalentManagement?page=' + $(this).text());
+                    });
+                    $(this).attr("href", "#");
+                }
+            });
+        }
+    }
+    debugger
+    //查询验证功能+查询方法
+    $('#btnSubmit').on('click', function () {
+        debugger;
+
+
+        //验证数据
+        var rolename = $('#rolename').val();
+
+        if ($.isEmptyObject(rolename)) {
+            swal("参数提示!", "公司名不能为空！", "error");
+            return false;
+        }
+
+        var hel = '/PersonResigned/PersonResigned/PersonsResignedList?loginid=@ViewBag.LoginID&&type=@ViewBag.Type';
+        LoadAjaxContent(hel);
+    })
+</script>
+

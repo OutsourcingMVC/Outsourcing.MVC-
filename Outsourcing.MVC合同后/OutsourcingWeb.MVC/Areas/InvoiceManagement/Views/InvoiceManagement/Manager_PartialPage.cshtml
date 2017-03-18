@@ -1,0 +1,425 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model   OutsourcingWeb.MVC.Areas.InvoiceManagement.Models.InvoiceManagerViewModel
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead id="theadId">
+        <tr>
+            <th>公司名称</th>
+            <th>结算年月</th>
+            <th>结算金额</th>
+            <th>处理状态</th>
+            <th>申请状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.InvoiceList.Count > 0)
+            {
+                foreach (var item in Model.InvoiceList)
+                {
+                    <tr>                        
+                        @if (ViewBag.Type == "2")
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OutsourcingCompany.CompnayName)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CustomerCompnay.CompnayName)
+                            </td>
+                        }
+                        <td>
+                            @String.Format("{0}-{1}", item.SettlementYear, item.SettlementMonth)
+                        </td>
+                        <td>
+                            @string.Format("{0:C}", item.SettlementMoney)
+                        </td>
+                        @if (item.InvoiceOutState == 1)
+                        {
+                            <td>  
+                                @Html.Label("未开具", new { @class = "btn-warning" })   
+                            </td>
+                        }
+                        else
+                        {
+                            <td>                                
+                                @Html.Label("已开具", new { @class = "btn-success" })  
+                            </td>
+                        }
+                        @if (item.InvoiceCustomerState == 1)
+                        {
+                            <td>
+                                @Html.Label("已开具", new { @class = "btn-success" })
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.Label("已申请", new { @class = "btn-success" })
+                            </td>
+                        }
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" onclick="ShowInvoiceDetail('@item.ID')" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#InvoiceDetailModal">
+                                    查看明细
+                                </button>
+                            </div>                                           
+                            @if (ViewBag.Type == "1")
+                            {
+                                <div class="btn-group">
+                                    <button type="button" onclick="ApplyInvoice('@item.ID','@item.OutsourcingCompany.CompnayName',@string.Format("'{0}-{1}'", item.SettlementYear, item.SettlementMonth),@item.SettlementMoney)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                                        开具发票
+                                    </button>                                    
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="6" style="text-align:center;">未查询到任何记录</td></tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+<div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.InvoiceList.PageCount 页 @Model.InvoiceList.TotalItemCount 条记录，当前为第 @Model.InvoiceList.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.InvoiceList, page => Url.Action("InvoiceManager",
+    new { page, loginid = ViewBag.LoginID ,type=ViewBag.Type}))
+</div>
+
+<!-- 按钮触发模态框 -->
+<!-- 模态框（Modal）添写发票信息 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:750px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="Modalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">申请发票信息内容</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">公司名称</label>
+                            <div class="col-sm-4">
+                                <input type="hidden" id="ID" />
+                                <input class="form-control" id="SalesCompanyName" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">纳税人识别码</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="SalesTaxpayerNumber" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">地址</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="SalesAddress" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">电话</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="SalesTel" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">开户行</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="SalesBankDeposit" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">账号</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="SalesBankAccount" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">结算金额</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="Moneys" type="text" placeholder="金额基数" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">申请月份</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="ApplyDate" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">发票类型</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="InvoiceType">
+                                    <option value="1">增值税专用发票</option>
+                                    <option value="2">增值税普票</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">发票名称</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="InvoiceName" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">发票编号</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="InvoiceCode" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">打印日期</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="PrintDate" type="text" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="dateSelectOK" type="button" class="btn btn-primary">申请</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 模态框（Modal）发票明细 -->
+<div class="modal fade" id="InvoiceDetailModal" tabindex="-1" role="dialog" aria-labelledby="InvoiceDetailModal" aria-hidden="true">
+    <div class="modal-dialog" style="width:750px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="InvoiceDetailModalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">发票明细</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal" role="form">
+                        <legend>
+                            <span style="font-size: 13px;">&nbsp;&nbsp;发票信息</span>
+                        </legend>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" style="width: 200px;text-align:center;">
+                            编号:<span id="ViewInvoiceCode"></span>
+                            </label>
+                            <label class="col-sm-1 control-label" style="width: 200px;text-align:center;">
+                                类型:<span id="ViewInvoiceType"></span>
+                            </label>
+                            <label class="col-sm-1 control-label" style="width: 200px;text-align:center;">
+                                内容:<span id="ViewInvoiceName"></span>
+                            </label> 
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" style="width: 200px;text-align:center;">
+                                日期:<span id="ViewInvoiceDate"></span>
+                            </label>
+                            <label class="col-sm-1 control-label" style="width: 200px;text-align:center;">
+                                金额:￥<span id="ViewInvoiceMoney"></span>
+                            </label>
+                        </div>
+                        <legend>
+                            <span style="font-size: 13px;">&nbsp;&nbsp;购买方信息</span>
+                        </legend>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"  style="width: 120px;">客户公司名称</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="BuyerCompanyName" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label"  style="width: 120px;">纳税人识别码</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="BuyerTaxpayerNumber" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"  style="width: 120px;">地址</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="BuyerAddress" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">电话</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="BuyerTel" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">开户行</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="BuyerBankDeposit" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">账号</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="BuyerBankAccount" type="text" />
+                            </div>
+                        </div>
+                        <legend>
+                            <span style="font-size: 13px;">&nbsp;&nbsp;销售方信息</span>
+                        </legend>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">客户公司名称</label>
+                            <div class="col-sm-4">
+                                <input type="hidden" id="CompanyID" />
+                                <input class="form-control" id="CompanyName" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">纳税人识别码</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="TaxpayerNumber" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">地址</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="Address" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">电话</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="Tel" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 120px;">开户行</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="BankDeposit" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" style="width: 120px;">账号</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="BankAccount" type="text" />
+                            </div>
+                        </div>
+                 </form>
+                </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>               
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+    //$(document).ready(function () {replacePageUrl() });
+    //查看明细
+    function ShowInvoiceDetail(id) {
+        $("#InvoiceDetailModalclose").click();
+        //debugger;
+        var datas={
+            loginid:@ViewBag.LoginID,
+            types:@ViewBag.Type,
+            ID:id};
+        $.ajax({
+            url:"/InvoiceManagement/InvoiceManagement/InvoiceDetails",
+            type: "Post",
+            data:datas,
+            dataType: "json",
+            success: function (datas)
+            {
+                debugger;
+                //var dataObj=$.parseJSON(datas);
+                if (!$.isEmptyObject(datas))
+                {
+                    $("#BuyerCompanyName").val(datas.BuyerName);
+                    $("#BuyerTaxpayerNumber").val(datas.BuyerTaxpayerNumber);
+                    $("#BuyerAddress").val(datas.BuyerAddress);
+                    $("#BuyerTel").val(datas.BuyerTel);
+                    $("#BuyerBankDeposit").val(datas.BuyerBankDeposit);
+                    $("#BuyerBankAccount").val(datas.BuyerBankAccount);
+
+                    $("#CompanyName").val(datas.SalesName);
+                    $("#TaxpayerNumber").val(datas.SalesTaxpayerNumber);
+                    $("#Address").val(datas.SalesAddress);
+                    $("#Tel").val(datas.SalesTel);
+                    $("#BankDeposit").val(datas.SalesBankDeposit);
+                    $("#BankAccount").val(datas.SalesBankAccount);
+                    $("#ViewInvoiceCode").html(datas.InvoiceCode);
+                    if(datas.InvoiceType==1)
+                    {
+                        $("#ViewInvoiceType").html("增值税专用发票");
+                    }
+                    else
+                    {
+                        $("#ViewInvoiceType").html("增值税普票");
+                    }
+                    $("#ViewInvoiceName").html(datas.InvoiceName);
+                    $("#ViewInvoiceMoney").html(datas.InvoiceMoney);
+                    $("#ViewInvoiceDate").html(datas.InvoiceDate);
+                }
+            }
+        });
+    }
+    function ApplyInvoice(cid,cname,date,money)
+    {
+        $("#ID").val(cid);
+        $("#SalesCompanyName").val(cname);
+        $("#ApplyDate").val(date);
+        $("#Moneys").val(money);
+    }
+
+    //添加销售方信息
+    $("#dateSelectOK").click(function () {
+        $("#Modalclose").click();
+        //debugger;
+        var datas={
+                loginid:@ViewBag.LoginID,
+                type:@ViewBag.Type,
+                ID:$("#ID").val(),
+                CompanyName:$("#SalesCompanyName").val(),                
+                TaxpayerNumber:$("#SalesTaxpayerNumber").val(),
+                Address:$("#SalesAddress").val(),
+                Tel:$("#SalesTel").val(),
+                BankDeposit:$("#SalesBankDeposit").val(),
+                BankAccount:$("#SalesBankAccount").val(),
+                InvoiceType:$("#InvoiceType").val(),
+                InvoiceName:$("#InvoiceName").val(),
+                InvoiceCode:$("#InvoiceCode").val()
+            }
+        $.ajax({
+            url:"/InvoiceManagement/InvoiceManagement/EditInvoiceDetail",
+            type: "Post",
+            data:datas,
+            dataType: "text",
+            success: function (data)
+            {
+                swal("申请成功","申请状态","success");
+                //debugger;
+                if (data != "")
+                {
+                    LoadAjaxContent('/InvoiceManagement/InvoiceManagement/InvoiceManager?' + data);
+                }
+
+            }
+        });
+        $("#CompanyID").val("");
+        $("#CompanyName").val("");
+        $("#ApplyDate").val("");
+        $("#Moneys").val("");
+        $("#SalesCompanyName").val();
+        $("#SalesTaxpayerNumber").val();
+        $("#SalesAddress").val();
+        $("#SalesTel").val();
+        $("#SalesBankDeposit").val();
+        $("#SalesBankAccount").val();
+        $("#InvoiceType").val();
+        $("#InvoiceName").val();
+    })
+
+
+    //全选与取消
+    $("#SelectAll").click(function(){
+        $("input[type='checkbox']").each(function(){
+            this.checked=true;
+        });
+    });
+
+    $("#CancelSelectAll").click(function(){
+        $("input[type='checkbox']").each(function(){
+            this.checked=false;
+        });
+    });
+    //删除
+    $("#Del").click(function(){
+        var str="";
+        $("input[type='checkbox']").each(function(){
+            if(this.checked)
+            {
+                str+=$(this).val()+",";
+            }
+        });
+        //alert(str);
+    });
+
+</script>

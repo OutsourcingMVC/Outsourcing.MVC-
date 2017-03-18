@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!--消息提示框-->
+    <script src="~/Scripts/js/jquery-1.8.0.js"></script>
+    <!--title图标-->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Scripts/styles/images/yjylogo.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--菜单样式-->
+    <link href="~/Scripts/styles/base.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/extends/loginreg/loginreg.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/nav.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="~/Scripts/styles/common.css" />*@
+    <link rel="stylesheet" href="~/Scripts/sweetalert/sweetalert.css" />
+    <script type="text/javascript" src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+
+</head>
+<body>
+    <a href="/System/Index"><img src="~/Scripts/styles/images/yjylogo.png" style="height:80px; margin-top:12px; margin-left:70px;" /></a>
+    <ul id="shouye">
+        <li>
+            <a href="/System/Index?loginid=@ViewBag.LoginID">首页</a>
+        </li>
+        @{
+            if (!string.IsNullOrWhiteSpace(ViewBag.LoginID))
+            {
+                <li><a href="/Public/MemberCenter/PersonaData?loginid=@ViewBag.LoginID" id="hyzx">会员中心</a></li>
+                <li><a href="/Recruit/Recruit/RecruitCenter?loginid=@ViewBag.LoginID" id="hyzx">招聘中心</a></li>
+            }
+        }
+        <li>
+            <a href="javascript:;">文档下载</a>
+            <ul>
+                <li><a href="javascript:;">企业合同</a></li>
+                <li><a href="javascript:;">简历模板</a></li>
+            </ul>
+        </li>
+        <li><a target="_blank" href="http://www.bjyijuyuan.com/">技术团队</a></li>
+        <li><a href="javascript:;" onclick="Quit()" id="Quit">退出</a></li>
+    </ul>
+    <div class="clear"></div>
+
+</body>
+</html>
+<script type="text/javascript">
+    //退出登录
+    $(function () {
+        $("#Quit").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/System/Quit",
+                data: "",
+                success: function (msg) {
+                    swal({
+                        title: "退出登录",
+                        text: "您确定要退出登录吗？",
+                        type: "warning",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        confirmButtonText: "确认",
+                        confirmButtonColor: "#ec6c62"
+                    }, function () {
+                        window.location.href = '/System/Index';
+                    });
+                }
+            });
+        });
+    });
+</script>
+

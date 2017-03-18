@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "DictionaryItemCreate";
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a onclick="LoadAjaxContent('Administrator/Dictionary/DictionaryItemIndex?page=@ViewBag.pageIndex&Dictionaryid=@HttpUtility.UrlEncodeUnicode(ViewBag.DictionaryID)')" href="#">返回列表页</a></li>
+            @*<li><a href="#">Tables</a></li>
+                <li><a href="#">Data Tables</a></li>*@
+        </ol>
+        @*<div id="social" class="pull-right">
+                <a href="#"><i class="fa fa-google-plus"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-youtube"></i></a>
+            </div>*@
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>新建字典</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <p>注意：标红的字段必填</p>
+                <form id="defaultForm" method="post" action="Administrator/Dictionary/DictionaryItemCreate" class="form-horizontal">
+                    <fieldset>
+                        <div class="col-sm-4 control-label" style="background-color:#ffffff;">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="color:#ff0000">字典名称</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="ItemName" id="ItemName" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            @*防止ajax重复提交，将type=submit改为type=button*@
+                            <button id="btnSubmit" type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+                <div id="outputdiv" role="alert">
+                    @*<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script src="~/plugins/jquery-form/jquery.form.js"></script>*@
+<script src="~/Scripts/jquery.form.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Add Drag-n-Drop feature
+        WinMove();
+        LoadBootstrapValidatorScript(DemoFormValidator);
+        //为form的ajax提交准备参数
+        var options = {
+            //target: '#outputdiv',//不能启用target，否则将导致提示框不显示关闭按钮，已改到responseText方法中处理
+            //beforeSubmit: showRequest,
+            success: showResponse
+        };
+        @*防止ajax重复提交，此处也要做修改，原代码为：*@
+        //$('#defaultForm').submit(function () {
+        //    //debugger;
+        //    $(this).ajaxSubmit(options);
+        //    return false;
+        //});
+
+        //完美解决ajax form插件与BootstrapValidator的冲突问题
+        //新增界面的逻辑更复杂，判断条件如下：
+        //1、检查必填项，如果已填写，则2，否则4
+        //2、设置btnSubmit类型为button，因为button才不会重复提交表单
+        //3、ajax提交表单
+        //4、设置btnSubmit类型为submit，因为submit才可以执行表单验证
+
+        $('#btnSubmit').on('click', function () {
+            //debugger;
+            var ItemName = $('#ItemName').val();
+            if (ItemName) {
+                $(this).attr("type", "button");
+                var options = {
+                    //target: '#outputdiv',//不能启用target，否则将导致提示框不显示关闭按钮，已改到responseText方法中处理
+                    data: { DictionaryID: @HttpUtility.UrlEncodeUnicode(ViewBag.DictionaryID) },
+                    success: showResponse
+                };
+                $('#defaultForm').ajaxSubmit(options);
+                $(this).attr("type", "submit");
+                return false;
+            } else {
+                $(this).attr("type", "submit");
+                return true;
+            }
+            //alert($(this).attr("type"));
+
+        });
+    });
+
+    function DemoFormValidator() {
+        $('#defaultForm').bootstrapValidator({
+            message: '输入的值无效',
+            fields: {
+                menuname: {
+                    validators: {
+                        notEmpty: {
+                            //message: 'The username is required and can\'t be empty'
+                            message: '名称必填'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function showRequest(formData, jqForm, options) {
+        //alert('发送前');
+        return true;
+    }
+
+    function showResponse(responseText, statusText) {
+        //alert(statusText);
+        //debugger;
+        $('#outputdiv').fadeIn(1000);
+        if (responseText == '添加成功') {
+            $('#outputdiv').attr("class", "alert alert-success alert-dismissible");
+
+        } else {
+            $('#outputdiv').attr("class", "alert alert-danger alert-dismissible");
+        }
+        $('#outputdiv').html("<strong>" + responseText + "</strong>");
+        $('#outputdiv').fadeOut(3000);
+    }
+
+</script>
+
+

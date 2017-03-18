@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e1e90b8f20154786a1c53d6acc0b7614" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="OutsourcingModel.Account" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OutsourcingModel.Menu" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OutsourcingModel.Role" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="OutsourcingModel.AccountRole_R" ManuallyRouted="false" />
+        <AssociationConnector Association="OutsourcingModel.RoleMenu_R" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OutsourcingModel.OutsourcingCompany" Width="2.25" PointX="2.625" PointY="5.875" />
+        <EntityTypeShape EntityType="OutsourcingModel.CustomerCompnay" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.PersonalInfo" Width="3.25" PointX="5.375" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OutsourcingModel.PushedHistory" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.CustomerOutsourc" Width="2.875" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.Dictionary" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.DictionaryItem" Width="1.5" PointX="9.5" PointY="6.375" />
+        <EntityTypeShape EntityType="OutsourcingModel.Attachment" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.Requirement" Width="1.5" PointX="7.625" PointY="12.375" />
+        <EntityTypeShape EntityType="OutsourcingModel.FinancialManagement" Width="1.5" PointX="9.375" PointY="10.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.ContractManagement" Width="1.5" PointX="11.625" PointY="7.25" />
+        <AssociationConnector Association="OutsourcingModel.FK_ContractManagement_CustomerCompnay" />
+        <AssociationConnector Association="OutsourcingModel.FK_ContractManagement_CustomerOutsourc" />
+        <EntityTypeShape EntityType="OutsourcingModel.PushInterViewTable" Width="4.875" PointX="10" PointY="17.125" />
+        <AssociationConnector Association="OutsourcingModel.FK_PushInterViewTable_PersonalInfo" />
+        <AssociationConnector Association="OutsourcingModel.FK_PushInterViewTable_PushInterViewTable" />
+        <AssociationConnector Association="OutsourcingModel.FK_PushInterViewTable_Requirement" />
+        <EntityTypeShape EntityType="OutsourcingModel.PersonsEntrySet" Width="3.375" PointX="12.375" PointY="11.625" />
+        <AssociationConnector Association="OutsourcingModel.FK_PersonsEntrySet_CustomerCompnay" />
+        <AssociationConnector Association="OutsourcingModel.FK_PersonsEntrySet_OutsourcingCompany" />
+        <AssociationConnector Association="OutsourcingModel.FK_PersonsEntrySet_PersonalInfo" />
+        <EntityTypeShape EntityType="OutsourcingModel.LeaveDetail" Width="1.5" PointX="16.625" PointY="7.125" />
+        <EntityTypeShape EntityType="OutsourcingModel.PersonSettlement" Width="1.5" PointX="14.375" PointY="6.25" />
+        <AssociationConnector Association="OutsourcingModel.FK_PersonSettlement_CustomerCompnay" />
+        <AssociationConnector Association="OutsourcingModel.FK_LeaveDetail_PersonSettlement" />
+        <AssociationConnector Association="OutsourcingModel.FK_PersonSettlement_OutsourcingCompany" />
+        <AssociationConnector Association="OutsourcingModel.FK_PersonSettlement_PersonalInfo" />
+        <EntityTypeShape EntityType="OutsourcingModel.InvoiceApplication" Width="2.625" PointX="13.625" PointY="1.375" />
+        <AssociationConnector Association="OutsourcingModel.FK_InvoiceApplication_CustomerCompnay" />
+        <AssociationConnector Association="OutsourcingModel.FK_InvoiceApplication_OutsourcingCompany" />
+        <EntityTypeShape EntityType="OutsourcingModel.InvoiceDetail" Width="1.5" PointX="16.625" PointY="1.375" />
+        <EntityTypeShape EntityType="OutsourcingModel.CooperativeContract" Width="1.5" PointX="5.625" PointY="18.875" />
+        <AssociationConnector Association="OutsourcingModel.FK_CooperativeContract_CustomerCompnay" />
+        <AssociationConnector Association="OutsourcingModel.FK_CooperativeContract_OutsourcingCompany" />
+        <EntityTypeShape EntityType="OutsourcingModel.EmployeeExpatriation" Width="1.5" PointX="15.625" PointY="16.125" />
+        <AssociationConnector Association="OutsourcingModel.FK_EmployeeExpatriation_CustomerCompnay" />
+        <AssociationConnector Association="OutsourcingModel.FK_EmployeeExpatriation_OutsourcingCompany" />
+        <EntityTypeShape EntityType="OutsourcingModel.ImageFile" Width="1.5" PointX="3.75" PointY="14.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.My__Dictionary" Width="1.5" PointX="16.75" PointY="10.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyCertificate" Width="1.5" PointX="0.75" PointY="18.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyElseinfo" Width="1.5" PointX="2.75" PointY="18.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyExpectations" Width="1.5" PointX="18.75" PointY="10.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyLanguage" Width="1.5" PointX="18.75" PointY="14.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyMajor" Width="1.5" PointX="18.75" PointY="17.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyPractice" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyPrize" Width="1.5" PointX="19.75" PointY="3.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyProject" Width="1.5" PointX="19.75" PointY="6.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyRated" Width="1.5" PointX="20.75" PointY="10.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyRecruit" Width="1.5" PointX="20.75" PointY="13.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyScholarship" Width="1.5" PointX="18.75" PointY="20.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyTrain" Width="1.5" PointX="20.75" PointY="19.75" />
+        <EntityTypeShape EntityType="OutsourcingModel.MyWorkexperience" Width="1.5" PointX="21.75" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

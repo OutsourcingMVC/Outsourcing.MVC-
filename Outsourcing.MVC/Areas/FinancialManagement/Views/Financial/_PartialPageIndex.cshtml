@@ -1,0 +1,156 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using System.Text;
+@model PagedList<Outsourcing.EF.FinancialManagement>
+
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.ActionLink("RoleName", "Index", new { sortOrder = ViewBag.RoleNameParm, currentFilter = ViewBag.CurrentFilter })
+                </th>*@
+            <th>编号</th>
+            <th>收支</th>
+            <th>金额</th>
+            <th>出入方</th>
+            <th>交易时间</th>
+            <th>发票状态</th>
+            <th>付款状态</th>
+            <th>明细</th>
+            <th>发票种类</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(modelItem => item.ID)
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BothEnds)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Money)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EntryAndExit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ExchangeHour, "LongDateTime")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InvoiceStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaymentStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Detail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InvoiceType)
+                        </td>
+                        <td>
+                            <a id="btnEdit" onclick="ViewEdit(this,'@item.ID','?pageIndex=@Model.PageNumber&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)')" href="#">编辑</a>|
+                            @*<a id="btnDetails" onclick="LoadAjaxContent(FinancialManagement/Financial/Details/@item.ID)" href="#">详情</a>|*@
+                            <a id="btnDetails" onclick="ViewDetail(this, '@item.ID','?pageIndex=@Model.PageNumber&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)');" href="#">详情</a>|
+                            <a id="btnDelete" onclick="del(this,'@item.ID','?pageIndex=@Model.PageNumber&SearchString=@HttpUtility.UrlEncodeUnicode(ViewBag.CurrentFilter)');" href="#">删除</a>
+                        </td>
+                    </tr>
+
+                }
+            }
+            else
+            {
+                   <tr>
+                      <td colspan="3" style="text-align:center;">未查询到任何记录</td>
+                   </tr>
+
+            }
+        }
+    </tbody>
+</table>
+<br />
+<div>
+
+    @*<script src="~/Scripts/mvcpager.js"></script>*@
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.PageCount 页 @Model.TotalItemCount 条记录，当前为第 @Model.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, AttachmentName = (ViewBag.CurrentFilter != null ? ViewBag.CurrentFilter : string.Empty) }))
+    @*mvcpager分页，带ajax支持*@
+    @*@Ajax.Pager(Model.StaffMembers, new PagerOptions
+        {
+            PageIndexParameterName = "page",
+            ShowPageIndexBox = true,
+            PageIndexBoxType = PageIndexBoxType.DropDownList,
+            ShowGoButton = false,
+            ShowNumericPagerItems = true,
+
+        },
+        new MvcAjaxOptions
+        {
+            UpdateTargetId = "datalist",
+            HttpMethod = "Post",
+            DataFormId = "searchForm",
+            EnablePartialLoading = true,
+            Url = "OA/AttendanceMonthStatistical/Index"
+        }, new { style = "float:right" })*@
+</div>
+@*@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}*@
+<script type="text/javascript">
+    $(document).ready(function () { replacePageUrl() });
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+
+        //debugger;
+        //var alist = $('#datalist a');
+        //alist.innerHtml = "";
+        //var divlist = $('div#pagerleft').next();
+        //if (divlist) {
+        //debugger;
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                //debugger;
+                //alert(index);
+                //if (index >= 6) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    //debugger;
+                    //var splitUrl = element.href.split('/')
+                    var splitUrl = element.href.split('?');
+                    //var newhref = "LoadAjaxContent('" + splitUrl[3] + splitUrl[4] + "')";
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('FinancialManagement/Financial/Index?' + splitUrl[1]);
+                    });
+                    //$(this).on("click", function () {
+                    //    LoadAjaxContent('OA/AttendanceMonthStatistical/Index?page=2');
+                    //});
+                    $(this).attr("href", "#");
+                }
+
+                //}
+            });
+        }
+        //}
+    }
+
+    function ViewDetail(obj,id,strQuery)
+    {
+        var url = 'FinancialManagement/Financial/Details/' + id+strQuery;
+        window.alert(url);
+        LoadAjaxContent(url);
+    }
+
+    function ViewEdit(obj, id, strQuery) {
+        var url = 'FinancialManagement/Financial/Edit/' + id + strQuery;
+        window.alert(url);
+        LoadAjaxContent(url);
+    }
+</script>

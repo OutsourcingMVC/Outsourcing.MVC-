@@ -1,0 +1,199 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model OutsourcingWeb.MVC.Areas.PersonEntry.Models.PersonsEntrySetViewModel
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead id="theadId">
+        <tr>
+            <th>选择</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>技能</th>
+            <th>所属公司</th>
+            <th>人员状态</th>
+            <th>入职公司</th>
+            <th>入职时间</th>
+            @*<th>离职时间</th>*@
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.PersonsEntrySets.Count > 0)
+            {
+                foreach (var item in Model.PersonsEntrySets)
+                {
+                    <tr>
+                        <td style="text-align:center;">
+                            <input class="states checkbox" style="vertical-align:middle" type="checkbox" name="ids" value="@item.Id" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PersonalInfo.PersonName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PersonalInfo.Sex)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PersonalInfo.Publications)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OutsourcingCompany.CompnayName)
+
+                        </td>
+                        <td>
+                            @{
+                                string classStyle = "btn-success";
+                                string status = "";
+                                switch (item.EntryStatus)
+                                {
+                                    case 0:
+                                        status = "在职";
+                                        break;
+                                    case 1:
+                                        status = "离职";
+                                        classStyle = "btn-warning";
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            @Html.Label(status, new { @class = classStyle })
+                            @*@Html.DisplayFor(modelItem => status)*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustomerCompnay.CompnayName)
+                        </td>
+                        <td>
+                            @{
+                                string entryDate = string.Format("{0:D}", item.EntryDate);
+                            }
+                            @entryDate
+                        </td>
+                        @*<td>
+                            @{
+                                                string ResignedDate = string.Format("{0:D}", item.ResignedDate);
+                                            }
+                                            @ResignedDate
+                                        </td>*@
+                        <td>
+                            <button type="button" onclick="LoadAjaxContent('/PersonnelSettlement/PersonnelSettlement/Index?loginid=@ViewBag.LoginID&&type=@ViewBag.Type&&PersonID=@item.PersonalInfoId&&CustomerID=@item.CustomerCompnayCompnayId&&OutCompanyID=@item.OutsourcingCompanyCompnayId')" class="btn btn-primary btn-xs">
+                                结算明细
+                            </button>
+                            @if (ViewBag.Type != 1)
+                            {
+                                <button type="button" onclick="LoadAjaxContent('/PersonEntry/PersonsEntry/PersonSettl?loginid=@ViewBag.LoginID&&type=@ViewBag.Type&&PersonID=@item.PersonalInfoId&&CustomerID=@item.CustomerCompnayCompnayId&&OutCompanyID=@item.OutsourcingCompanyCompnayId')" class="btn btn-primary btn-xs">
+                                    考勤
+                                </button>
+                            }
+                            <button type="button" onclick="javascript:$('#ID').val('@item.Id');" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                                离职
+                            </button>
+
+                        </td>
+                    </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td colspan="9" style="text-align:center;">未查询到任何记录</td></tr>
+                                }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                @*<div class="form-group">
+                    <div class="input-group col-xs-12">
+                        <div class="input-group-btn">*@
+                <span class="form-inline">
+                    <input id="checkall" class="checkbox" type="checkbox" title="全选" />
+                </span>
+                @*</div>
+                        <a href="#">推送简历</a>
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" id="search_submit" type="submit">Go</button>
+                        </span>
+                    </div>
+                    </div>*@
+
+            </td>
+            <td colspan="8">
+                @*<input id="allPush" class="btn btn-default btn-sm btn-info" type="button" value="推送简历" />
+                    <input id="reSet" class="btn btn-default btn-sm btn-info" type="button" value="重置" />*@
+                @*<input class="btn-default btn-info " type="button"  value="推送简历"/>*@
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<br />
+
+<!-- 按钮触发模态框 -->
+<!-- 模态框（Modal）离职时间 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="Modalclose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">离职时间选择</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group" id='datetimepicker2'>
+                        <label class="col-sm-1 control-label" style="width: 95px;">选择时间:</label>
+                        <div class="col-sm-3">
+                            <input id="ID" type="hidden" />
+                            <input class="form-control" id="dateSelect" style="width: 150px;" type="text" placeholder="请选择离职时间">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="dateSelectOK" type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.PersonsEntrySets.PageCount 页 @Model.PersonsEntrySets.TotalItemCount 条记录，当前为第 @Model.PersonsEntrySets.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.PersonsEntrySets, page => Url.Action("Index",
+    new { page, loginid = ViewBag.LoginID }))
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {replacePageUrl() });
+
+    $("#dateSelectOK").click(function () {
+        $("#Modalclose").click();
+        debugger;
+        var datas={
+            loginid:@ViewBag.LoginID,
+            ID:$("#ID").val(),
+            ResignedDate:$("#dateSelect").val(),
+            pageIndex:@Model.PersonsEntrySets.PageNumber};
+        $.ajax({
+            url:"/PersonEntry/PersonsEntry/SetResignedDate",
+            type: "Post",
+            data:datas,
+            dataType: "text",
+            success: function (data)
+            {
+                debugger;
+                if (data != "")
+                {
+                    LoadAjaxContent('/PersonEntry/PersonsEntry/PersonsEntryList?' + data);
+                }
+            }
+        });
+        $("#dateSelect").val("");
+        $("#ID").val("");
+    })
+
+    $('#dateSelect').datetimepicker({
+        language: 'zh-CN',  //日期
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        todayBtn: 1,
+        autoclose: 1
+    })
+</script>

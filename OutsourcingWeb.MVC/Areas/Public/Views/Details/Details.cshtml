@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "发布信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--Tabs样式-->
+<script src="~/Scripts/jQueryMiniUi/scripts/boot.js" type="text/javascript"></script>
+<link href="~/Scripts/jQueryMiniUi/scripts/skin.css" type="text/css" rel="stylesheet" />
+<!--菜单样式-->
+@*<link href="~/Scripts/styles/base.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/extends/loginreg/loginreg.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/nav.css" rel="stylesheet" />*@
+<script src="~/Scripts/js/jquery-1.8.0.js"></script>
+<style type="text/css">
+    #bigDiv {
+        width: 70%;
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+
+    #topDiv {
+        border-bottom: 1px dashed #CCCCCC;
+    }
+
+        #topDiv table {
+            margin: 10px;
+            font-size: 16px;
+            margin-left: 50px;
+        }
+
+    #tabs {
+        bodyStyle: none;
+        height: 340px;
+    }
+
+</style>
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<div class="spacer8"></div>
+<div class="spacer8"></div>
+<div style="height:1px;background-color:#f0ecec; width:100%;"></div>
+<div class="spacer8"></div>
+<div class="spacer8"></div>
+<div id="bigDiv">
+    <input type="hidden" id="hiddenId" />
+    <div id="topDiv">
+        <table>
+            <tr>
+                <td style="width:100px; float:left;">职位月薪：</td>
+                <td style="width:300px;" id="Salary" name="Salary"></td>
+                <td style="width:100px;">工作地点：</td>
+                <td style="width:300px;" id="ProjectAddress" name="ProjectAddress"></td>
+            </tr>
+            <tr>
+                <td>发布日期：</td>
+                <td id="PublishTime"></td>
+                <td>工作性质：</td>
+                <td id="Property"></td>
+            </tr>
+            <tr>
+                <td>工作经验：</td>
+                <td id="Experience"></td>
+                <td>最低学历：</td>
+                <td id="Education"></td>
+            </tr>
+            <tr>
+                <td>招聘人数：</td>
+                <td id="RecNumber"></td>
+                <td>职位名称：</td>
+                <td id="JobName"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="spacer8"></div>
+    <div class="spacer8"></div>
+    <div id="tabs" class="mini-tabs" activeIndex="0">
+        <div title="职位描述" style=" font-size:30px;" id="JobDescription">
+        </div>
+        <div title="公司介绍" id="ComProfile">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var str = location.search;
+    var ID = str.split('?RequirementId=')[1];
+    $("#hiddenId").val(ID);
+    $(function () {
+        var a = $("#hiddenId").val();
+        $.ajax({
+            type: "POST",
+            url: "/Public/Details/GetDateList",
+            data: { RequirementId: ID },
+            success: function (requirement) {
+                var salary = requirement[0].Salary;
+                if (salary == 1)
+                { $("#Salary").append("4000元以下"); }
+                if (salary == 2)
+                { $("#Salary").append("4000元-6000元"); }
+                if (salary == 3)
+                { $("#Salary").append("6000元-8000元"); }
+                if (salary == 4)
+                { $("#Salary").append("8000元-10000元"); }
+                if (salary == 5)
+                { $("#Salary").append("10000元以上"); }
+                if (salary == 6)
+                { $("#Salary").append("面议"); };
+                $("#ProjectAddress").append(requirement[0].ProjectAddress);
+                var time = requirement[0].PublishTime;
+                var str = time.substring(6, 16);
+                $("#PublishTime").append(getLocalTime(str));
+
+                var property = requirement[0].Property;
+                if (property == 1)
+                { $("#Property").append("不限"); }
+                if (property == 2)
+                { $("#Property").append("全职"); }
+                if (property == 3)
+                { $("#Property").append("兼职"); }
+                if (property == 4)
+                { $("#Property").append("实习"); }
+
+                var experience = requirement[0].Experience;
+                if (experience == 1)
+                { $("#Experience").append("不限"); }
+                if (experience == 2)
+                { $("#Experience").append("无经验"); }
+                if (experience == 3)
+                { $("#Experience").append("1年以下"); }
+                if (experience == 4)
+                { $("#Experience").append("1-3年"); }
+                if (experience == 5)
+                { $("#Experience").append("3-5年"); }
+                if (experience == 6)
+                { $("#Experience").append("5-10年"); }
+                if (experience == 7)
+                { $("#Experience").append("10年以上"); }
+
+                var education = requirement[0].Education;
+                if (education == 1)
+                { $("#Education").append("不限"); }
+                if (education == 2)
+                { $("#Education").append("无学历要求"); }
+                if (education == 3)
+                { $("#Education").append("高中/中转/中技及以下"); }
+                if (education == 4)
+                { $("#Education").append("大专及等同学历"); }
+                if (education == 5)
+                { $("#Education").append("本科学历"); }
+                if (education == 6)
+                { $("#Education").append("硕士学历"); }
+                if (education == 7)
+                { $("#Education").append("博士及以上"); }
+                if (education == 8)
+                { $("#Education").append("其他"); }
+                $("#RecNumber").append(requirement[0].RecNumber);
+                $("#JobName").append(requirement[0].JobName);
+                debugger;
+                document.getElementById('JobDescription').innerHTML = requirement[0].JobDescription;
+                document.getElementById('ComProfile').innerHTML = requirement[0].ComProfile;
+            }
+        });
+    })
+
+    //将时间戳转化为时间格式
+    function getLocalTime(nS) {
+        return new Date(parseInt(nS) * 1000).toLocaleString().substr(0, 9).replace('/', "-").replace('/', "-");
+    }
+</script>

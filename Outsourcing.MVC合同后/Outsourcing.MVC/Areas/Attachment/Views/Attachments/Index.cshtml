@@ -1,0 +1,311 @@
+﻿@*@using Webdiyer.WebControls.Mvc;*@
+@using PagedList
+@using PagedList.Mvc
+@model  PagedList<Outsourcing.EF.Attachment>
+
+@{
+    Layout = null;
+
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="#">附件管理</a></li>
+        </ol>
+        @*<div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>*@
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>附件管理</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding" style="overflow: auto;">
+                <p>
+                    <a id="btnNew" onclick="LoadAjaxContent('Attachment/Attachments/Create')" class="ajax-link" href="#">新建</a>
+                </p>
+                <div>
+                    <form id="defaultForm" method="post" action="Attachment/Attachments/Index" class="form-horizontal">
+                        <p><div class="col-md-3" style="display:inline">
+    附件名称: <input class="form-control" placeholder="附件名称" style="width:100px;display:inline;" name="AttachmentName" value="@(HttpUtility.UrlDecode(ViewBag.CurrentFilter) as string)" />
+</div>
+    @*@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)*@
+    <input id="btnSubmit" class="btn btn-primary btn-xs" type="button" value="搜索" />
+</p>
+                    </form>
+                </div>
+                <div id="datalist">
+                    @Html.Partial("_PartialPageIndex", Model)
+
+                </div>
+
+                <div id="outputdiv" role="alert">
+                    @*<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="delConfirm">
+<div class=" modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">系统提示</h4>
+        </div>
+        <div class="modal-body">
+            <input id="hidKey" type="hidden" />
+            <p>确认删除吗?&hellip;</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+            <button type="button" class="btn btn-primary" id="btnDeleteConfirm">是</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@*<script src="~/plugins/jquery-form/jquery.form.js"></script>*@
+<script src="~/Scripts/jquery.form.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        // Add Drag-n-Drop feature
+        WinMove();
+        //思路:使用jquery替换方式替换掉mvcpager生成的分页文本
+        replacePageUrl();
+    });
+
+    //回车实现提交功能
+    $("input[name='AttachmentName']").keypress(function (event) {
+        if (event.keyCode == 13) {
+            //为了防止回车键收到其它地方的干扰，因此需要先取消时间冒泡。但并不放弃form的ajax提交  by 李帅 2015.9.21
+            event.preventDefault();
+            $('#btnSubmit').trigger("click");
+        }
+    });
+
+    $('#btnSubmit').on('click', function () {
+        //debugger;
+        //为form的ajax提交准备参数
+        var options = {
+            //target: '#outputdiv',//不能启用target，否则将导致提示框不显示关闭按钮，已改到responseText方法中处理
+            //beforeSubmit: showRequest,
+            success: showSearchResponse
+        };        
+        //alert($(this).attr("type"));
+        $('#defaultForm').ajaxSubmit(options);
+
+        //alert($(this).attr("type"));
+
+    });
+    //defaultForm ajax提交成功后的回调函数
+    function showSearchResponse(responseText, statusText) {
+        //alert(statusText);
+        //debugger;
+        $('#datalist').html(responseText);
+    }
+
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+        //debugger;
+        //var alist = $('#datalist a');
+        //alist.innerHtml = "";
+        //var divlist = $('div#pagerleft').next();
+        //if (divlist) {
+        //debugger;
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                //debugger;
+                //alert(index);
+                //if (index >= 6) {
+                if ($(this).attr("href") != undefined && $(this).attr("href")!="#") {
+                    //debugger;
+                    var splitUrl = element.href.split('/')
+                    //var newhref = "LoadAjaxContent('" + splitUrl[3] + splitUrl[4] + "')";
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('Attachment/Attachments/Index?page=' + $(this).text());
+                    });
+                    //$(this).on("click", function () {
+                    //    LoadAjaxContent('OA/Account/Index?page=2');
+                    //});
+                    $(this).attr("href", "#");
+                }
+
+                //}
+            });
+        }
+        //}
+    }
+
+    ////替换分页控件生成的链接—mvcpager
+    //function replacePageUrl() {
+    //    //debugger;
+    //    //var alist = $('#datalist a');
+    //    //alist.innerHtml = "";
+    //    var divlist = $('div#pagerleft').next();
+    //    if (divlist) {
+    //        //debugger;
+    //        var alist = divlist.find("a");
+    //        if (alist) {
+    //            alist.each(function (index, element) {
+    //                //debugger;
+    //                //alert(index);
+    //                //if (index >= 6) {
+    //                if ($(this).attr("href") != undefined) {
+    //                    //debugger;
+    //                    var splitUrl = element.href.split('/')
+    //                    //var newhref = "LoadAjaxContent('" + splitUrl[3] + splitUrl[4] + "')";
+    //                    $(this).bind("click", function () {
+    //                        LoadAjaxContent('OA/Account/Index?page=' + $(this).text());
+    //                    });
+    //                    //$(this).on("click", function () {
+    //                    //    LoadAjaxContent('OA/Account/Index?page=2');
+    //                    //});
+    //                    $(this).attr("href", "#");
+    //                }
+
+    //                //}
+    //            });
+    //        }
+    //    }
+    //}
+
+    $("#btnDeleteConfirm").on("click", function () {
+        //debugger;
+       @*'OA/Department/Delete/@item.DepartmentID'*@
+       //找到待删除行的ID
+       var id = $('#hidKey').val();
+        if (id) {
+            var delUrl = 'Attachment/Attachments/Delete/' + id;
+            deleteList(delUrl);
+        }
+    });
+
+    function del(obj, id) {
+        //debugger;
+        $('#hidKey').val(id);
+        $('#delConfirm').modal('show');
+    }
+
+    function deleteList(url) {
+        //debugger;
+        $.ajax({
+            mimeType: 'text/html; charset=utf-8', // ! Need set mimeType only when run from local file
+            url: url,
+            type: 'POST',
+            success: function (responseText, statusText) {
+                //$('#ajax-content').html(data);
+                $('#delConfirm').modal('hide')
+                showDeleteResponse(responseText, statusText);
+                //2秒钟之后再刷新列表页，否则会导致删除成功后提示框不显示，因为页面已经刷新了
+                setTimeout("LoadAjaxContent('Attachment/Attachments/Index')", 1000);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            },
+            dataType: "html",
+            async: true
+        });
+    };
+
+    function showDeleteResponse(responseText, statusText) {
+        //alert(statusText);
+        $('#outputdiv').fadeIn(1000);
+        if (responseText == '删除成功') {
+            $('#outputdiv').attr("class", "alert alert-success alert-dismissible");
+
+        } else {
+            $('#outputdiv').attr("class", "alert alert-danger alert-dismissible");
+        }
+        $('#outputdiv').html("<strong>" + responseText + "</strong>");
+        $('#outputdiv').fadeOut(3000);
+
+
+    }
+    //暂时不用
+    //$('#btnNew').click(function () {
+    //    var form = $('<form id="event_form">' +
+    //            '<div class="form-group has-success has-feedback">' +
+    //            '<label">确定删除吗？</label>' +
+    //            '</div>' +
+    //            '</form>');
+    //    //debugger;
+    //    LoadAjaxContent('OA/Account/Create');
+    //    var buttons = $('<button id="event_cancel" type="cancel" class="btn btn-default btn-label-left">' +
+    //                    '<span><i class="fa fa-clock-o txt-danger"></i></span>' +
+    //                    '取消' +
+    //                    '</button>' +
+    //                    '<button type="submit" id="event_submit" class="btn btn-primary btn-label-left pull-right">' +
+    //                    '<span><i class="fa fa-clock-o"></i></span>' +
+    //                    '确定' +
+    //                    '</button>');
+    //    OpenModalBox('系统提示', form, null);
+    //    $('#event_cancel').on('click', function () {
+    //        CloseModalBox();
+    //    });
+    //    $('#event_submit').on('click', function () {
+    //var new_event_name = $('#newevent_name').val();
+    //if (new_event_name != '') {
+    //    calendar.fullCalendar('renderEvent',
+    //        {
+    //            title: new_event_name,
+    //            description: $('#newevent_desc').val(),
+    //            start: start,
+    //            end: end,
+    //            allDay: allDay
+    //        },
+    //        true // make the event "stick"
+    //    );
+    //}
+    //        $.ajax({
+    //            mimeType: 'text/html; charset=utf-8', // ! Need set mimeType only when run from local file
+    //            url: url,
+    //            type: 'GET',
+    //            success: function (data) {
+    //                //$('#ajax-content').html(data);
+    //                alert(data);
+    //                $('.preloader').hide();
+    //            },
+    //            error: function (jqXHR, textStatus, errorThrown) {
+    //                alert(errorThrown);
+    //            },
+    //            dataType: "html",
+    //            async: false
+    //        });
+    //        CloseModalBox();
+    //    });
+    //});
+
+
+</script>

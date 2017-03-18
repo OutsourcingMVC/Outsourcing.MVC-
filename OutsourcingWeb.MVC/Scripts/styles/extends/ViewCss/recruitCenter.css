@@ -1,0 +1,55 @@
+﻿body {
+    margin:0;padding:0;font-size:15px;
+}
+
+#tb_Main {
+    margin-top:10px;
+    width:100%;
+}
+
+#tb_Main thead tr {
+    line-height:60px;
+    background-color:#dcddc0;
+    font-weight:900;
+    font-size:16px;
+    
+}
+
+    #tb_Main tbody tr {
+        line-height:40px;
+    }
+
+
+    #tb_Main tbody tr:nth-child(odd) {
+    background-color:rgb(213, 229, 220);
+    }
+
+    #tb_Main tbody tr:nth-child(even) {
+    background-color:#efefef;
+    }
+
+    .btn { 
+color: #606060; 
+border: solid 1px #b7b7b7; 
+background: #fff; 
+background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed)); 
+background: -moz-linear-gradient(top, #fff, #ededed); 
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+font-size:14px;
+font-weight:500;
+} 
+.btn:hover { 
+background: #ededed; 
+background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc)); 
+background: -moz-linear-gradient(top, #fff, #dcdcdc); 
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc'); 
+} 
+.btn:active { 
+color: #999; 
+background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff)); 
+background: -moz-linear-gradient(top, #ededed, #fff); 
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff'); 
+} 
+
+
+

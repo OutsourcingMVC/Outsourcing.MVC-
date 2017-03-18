@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>简历中心</title>
+    <!--消息提示框-->
+    <script src="~/Scripts/js/jquery-1.8.0.js"></script>
+    <!--title图标-->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Scripts/styles/images/yjylogo.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--菜单样式-->
+    <link href="~/Scripts/styles/base.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/extends/loginreg/loginreg.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/nav.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="~/Scripts/styles/common.css" />*@
+
+
+    <link rel="stylesheet" href="~/Scripts/sweetalert/sweetalert.css" />
+    <script type="text/javascript" src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+</head>
+<body>
+    <div id="box">
+        <div id="header">
+            @{
+                if (ViewBag.types > 0)
+                {
+                    Html.RenderPartial("~/Views/Home/Header.cshtml");
+                }
+            }
+        </div>
+        <div id="menu" style="width:100%;">
+            
+        </div>
+        <div>
+            @RenderBody()
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: "/Home/Nav",
+            data:{"loginid":@ViewBag.LoginID},
+            type: "POST",
+            dataType: "HTML",
+            success: function (Rdate) {
+                $("#menu").html(Rdate);
+            }
+        })
+    })
+</script>

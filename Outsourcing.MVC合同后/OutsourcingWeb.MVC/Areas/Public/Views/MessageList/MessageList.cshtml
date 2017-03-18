@@ -1,0 +1,272 @@
+﻿@model OutsourcingWeb.MVC.Areas.Public.Models.MessageListViewModel
+@{
+    ViewBag.Title = "信息列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
+}
+<!--信息列表样式-->
+<link href="~/Scripts/devoops/bootstrap.css" rel="stylesheet">
+<script src="~/Scripts/devoops/bootstrap.min.js" type="text/javascript"></script>
+@*<script src="~/Scripts/devoops/devoops.js"></script>*@
+<style type="text/css">
+    #bigDiv {
+        width: 70%;
+        margin-left: 15%;
+        margin-right: 15%;
+        text-align: center;
+    }
+
+    #filter {
+        width: 100%;
+        height: 60px;
+        margin-top: 20px;
+    }
+
+        #filter div {
+            float: right;
+        }
+
+        #filter select {
+            height: 30px;
+            border: none;
+            text-align: center;
+        }
+
+    #hedadiv {
+        border-bottom: 1px dashed #999999;
+        height: 40px;
+        width: 100%;
+    }
+
+        #hedadiv ul li {
+            float: right;
+        }
+
+    .select_box {
+        border: 1px solid blue;
+        position: relative;
+        text-align: center;
+        border-right: none;
+    }
+
+        .select_box span {
+            cursor: pointer;
+            display: block;
+            line-height: 25px;
+            width: 100%;
+            height: 25px;
+            overflow: hidden;
+        }
+
+        .select_box ul li {
+            cursor: pointer;
+        }
+
+    .son_ul {
+        position: absolute;
+        border: 1px solid #ccc;
+        background: #CCCCCC; /* opacity:0.5;filter:alpha(opacity=50);*/
+    }
+
+        .son_ul li {
+            display: block;
+            line-height: 25px;
+        }
+
+    .hover {
+        background: #FFFFFF;
+    }
+
+    a {
+        color: black;
+    }
+
+        a:hover {
+            color: green;
+        }
+        tbody{
+            text-align:left;
+        }
+</style>
+<input type="hidden" name="loginid" id="loginid" value="@ViewBag.LoginID">
+<div class="spacer8"></div>
+<div class="spacer8"></div>
+<div style="height:1px;background-color:#f0ecec; width:100%;"></div>
+<div id="bigDiv">
+    <div id="filter">
+        <div id="hedadiv">
+            <ul id="main_box">
+                <li class="select_box" style="width:110px; border:1px solid blue;">
+                    <span>发布时间</span>
+                    <ul class="son_ul" style="width:108px;">
+                        <li style="width:106px;">不限</li>
+                        <li style="width:106px;">最近三天</li>
+                        <li style="width:106px;">最近一周</li>
+                        <li style="width:106px;">最近一个月</li>
+                    </ul>
+                </li>
+                <li class="select_box" style="width:110px;">
+                    <span>工作性质</span>
+                    <ul class="son_ul" style="width:108px;">
+                        <li style="width:106px;">不限</li>
+                        <li style="width:106px;">全职</li>
+                        <li style="width:106px;">兼职</li>
+                        <li style="width:106px;">实习</li>
+                    </ul>
+                </li>
+                <li class="select_box" style="width:110px;">
+                    <span>技术语言</span>
+                    <ul class="son_ul" style="width:108px;">
+                        <li style="width:106px;">Java</li>
+                        <li style="width:106px;">C</li>
+                        <li style="width:106px;">C++</li>
+                        <li style="width:106px;">C#</li>
+                        <li style="width:106px;">HTML</li>
+                        <li style="width:106px;">PHP</li>
+                    </ul>
+                </li>
+                <li class="select_box" style="width:110px;">
+                    <span>工作经验</span>
+                    <ul class="son_ul" style="width:108px;">
+                        <li style="width:106px;">无经验</li>
+                        <li style="width:106px;">1年以下</li>
+                        <li style="width:106px;">1-3年</li>
+                        <li style="width:106px;">3-5年</li>
+                        <li style="width:106px;">5-10年</li>
+                        <li style="width:106px;">10年以上</li>
+                    </ul>
+                </li>
+                <li class="select_box" style="width:180px;">
+                    <span>学历</span>
+                    <ul class="son_ul" style="width:178px;">
+                        <li style="width:176px;">无学历要求</li>
+                        <li style="width:176px;">高中/中转/中技及以下</li>
+                        <li style="width:176px;">大专及等同学历</li>
+                        <li style="width:176px;">本科学历</li>
+                        <li style="width:176px;">硕士学历</li>
+                        <li style="width:176px;">博士及以上</li>
+                        <li style="width:176px;">其他</li>
+                    </ul>
+                </li>
+                <li class="select_box" style="width:150px;">
+                    <span>薪资</span>
+                    <ul class="son_ul" style="width:148px;">
+                        <li style="width:146px;">4000元以下</li>
+                        <li style="width:146px;">4000元-6000元</li>
+                        <li style="width:146px;">6000元-8000元</li>
+                        <li style="width:146px;">8000元-10000元</li>
+                        <li style="width:146px;">10000元以上</li>
+                        <li style="width:146px;">面议</li>
+                    </ul>
+                </li>
+                <li class="select_box" style="border:none; margin-top:2px; width:110px; font-size:16px; margin-right:-10px;">筛选条件：</li>
+            </ul>
+        </div>
+    </div>
+    <div id="datalist">
+        @Html.Partial("_PartialPageIndex", Model)
+    </div>
+    <div id="outputdiv" role="alert">
+    </div>
+</div>
+<script type="text/javascript">
+
+    //筛选栏
+    $(document).ready(function () {
+        $('.son_ul').hide(); //初始ul隐藏
+        $('.select_box span').hover(function () { //鼠标移动函数
+            $(this).parent().find('ul.son_ul').slideDown();  //找到ul.son_ul显示
+            $(this).parent().find('li').hover(function () { $(this).addClass('hover') }, function () { $(this).removeClass('hover') }); //li的hover效果
+            $(this).parent().hover(function () { },
+              function () {
+                  $(this).parent().find("ul.son_ul").slideUp();
+              }
+                      );
+        }, function () { }
+                 );
+        $('ul.son_ul li').click(function () {
+            $(this).parents('li').find('span').html($(this).html());
+            $(this).parents('li').find('ul').slideUp();
+        });
+    }
+    );
+
+    //var str = location.search;
+    //var JobCategory = str.split('?Type=')[1];
+    $(document).ready(function () {
+        // Add Drag-n-Drop feature
+        //WinMove();
+        //思路:使用jquery替换方式替换掉mvcpager生成的分页文本
+        replacePageUrl();
+    });
+
+    //替换分页控件生成的链接-pagedlist
+    function replacePageUrl() {
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    var splitUrl = element.href.split('/')
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('/Public/MessageList/MessageList?page=' + $(this).text());
+                    });
+                    $(this).attr("href", "#");
+                }
+            });
+        }
+    }
+
+    function WinMove() {
+        $("div.box").not('.no-drop')
+            .draggable({
+                revert: true,
+                zIndex: 2000,
+                cursor: "crosshair",
+                handle: '.box-name',
+                opacity: 0.8
+            })
+            .droppable({
+                tolerance: 'pointer',
+                drop: function (event, ui) {
+                    var draggable = ui.draggable;
+                    var droppable = $(this);
+                    var dragPos = draggable.position();
+                    var dropPos = droppable.position();
+                    draggable.swap(droppable);
+                    setTimeout(function () {
+                        var dropmap = droppable.find('[id^=map-]');
+                        var dragmap = draggable.find('[id^=map-]');
+                        if (dragmap.length > 0 || dropmap.length > 0) {
+                            dragmap.resize();
+                            dropmap.resize();
+                        }
+                        else {
+                            draggable.resize();
+                            droppable.resize();
+                        }
+                    }, 50);
+                    setTimeout(function () {
+                        draggable.find('[id^=map-]').resize();
+                        droppable.find('[id^=map-]').resize();
+                    }, 250);
+                }
+            });
+    }
+
+
+
+
+    //全选
+    function selectAll() {
+        $("INPUT[type='checkbox']").each(function () {
+            if ($(this).attr('checked')) {
+                $(this).attr('checked', false);
+                $(this).removeClass('checked');
+            } else {
+                $(this).attr('checked', true);
+                $(this).addClass('checked');
+            }
+        });
+    }
+</script>
+

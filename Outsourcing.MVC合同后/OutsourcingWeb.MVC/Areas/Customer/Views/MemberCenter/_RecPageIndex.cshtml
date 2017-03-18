@@ -1,0 +1,153 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using System.Text;
+@model OutsourcingWeb.MVC.Areas.Customer.Models.MemberCenterViewModel
+
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead id="theadId">
+        <tr>
+            <th data-field="ProjectName" style="width:15%;">项目名称</th>
+            <th data-field="ReqNum" style="width:15%;">招聘人数</th>
+            <th data-field="ModelName" style="width:15%;">技术语言</th>
+            <th data-field="ArrivalTime" style="width:15%;">到岗时间</th>
+            <th data-field="ProjectAdd" style="width:20%">项目地点</th>
+            @*<th data-field="ProReqInfo">备注</th>*@
+            <th data-field="" style="width:20%;">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.Requirement.Count > 0)
+            {
+                foreach (var item in Model.Requirement)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RecNumber)
+                        </td>
+                        @{
+                            @*if (item.TecLanguage == 1)
+                                {
+                                    <td>Java</td>}
+                                if (item.TecLanguage == 2)
+                                {
+                                    <td>C/C++</td>}
+                                if (item.TecLanguage == 3)
+                                {
+                                    <td>C#/Asp.Net</td>}
+                                if (item.TecLanguage == 4)
+                                {
+                                    <td>HTML</td>}
+                                if (item.TecLanguage == 5)
+                                {
+                                    <td>PHP</td>}
+                                if (item.TecLanguage == 6)
+                                {
+                                    <td>web前端</td>
+                                }
+                                if (item.TecLanguage == 7)
+                                {
+                                    <td>美工</td>
+                                }*@
+                        switch (item.TecLanguage)
+                        {
+                            case 1:
+                                <td>Java</td>
+                                break;
+                            case 2:
+                                <td>C/C++</td>
+                                break;
+                            case 3:
+                                <td>C#/Asp.Net</td>
+                                break;
+                            case 4:
+                                <td>HTML</td>
+                                break;
+                            case 5:
+                                <td>PHP</td>
+                                break;
+                            case 6:
+                                <td>web前端</td>
+                                break;
+                            case 7:
+                                <td>美工</td>
+                                break;
+                            default:
+                                <td></td>
+                                break;
+                        }
+                        }
+
+                        @{
+                            if (item.PublishTime == null)
+                            {
+                                <td>@Html.DisplayFor(modelItem => item.ArrivalTime)</td>
+                            }
+                            else
+                            {
+                                <td>@item.ArrivalTime.Value.ToString("yyyy-MM-dd")</td>
+                            }
+
+                        }
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectAddress)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Remark)
+                            </td>*@
+
+                        <td>
+                            <button onclick="edit(@item.RequirementId);" class="btn btn-primary btn-xs">
+                                编辑
+                            </button>
+                            @*<button type="button" onclick="del(@item.RequirementId);" class="btn btn-primary btn-xs">
+                                    删除
+                                </button>*@
+                            <button type="button" onclick="LoadAjaxContent('/Personal/Personal/Index?rid=@item.RequirementId&loginid=@ViewBag.LoginID&&oldpage=@Model.Requirement.PageNumber')" class="btn btn-primary btn-xs">
+                                推送详细
+                            </button>
+                            @*<a href="#" id="btnEdit" onclick="edit(@item.RequirementId);">编辑</a>|
+                                <a href="#" id="btnDelete" onclick="del(@item.RequirementId);">删除</a>|
+                                <a href="#" id="btnTalentPush" >推送详细</a>*@
+                        </td>
+                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="13" style="text-align:center; background-color:white;">未查询到任何记录</td></tr>
+                            }
+        }
+    </tbody>
+</table>
+<br />
+<div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.Requirement.PageCount 页 @Model.Requirement.TotalItemCount 条记录，当前为第 @Model.Requirement.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.Requirement, page => Url.Action("RecManagement",
+            new { loginid = ViewBag.LoginID, type = ViewBag.Type, StaffName = (ViewBag.CurrentFilter != null ? ViewBag.CurrentFilter : string.Empty), page }))
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        replacePageUrl()
+    });
+    function replacePageUrl() {
+        var alist = $('#datalist a');
+        if (alist) {
+            alist.each(function (index, element) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    var splitUrl = element.href.split('?');
+                    $(this).bind("click", function () {
+                        LoadAjaxContent('/Customer/MemberCenter/RecManagement?' + splitUrl[1]);
+                    });
+                    $(this).attr("href", "#");
+                }
+            });
+        }
+    }
+</script>

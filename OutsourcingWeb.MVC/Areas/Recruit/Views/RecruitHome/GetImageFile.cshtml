@@ -1,0 +1,25 @@
+﻿@model Outsourcing.EF.ImageFile
+@{
+    Layout = "~/Views/Shared/_indexLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetImageFile</title>
+</head>
+<body style="width:100%;">
+    <div style="margin-left:300px;">
+        <div style="margin-top:40px;margin-left:30px;width:80%;height:200px;">
+            <img src="/Home/GetImg?id=@ViewBag.ID&type=@ViewBag.Type" style="width:100%;" />
+        </div>
+
+        <div style="margin-top:30px;margin-left:20px;">
+            @Html.Raw(Model.ImageContent)
+        </div>
+    </div>
+
+</body>
+</html>

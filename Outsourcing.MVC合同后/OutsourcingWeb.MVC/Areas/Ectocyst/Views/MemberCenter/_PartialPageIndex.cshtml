@@ -1,0 +1,173 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using System.Text;
+@model OutsourcingWeb.MVC.Areas.Ectocyst.Models.PersonalInfoViewModel
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" style="width: 100%;">
+    <thead id="theadId">
+        <tr>
+
+            <th data-field="PersonName" style="width:10%;">姓名</th>
+            <th data-field="Sex" style="width:7%;">性别</th>
+            @*<th data-field="Birthday">出生年月</th>*@
+            <th data-field="Telephone" style="width:8%;">联系方式</th>
+            <th data-field="Publications" style="width:9%;">技术语言</th>
+            <th data-field="Education" style="width:9%;">最高学历</th>
+            @*<th data-field="Email">邮箱</th>
+            <th data-field="CaredID">身份证号</th>            
+            <th data-field="GraduationDate">毕业时间</th>*@
+            <th data-field="GraduationSchool">毕业院校</th>
+            <th data-field="CVStatue" style="width:9%;">简历状态</th>
+            <th data-field="PeopleStatue" style="width:9%;">人才状态</th>
+          
+            <th data-field="">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{if (Model != null && Model.PersonalInfo.Count > 0)
+            {
+                foreach (var item in Model.PersonalInfo)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PersonName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sex)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Birthday)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telephone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Publications)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Education)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>*@
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.CaredID)
+                            </td>*@
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GraduationSchool)
+                        </td>
+                        @{
+                            if (item.CVStatue == 1)
+                            {
+                                <td>
+                                    已上传
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    未上传
+                                </td>
+                            }
+                        }
+                        @{
+                            switch (item.PeopleStatue)
+                            {
+                                case 1:
+                                    <td>
+                                        未推送
+                                    </td>
+                                    break;
+                                case 2:
+                                    <td>
+                                        已推送
+                                    </td>
+                                    break;
+                                case 0:
+                                    <td>
+                                        已入职
+                                    </td>
+                                    break;
+                            }
+                        }
+                        <td>
+                            <button id="btnEdit" type="button" class="btn btn-default btn-xs btn-info" onclick="edit(@item.PersonalInfoId);" data-toggle="modal" data-target="#EditModal">
+                                编辑 
+                            </button>
+                            <button id="btnDelete" type="button" class="btn btn-default btn-xs btn-info" onclick="del(@item.PersonalInfoId);">
+                                删除
+                            </button>
+                                                    
+                            
+                            @{
+                                if (item.PeopleStatue == 0)
+                                {
+                                    <div class="btn-group">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            考勤 <span class="caret"></span>&nbsp;| &nbsp;
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" style="min-width:80px;">
+                                            <li><a href="#">工资生成</a></li>
+                                        </ul>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                        <button id="TalentPush" onclick="PushTalent('@HttpUtility.UrlEncode(item.Publications)',@item.PersonalInfoId)" type="button" class="btn btn-default btn-xs btn-info">
+                                            简历推送
+                                        </button>                                   
+                                }
+                            } 
+                        </td>
+                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="13" style="text-align:center; background-color:white;">未查询到任何记录</td></tr>
+                                @*<tr><td  colspan="13">共0页0条记录，当前为第0页</td></tr>*@
+                            }
+        }
+    </tbody>
+</table>
+<br />
+<div>
+    <div id="pagerlist" style="float:left;width:50%">
+        共 @Model.PersonalInfo.PageCount 页 @Model.PersonalInfo.TotalItemCount 条记录，当前为第 @Model.PersonalInfo.PageNumber 页
+    </div>
+    @*PagedList分页，不带ajax支持*@
+    @Html.PagedListPager((IPagedList)Model.PersonalInfo, page => Url.Action("'TalentManagement",
+            new { page, loginid = ViewBag.LoginID, type = ViewBag.Type}))
+</div>
+<script src="~/Scripts/jquery.form.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+    //debugger;
+    //$('.preloader').hide();
+        replacePageUrl()
+        
+    });
+    function replacePageUrl() {
+                //debugger;
+                var alist = $('#datalist a');
+                if (alist) {
+                alist.each(function (index, element) {
+                if ($(this).attr("href") != undefined && $(this).attr("href") != "#") {
+                    var splitUrl = element.href.split('?');
+                $(this).bind("click", function () {
+                        LoadAjaxContent('/Ectocyst/MemberCenter/TalentManagement?' + splitUrl[1]);
+                    });
+                $(this).attr("href", "#");
+                }
+                });
+                }
+    }
+   
+
+//推送人才
+function PushTalent(jobName, pid) {
+    //alert("TalentPush/TalentPush/Index?JobName=" + jobName + "&pid=" + pid);
+    LoadAjaxContent("/TalentPush/TalentPush/ShowTalentRequirement?loginid=@ViewBag.LoginID&JobName=" + jobName + "&pid=" + pid);
+}
+</script>

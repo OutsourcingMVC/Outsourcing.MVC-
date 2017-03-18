@@ -1,0 +1,312 @@
+﻿
+@model List<Outsourcing.EF.Model.Index.PersonalInfoModel>
+@{
+    Layout = null;
+}
+
+<style type="text/css">
+    #td_require {
+        width: 70%;
+       
+        margin-left: 40px;
+    }
+
+        #td_require thead tr {
+            height: 50px;
+            font-size: 16px;
+            font-weight: bolder;
+            font-family: 黑体,隶书;
+        }
+
+        #td_require tbody tr {
+            height: 50px;
+            font-size: 14px;
+            color: black;
+        }
+
+            #td_require tbody tr:hover {
+                height: 50px;
+                font-size: 16px;
+                color: red;
+                cursor: pointer;
+            }
+
+            #td_require tbody tr td {
+                border: none;
+                text-align: center;
+            }
+
+        #td_require thead td {
+            border: none;
+            text-align: center;
+        }
+
+    #personalinfo {
+        width: 66.7%;
+        float: right;
+    }
+
+    #personinfor {
+        width: 1190px;
+        margin: 0 auto;
+        height: 500px;
+    }
+
+    #personinforth tr td {
+        font-size: 20px;
+    }
+
+    #Star {
+        width: 60%;
+        float: left;
+    }
+
+    #Points {
+        width: 40%;
+        float: right;
+    }
+
+    #Service {
+        width: 33.3%;
+        float: left;
+    }
+    * {
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            position: relative;
+        }
+
+        th, td {
+           
+            height: 50px;
+            border: 1px solid #ccc;
+            text-align: center;
+            box-sizing: border-box;
+            transition: all 1s;
+        }
+
+        th {
+            
+            background: #ccc;
+            position: relative;
+            z-index: 999;
+        }
+
+        tbody tr {
+        }
+</style>
+@*<div align="center" id="demo" style="overflow:hidden;height:500px;border-width:1px 1px 1px 1px;border-style:dotted dotted dotted dotted;">
+    <div id="td_content">*@
+<div id="personinfor">
+    
+    <div id="Service">
+
+        <div id="Star">
+
+            <h2>明星服务单位</h2>
+
+            <ul>
+                <li></li>
+            </ul>
+        </div>
+        <div id="Points">
+            <h2>评分</h2>
+            <ul>
+                <li></li>
+            </ul>
+        </div>
+
+
+    </div>
+    <div id="personalinfo">
+
+        <div id="div"  style="height:400px; overflow:hidden;">
+            <table id="td_require" style="width:100%; margin-top:0px;">
+                <thead>
+                    <tr>
+                        <th style="width:99px;">姓名</th>
+                        <th style="width:99px;">性别</th>
+                        <th style="width:198px;">工作年限</th>
+                        <th style="width:99px;">学历</th>
+                        <th style="width:99px;">职位</th>
+                        <th style="width:198px;">所属公司</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody"  style="z-index:1;  top:50px; position:absolute; ">
+                    @{
+                        
+                        foreach (var item in Model)
+                        {
+
+                                <tr attr="@item.PersonalInfoId">
+                                    <td style="border:none;  width:99px;">
+                                        @item.PersonName
+                                    </td>
+                                    <td style="border:none; width:99px;">
+                                        @item.Sex
+                                    </td>
+                                    <td style="border:none; width:198px;">
+                                        @item.OutsourcingCompanyId
+                                    </td>
+                                    <td style="border:none;width:99px;">
+                                        @item.Education
+                                    </td>
+                                    <td style="border:none; width:99px;">
+                                        @item.Publications
+                                    </td>
+                                    <td style="border:none; width:198px;">
+                                        @item.CompnayName
+                                    </td>
+                                </tr>
+
+                        }
+                       
+                    }
+                   
+                        
+                    
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+@*</div>*@
+@*<div id="copyContent"></div>
+
+    </div>*@
+
+
+<script type="text/javascript">
+    //var demo = document.getElementById("demo");
+    //var demo1 = document.getElementById("td_content");
+    //var demo2 = document.getElementById("copyContent");
+    //var speed = 20;    //数值越大滚动速度越慢
+    //demo2.innerHTML = demo1.innerHTML;
+
+    ////demo.scrollTop = demo.scrollHeight + 'px';
+
+    //function Marquee() {
+    //    if (demo2.offsetTop - demo.scrollTop <= 0)    //当滚动至demo1与demo2交界时
+    //        demo.scrollTop -= demo1.offsetHeight    //demo跳到最顶端
+    //    else {
+    //        demo.scrollTop++
+    //    }
+    //}
+
+    //var MyMar = setInterval(Marquee, speed);
+    //demo.onmouseover = function () { clearInterval(MyMar) }
+    //demo.onmouseout = function () { MyMar = setInterval(Marquee, speed) }
+
+    //$("#marqueefirst").onmouseover=new function("stopscroll=true");
+
+</script>
+
+<script type="text/javascript">
+    debugger;
+    @*$("#td_require tr").not("#td_require tr:first").click(function () {
+        var id = $(this).attr("attr");
+        window.location.href = "/Recruit/RecruitHome/PersonalInfo?id=" + id + "&loginid=@ViewBag.LoginID";
+    })*@
+
+   $("#td_require tr").click('#td_require tr:first',function ()
+ {
+        var id = $(this).attr("attr");
+        window.location.href = "/Recruit/RecruitHome/PersonalInfo?id=" + id + "&loginid=@ViewBag.LoginID";
+    })
+    // body对象
+    var tBody = document.getElementsByClassName('tbody')[0];    //
+    // body 下的 tr
+    var aTr = tBody.getElementsByTagName('tr');
+
+    var bH = tBody.offsetHeight;    // body的高
+    var rH = aTr[0].offsetHeight;   // tr的高
+
+    // 克隆 body
+    var newBody = tBody.cloneNode(true);    // 创建 new body
+    newBody.style.top = (bH + rH) + 'px';  // new body 的top
+    tBody.parentNode.appendChild(newBody);  // 插入 new body
+
+
+    var iBody = document.getElementsByClassName('tbody');
+  
+    for (var i = 0; i < iBody.length; i++) {
+        iBody[i].onmouseover = function () {
+            clearInterval(times1);
+            clearInterval(times2);
+            clearInterval(times3);
+        };
+        iBody[i].onmouseout = function () {
+            autoUp(time1, time2);
+            upRoll();
+        };
+
+    }
+
+    var times1;
+    var times2;
+    var times3;
+    var time1 = 2000,
+        time2 = 800;
+
+
+    upRoll();
+    function upRoll() {
+        clearInterval(times1);
+
+        times1 = setInterval(function () {
+            for (var i = 0; i < iBody.length; i++) {
+                iBody[i].style.top = iBody[i].offsetTop - 1 + "px";
+
+                if (iBody[i].offsetTop <= -rH * (aTr.length - 1)) {
+                    iBody[i].style.top = (bH + rH) + 'px';
+                }
+            }
+
+        }, 30);
+
+    }
+
+
+    autoUp(time1, time2);
+    function autoUp(t1, t2) {
+        times2 = setInterval(function () {
+            clearInterval(times1);
+            console.log('停止状态');
+
+            times3 = setTimeout(function () {
+                upRoll();
+                console.log('开始状态');
+            }, t2);
+
+        }, t1);
+
+    }
+
+
+    //滚动数据加上停顿的代码
+    //var Omar = document.getElementById("Mar");
+
+    //var timesIn = null;
+    //var timesOut = null;
+
+    //var time1 = 7500;
+    //var time2 = 6500;
+    //function timerMar(obj, t1, t2) {
+    //    timesIn = setInterval(function () {
+    //        obj.stop();
+    //        timesOut = setTimeout(function () {
+    //            obj.start();
+    //        }, t2);
+    //    }, t1);
+    //}
+    //timerMar(Omar, time1, time2);
+
+
+</script>

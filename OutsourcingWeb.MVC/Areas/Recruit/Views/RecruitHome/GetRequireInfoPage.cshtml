@@ -1,0 +1,128 @@
+﻿@using PagedList.Mvc;
+@using PagedList
+@model PagedList.IPagedList<Outsourcing.EF.Model.Recruit.RequiredModel>
+
+@{
+    Layout = "~/Views/Shared/_indexLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetRequireInfoPage</title>
+    <style type="text/css">
+        #dv {
+            width:1190px;
+            margin-top: 40px;
+            margin:0 auto;
+            font-size: 20px;
+            font-family: "宋体";
+            margin-bottom: 20px;
+        }
+
+        #td_requirement {
+            width: 100%;
+        }
+
+            #td_requirement thead tr {
+                height: 50px;
+                font-size: 18px;
+                font-weight: 900;
+            }
+
+            #td_requirement td {
+                border: none;
+                text-align: center;
+            }
+
+            #td_requirement tbody tr td {
+                font-size: 14px;
+                font-family: "宋体";
+            }
+
+            #td_requirement tbody tr {
+                height: 40px;
+                line-height:50px;
+                font-size:16px;
+            }
+
+                #td_requirement tbody tr:hover {
+                    font-size: 16px;
+                    color: red;
+                    cursor: pointer;
+                }
+    </style>
+</head>
+<body>
+    <div id="dv"> 
+        <table id="td_requirement">
+            <thead>
+                <tr>
+                    <td>项目名称</td>
+                    <td>职位</td>
+                    <td>学历要求</td>
+                    <td>招聘人数</td>
+                    <td>到岗时间</td>
+                    <td>发布时间 </td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr attr="@item.RequirementId">
+                                <td style="border:none;">
+                                    @item.ProjectName
+                                </td>
+                                <td style="border:none;">
+                                    @item.JobName
+                                </td>
+                                <td style="border:none;">
+                                    @item.EducationName
+                                </td>
+                                <td style="border:none;">
+                                    @item.RecNumber
+                                </td>
+                                <td style="border:none;">
+                                    @item.ArrivalTime
+                                </td>
+                                <td style="border:none;">
+                                    @item.PublishTime
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" style="height:50px;text-align:center;">未找到数据！</td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top:20px;margin-left:100px;">
+
+        @*<script src="~/Scripts/mvcpager.js"></script>*@
+        <div id="pagerlist" style="float:left;width:50%;margin-bottom:30px;">
+            共 @Model.PageCount 页 @Model.TotalItemCount 条记录，当前为第 @Model.PageNumber 页
+        </div>
+        @*PagedList分页，不带ajax支持*@
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetDateByType", "RecruitHome",
+    new { name=@ViewBag.Name,page, sortOrder = ViewBag.CurrentSort, ProjectName = (ViewBag.CurrentFilter != null ? ViewBag.CurrentFilter : string.Empty) }))
+</body>
+</html>
+
+<script type="text/javascript">
+    $("#td_requirement tr").not("#td_requirement tr:first").click(function () {
+        var id = $(this).attr("attr");
+        window.location.href = "/Recruit/RecruitHome/RequireInfo?id="+id+"&loginid=@ViewBag.LoginID";
+    })
+</script>

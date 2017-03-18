@@ -1,0 +1,42 @@
+﻿@model List<Outsourcing.EF.Menu>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!--消息提示框-->
+    <script src="~/Scripts/js/jquery-1.8.0.js"></script>
+    <!--title图标-->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Scripts/styles/images/yjylogo.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--菜单样式-->
+    <link href="~/Scripts/styles/base.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/extends/Nav/nav.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="~/Scripts/styles/common.css" />*@
+
+
+    <link rel="stylesheet" href="~/Scripts/sweetalert/sweetalert.css" />
+    <script type="text/javascript" src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+
+</head>
+<body>
+    <div id="mavMenu">
+        <ul id="menuui">
+            @{ 
+                foreach (var item in Model)
+                {
+                    var url = @item.Url + "?loginid="+ViewBag.LoginID;
+                    <li><a href="@url">@item.MenuName</a><font>|</font></li>
+                }
+            }
+        </ul>
+    </div>
+</body>
+</html>
+
+
