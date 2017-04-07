@@ -1,0 +1,550 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!--消息提示框-->
+    <script src="~/Scripts/js/jquery-1.8.0.js"></script>
+    <!--title图标-->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Scripts/styles/images/yjylogo.png" />
+    <link href="~/Scripts/styles/extends/Index/index.css" rel="stylesheet" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--菜单样式-->
+    <link href="~/Scripts/styles/base.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/extends/loginreg/loginreg.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/nav.css" rel="stylesheet" />
+
+    <link href="~/Scripts/devoops/bootstrap.css" rel="stylesheet" />
+
+    <link href="~/Scripts/devoops/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="~/Scripts/devoops/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <link rel="stylesheet" href="~/Scripts/sweetalert/sweetalert.css" />
+    <script type="text/javascript" src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+    <style type="text/css">
+        /* 清除默认样式的文件 */
+        * {
+            padding: 0;
+            margin: 0;
+            /*line-height: 100%;*/
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: normal;
+            font-size: 12px;
+        }
+
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        i, em {
+            font-style: normal;
+        }
+
+        b, strong {
+            font-weight: normal;
+        }
+
+        a img {
+            border: none;
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        .clearfix:after {
+            display: block;
+            content: '';
+            clear: both;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+        /*input{border:none 0; resize:none;}*/
+        td, th {
+            border: 1px solid #000;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        textarea {
+            resize: none;
+            outline: none;
+        }
+
+        body {
+            background-color: white;
+            /*background: url(../../../../img/bg.jpg) repeat;*/
+            text-align: center;
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        header {
+            text-align: center;
+            margin: 0,auto;
+            width: 100%;
+            height: 100%;
+            background: url(../../../../img/body_bg.png) repeat-x top center;
+        }
+
+            header .header_nav {
+                padding-top: 10px;
+                width: 1190px;
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            header h1 {
+                height: 70px;
+                width: 70px;
+                margin: 0;
+                vertical-align: middle;
+                display: inline-block;
+            }
+
+        h1 img {
+            width: 70px;
+            height: 70px;
+            float: left;
+        }
+
+        .list {
+            text-align: center;
+            float: right;
+            margin: 0,auto;
+            font-size: 24px;
+            font-family: "宋体";
+            color: #333;
+        }
+
+            .list li {
+                float: left;
+                margin-right: 15px;
+                line-height: 100px;
+            }
+
+                .list li:last-of-type {
+                    margin-right: 0;
+                }
+
+        header .col {
+            color: #F00;
+        }
+
+        #companyname {
+            text-decoration: none;
+            color: black;
+            font-weight: bolder;
+        }
+
+        #footera .footercontent a {
+            font-size: 16px;
+            color: #bfc1c0;
+            text-decoration: none;
+        }
+         #footera ul li{margin-top:40px;}
+
+            #footera .footercontent a:hover {
+                color: #fff;
+                text-decoration: none;
+
+            }
+
+        .foot p {
+            font-size: 18px;
+            color: white;
+        }
+
+        .clearfix ul li a:visited {
+            text-decoration: none;
+        }
+
+        .clearfix ul li a:active {
+            text-decoration: none;
+        }
+
+        .clearfix ul li a:link {
+            text-decoration: none;
+        }
+
+        .clearfix ul li a:hover {
+            text-decoration: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var oImg = document.getElementById('imgs');
+            var oNum = document.getElementById('num');
+            var oLi = oNum.getElementsByTagName('li');
+            var now = 0;
+            var oBox = document.getElementById('imgs');
+            var aBtn = document.getElementById('num').getElementsByTagName('li');
+            var aLi = oBox.getElementsByTagName('ol')[0].children;
+            var n = 0;
+            for (var i = 0; i < aBtn.length; i++) {
+                (function (index) {
+
+                    aBtn[i].pthdboxonmouseover = function () {
+                        n = index;
+                        for (var i = 0; i < aBtn.length; i++) {
+                            aBtn[i].className = '';
+                            aLi[i].className = '';
+                        }
+                        this.className = 'active_btn';
+                        aLi[index].className = 'show_list';
+                    };
+                })(i);
+            }
+            var timer = setInterval(function () {
+                n++;
+                if (n == aBtn.length) {
+                    n = 0;
+                }
+                for (var i = 0; i < aBtn.length; i++) {
+                    aBtn[i].className = '';
+                    aLi[i].className = '';
+                }
+                aBtn[n].className = 'active_btn';
+                aLi[n].className = 'show_list';
+            }, 1500);
+
+            oBox.onmouseover = function () {
+                clearInterval(timer);
+            }
+
+            oBox.onmouseout = function () {
+                timer = setInterval(function () {
+                    n++;
+                    if (n == aBtn.length) {
+                        n = 0;
+                    }
+                    for (var i = 0; i < aBtn.length; i++) {
+                        aBtn[i].className = '';
+                        aLi[i].className = '';
+                    }
+                    aBtn[n].className = 'active_btn';
+                    aLi[n].className = 'show_list';
+                }, 1500);
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+    <header class="clearfix">
+        <div class="clearfix header_nav">
+            <ul style="margin-top:20px; float:left; " class="list clearfix">
+                <li><h1><img src="~/img/yjylogo.png" /></h1></li>
+                <li><a id="companyname">北京翼聚源软件科技有限公司</a></li>
+            </ul>
+
+            <ul class="list clearfix " style="margin-top:20px;float:right;">
+                <li>
+                    <a href="/Home/Index?loginid=@Session[" LoginID"]">首页</a>
+                </li>
+                @{
+                    if (@Session["LoginID"] == null)
+                    {
+                        <li>
+                            <a href="javascript:;" id="btn-login-show">登录</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="/Public/Identity/Identity" id="zhuce">注册</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a href="/Public/MemberCenter/PersonaData?loginid=@ViewBag.LoginID" id="hyzx">会员中心</a></li>
+                        <li><a href="/Recruit/Recruit/RecruitCenter?loginid=@ViewBag.LoginID" id="hyzx">招聘中心</a></li>
+                                <li><a href="javascript:;" onclick="Quit()" id="Quit">退出</a></li>
+                    }
+                }
+                @*<li><a href="javascript:;" onclick="Quit()" id="Quit">退出</a></li>*@
+                <li>
+                    服务热线
+                </li>
+                <li class="col">
+                    010-62626809
+                </li>
+
+            </ul>
+        </div>
+    </header>
+   
+
+    <div style="text-align:left;" id="content">
+        @RenderBody()
+    </div>
+
+
+    <footer class="clearfix" style="background-color:#1f4492; margin-top:50px; text-align:center; overflow:hidden;">
+        <div style="width:1190px;margin:0 auto;">
+            <ul id="footera" style="list-style:none; overflow:hidden;margin-top:40px;">
+                <li style="width:18%;float:left">
+                    <h2 style="font-size:20px; font-weight:bold; color:white">关于</h2>
+                    <p class="footercontent"><a href="" target="_blank" title="关于我们的介绍">关于我们</a></p>
+                    <p class="footercontent"><a href="" target="_blank" title="对平台的详细介绍">平台须知</a></p>
+                    <p class="footercontent"><a href="" target="_blank" title="在本平台的安全声明">安全声明</a></p>
+                </li>
+                <li style="width:18%;float:left">
+                    <h2 style="font-size:20px; font-weight:bold;color:white">作为人才方</h2>
+                    <p class="footercontent"><a href="/Public/Identity/Identity" target="_blank" title="如何成为本平台的人才方">成为人才方</a></p>
+                    <p class="footercontent"><a href="" target="_blank" title="如何找到优质的人才">人才指南</a></p>
+                    <p class="footercontent"><a href="" target="_blank" title="更多管理人的经验，计划">人才管理锦囊</a></p>
+                </li>
+
+
+
+                <li style="width:18%;float:left">
+                    <h2 style="font-size:20px; font-weight:bold;color:white">作为项目方</h2>
+                    <p class="footercontent"><a href="/Public/Identity/Identity" target="_blank" title="如何成为本平台的项目方">成为项目方</a></p>
+                    <p class="footercontent"><a href="" target="_blank" title="如何获取更多优质的项目">项目指南</a></p>
+                    <p class="footercontent"><a href="" target="_blank" title="更多管理项目的奇思妙想">项目管理锦囊</a></p>
+                </li>
+                <li style="width:18%;float:left">
+                    <h2 style="font-size:20px; font-weight:bold;color:white">支持</h2>
+                    <p class="footercontent"><a href="" target="_blank" title="本平台常见的问题">问题支持</a></p>
+                    <p class="footercontent"><a href="" target="_blank" title="本平台用户必须遵循的规则">规则声明</a></p>
+
+
+                </li>
+                <li style="width:12%;float:right">
+                    <h2 style="font-size:20px; font-weight:bold;color:white">新浪微博</h2>
+                    <div style="display:inline-block;">
+                        <img style="width:80px" src="/Scripts/styles/images/wxtb.jpg">
+                    </div>
+                </li>
+                <li style="width:12%;float:right">
+                    <h2 style="font-size:20px; font-weight:bold;color:white">微信二维码</h2>
+                    <div style="display:inline-block;">
+                        <img style="width:80px" src="/Scripts/styles/images/wxtb.jpg">
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="foot" style="width:100%">
+
+            <p class="copyo">北京翼聚源软件科技有限公司&nbsp;&nbsp;&nbsp;<span class="mb"> 京ICP备14028280号-1&nbsp;&nbsp;&nbsp;&nbsp;传真：010-62572268</span></p>
+            <p class="copy">地址：北京市海淀区上地十街1号院东6号楼457室（辉煌国际大厦）&nbsp;&nbsp;邮编：100084 &nbsp;&nbsp;电话：010-62626810</p>
+            <ul class="foot-list">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+
+    </footer>
+
+    <!-- 登录 -->
+    <div id="loginbg" style="display:none;"></div>
+    <div id="b-reg-login" style="display:none;">
+        <div class="b-login-div" style="width:550px;">
+            <div class="login-close" id="login-btn-close"></div>
+            <div class="login-head-logo"><span id="logo">用户登录</span></div>
+            <div style="" class="ks-login" id="ks-login">
+                <!-- 登录标题 -->
+                <!-- 登录标题END -->
+                <!--  登录form开始  -->
+                <form name="loginFrm" id="loginFrm" method="post" action="">
+                    <div id="errorbox" class="errorbox" style="display: none;">
+                        <i>!</i>
+                        <span></span>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <i class="login_icon_account_b"></i>
+                            <input type="text" placeholder="请输入账号" style="height:38px;" class="text login-user" id="j_loginid" name="j_loginid" autocomplete="off">
+                            <div id="msg_id" class="errorfield"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <i class="login_icon_password_b"></i><input type="password" placeholder="请输入密码" style="height:38px;" onKeyDown="keyDownEvent(event)" class="text login-pw" id="j_password" name="j_password">
+                            <div id="msg" class="errorfield" style="display: none;"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="auto-login">
+                        <div class="spacer8"></div>
+                        <a class="floatleft" id="forget-password" target="_blank" href="/Public/ResetPassword/ResetPassword">忘记密码?</a>
+                        <span class="floatright"><a id="register-forhome" target="_blank" href="/Public/Identity/Identity">立即注册</a></span>
+                        <div class="clear"></div>
+                        <div class="spacer8"></div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div onClick="submitForm()" class="btn-login-b" type="button" id="submit_button">
+                                <span class="bold">登录</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="control-group">
+                        <div class="controls" style="float:left">
+                            其它方式登录 <a><img src="styles/extends/loginreg/images/qq-icon.png"  style="width:24px;height:24px"/></a>
+                                       &nbsp;&nbsp;&nbsp;
+                                       <a><img src="styles/extends/loginreg/images/weixin.png"  style="width:24px;height:24px"/></a>
+                        </div>
+                    </div>-->
+                </form>
+                <!--  登录form结束  -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+
+    //退出
+    //function Quit() {
+    //    debugger;
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/System/Quit",
+    //        data: "",
+    //        success: function (msg) {
+    //            //debugger;
+    //            swal({
+    //                title: "退出登录",
+    //                text: "您确定要退出登录吗？",
+    //                type: "warning",
+    //                showCancelButton: true,
+    //                closeOnConfirm: false,
+    //                confirmButtonText: "确认",
+    //                confirmButtonColor: "#ec6c62"
+    //            }, function () {
+    //                window.location.href = '/System/Index';
+    //            });
+    //        }
+    //    });
+    //}
+    //登录窗口显示
+    $("#btn-login-show").click(function () {
+        $("#b-reg-login").show();
+        $("#loginbg").show();
+        $("#ksinput_j_loginid,#ksinput_j_password").css({ "z-index": "100008", "position": "fixed", "width": "238" })
+    })
+    //登录窗口隐藏
+    $("#login-btn-close").click(function () {
+        $("#b-reg-login,#loginbg").hide();
+        $("#ksinput_j_loginid,#ksinput_j_password").remove();
+    })
+    $("body").keyup(function (e) {
+        if (e.keyCode == "27" && $("#loginbg").css("display") != "none") {
+            $("#b-reg-login,#loginbg").hide();
+            $("#ksinput_j_loginid,#ksinput_j_password").remove();
+        }
+    })
+    //登录账号
+    function submitForm() {
+        var name = loginFrm.j_loginid.value;
+        var pass = loginFrm.j_password.value;
+        if (name == null || name == "") {
+            //$("#msg_id").html("帐号不能为空").show();
+            $("#errorbox").slideDown(500, function () {
+                $("#ksinput_j_password,#ksinput_j_loginid").remove();
+                $("#ksinput_j_password,#ksinput_j_loginid").css("z-index", "9999").css("width", "238")
+            });
+            $("#errorbox span").attr("id", "span-login").html("帐号不能为空");
+            $("#j_loginid").focus();
+            return false;
+        }
+        if (pass == null || pass == "") {
+            //$("#msg").html("密码不能为空").show();
+            $("#errorbox").slideDown(500, function () {
+                $("#ksinput_j_password,#ksinput_j_loginid").remove();
+                $("#ksinput_j_password,#ksinput_j_loginid").css("z-index", "9999").css("width", "238")
+            });
+            $("#errorbox span").attr("id", "span-password").html("密码不能为空");
+            $("#j_password").focus();
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/Login",
+            data: { CompanyUserName: name, Pwd: pass },
+            success: function (text) {
+                var msg = text.msg;
+                var loginid = text.LoginID;
+                if (msg == "该账号不存在") {
+                    $("#errorbox").slideDown(500, function () { });
+                    $("#errorbox span").attr("id", "span-password").html("该账号不存在");
+                    return false;
+                }
+                if (msg == "密码错误") {
+                    $("#errorbox").slideDown(500, function () { });
+                    $("#errorbox span").attr("id", "span-password").html("密码错误");
+                    return false;
+                }
+                if (msg == "登录成功") {
+                    $("#submit_button span.bold").html("登录中...");
+                    window.location.href = '/Home/Index?loginid=' + loginid;
+                }
+            }
+        });
+    }
+    //回车键绑定登录事件
+    function keyDownEvent(event) {
+        //debugger;
+        var keyCode = (event.keyCode ? event.keyCode : event.which);
+        if (keyCode == '13') {
+            submitForm();
+        }
+    }
+    debugger
+    //退出登录
+    $(function () {
+        $("#Quit").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Home/Quit",
+                data: "",
+                success: function (msg) {
+                    swal({
+                        title: "退出登录",
+                        text: "您确定要退出登录吗？",
+                        type: "warning",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        confirmButtonText: "确认",
+                        confirmButtonColor: "#ec6c62"
+                    }, function () {
+                        window.location.href = '/Home/Index';
+                    });
+                }
+            });
+        });
+    });
+
+    $("#imgs ol li a").click(function () {
+        var id = $(this).find("img").attr("attr");
+        var url = "/Recruit/RecruitHome/GetImageFile?id=" + id + "&type=图片切换";
+        window.location.href = url;
+    })
+
+
+</script>

@@ -1,0 +1,14 @@
+
+
+/*banner*/
+.new_t{width:100%; height:289px;overflow: hidden; position: relative;}
+.new_t  img{ display:block; width:100%; height:289px; margin: 0 auto;}
+
+/*subNav*/
+
+.photoBox{width:1000px;margin:0 auto;border-top:solid 1px #e0e0e0;overflow:hidden;padding:20px 0;}
+.photoBox p, .photoBox h1, .proContent p,  .proContent h1{font-family:"微软雅黑";font-size:12px;color:#656565;}
+.photo{ width: 472px;height: 368px;float:left;}
+.proContent{float:right;width:376px;margin-top:108px;}
+.proContent h1{color:#333333;font-size:28px;line-height:49px;}
+.proContent p{line-height:22px;font-size:14px;color:#999999;}

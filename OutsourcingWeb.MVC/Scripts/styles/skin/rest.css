@@ -1,0 +1,21 @@
+/*reset*/
+body,h1,h2,h3,h4,h5,p,dl,dd,ul,ol,form,input,textarea,th,td,select { margin:0; padding:0; }
+em { font-style:normal; }
+li { list-style:none; }
+a { text-decoration:none; }
+img { border:none; vertical-align:top; }
+table { border-collapse:collapse; }
+input,textarea { outline:none; }
+textarea { resize:none; overflow:auto; }
+/* body { font-size:12px; font-family:"微软雅黑"; background: #f8fbfd url(../image/bg3.png) no-repeat; min-width:1100px;}
+ #bg{position:absolute;top:0px;left:0px;z-index:-999;}*/
+/* public*/
+.clear{ zoom:1;}
+.clear:after{ content:''; display:block; clear:both;}
+.fl{ float:left;}
+.fr{ float:right;}
+.center{ width: 1200px; margin: 10px auto;}
+h2{font-size: 20px; margin-top: 10px; margin-bottom: 10px; color: #000; font-weight: bold;}
+h3{font-size: 16px; margin-top: 10px; margin-bottom: 10px; color: #191919;}
+p{ font-size: 12px;line-height: 30px; color: #4b4a4a;}
+/* end public*/

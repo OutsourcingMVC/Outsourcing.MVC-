@@ -88,7 +88,7 @@
         }
 
         body {
-            background-color:white;
+            background-color: white;
             /*background: url(../../../../img/bg.jpg) repeat;*/
             text-align: center;
             margin: 0 auto;
@@ -153,95 +153,46 @@
             text-decoration: none;
             color: black;
             font-weight: bolder;
-         
         }
-        #footera .footercontent a{
-            font-size:14px;
-            color:#999;
-            text-decoration:none;
+
+        #footera .footercontent a {
+            font-size: 16px;
+            color: #bfc1c0;
+            text-decoration: none;
         }
-        #footera .footercontent a:hover{
-            color:white;
-            text-decoration:none;
+
+        #footera ul li {
+            margin-top: 40px;
         }
-       
+
+        #footera .footercontent a:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+
         .foot p {
-            font-size:16px;
-            color:white;
+            font-size: 18px;
+            color: white;
         }
-        .clearfix ul li a:visited{
-            text-decoration:none;
+
+        .clearfix ul li a:visited {
+            text-decoration: none;
         }
-         .clearfix ul li a:active{
-            text-decoration:none;
+
+        .clearfix ul li a:active {
+            text-decoration: none;
         }
-          .clearfix ul li a:link{
-            text-decoration:none;
+
+        .clearfix ul li a:link {
+            text-decoration: none;
         }
-           .clearfix ul li a:hover{
-            text-decoration:none;
+
+        .clearfix ul li a:hover {
+            text-decoration: none;
         }
     </style>
 
-    <script type="text/javascript">
-
-        window.onload = function () {
-            var oImg = document.getElementById('imgs');
-            var oNum = document.getElementById('num');
-            var oLi = oNum.getElementsByTagName('li');
-            var now = 0;
-            var oBox = document.getElementById('imgs');
-            var aBtn = document.getElementById('num').getElementsByTagName('li');
-            var aLi = oBox.getElementsByTagName('ol')[0].children;
-            var n = 0;
-            for (var i = 0; i < aBtn.length; i++) {
-                (function (index) {
-
-                    aBtn[i].pthdboxonmouseover = function () {
-                        n = index;
-                        for (var i = 0; i < aBtn.length; i++) {
-                            aBtn[i].className = '';
-                            aLi[i].className = '';
-                        }
-                        this.className = 'active_btn';
-                        aLi[index].className = 'show_list';
-                    };
-                })(i);
-            }
-            var timer = setInterval(function () {
-                n++;
-                if (n == aBtn.length) {
-                    n = 0;
-                }
-                for (var i = 0; i < aBtn.length; i++) {
-                    aBtn[i].className = '';
-                    aLi[i].className = '';
-                }
-                aBtn[n].className = 'active_btn';
-                aLi[n].className = 'show_list';
-            }, 1500);
-
-            oBox.onmouseover = function () {
-                clearInterval(timer);
-            }
-
-            oBox.onmouseout = function () {
-                timer = setInterval(function () {
-                    n++;
-                    if (n == aBtn.length) {
-                        n = 0;
-                    }
-                    for (var i = 0; i < aBtn.length; i++) {
-                        aBtn[i].className = '';
-                        aLi[i].className = '';
-                    }
-                    aBtn[n].className = 'active_btn';
-                    aLi[n].className = 'show_list';
-                }, 1500);
-            }
-        }
-
-    </script>
+   
 </head>
 <body>
 
@@ -284,51 +235,39 @@
             </ul>
         </div>
     </header>
-    <div class="imgBox" id="imgs">
-        <ol>
-            @{
-                for (int i = 1; i < 6; i++)
-                {
-                    if (i == 1)
-                    {
-                        <li class="show_list"><a href="#" style="cursor:pointer;"><img class="text-center" src="~/img/banner1.png" alt="" attr="@i" /></a></li>
-                    }
-                    else
-                    {
-                        <li>
-                            <a href="#" style="cursor:pointer;"><img class="text-center" src="~/Home/GetImg?id=@i&type=图片切换" alt="" attr="@i" /></a>
-                        </li>
-                    }
-                }
-            }
-        </ol>
-        <!--<img src="img/home-big.png"/>-->
-        <ul class="num" id="num">
-            <li class="active_btn"></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+    <div class="new_t">
+        <ul class="scrollContent" style="top:0px;">
+            <li><a href="/Tenet/Tenet/Bn1"><img src="~/img/jiaoyikexing/banner10.png" /></a></li>
+            <li><a href="/Tenet/Tenet/Bn2"><img src="~/img/jiaoyikexing/banner17.png" /></a></li>
+            <li><a href="/Tenet/Tenet/Bn3"><img src="~/img/jiaoyikexing/banner3.png" /></a></li>
+            <li><a><img src="~/img/jiaoyikexing/banner4.png" /></a></li>
+            <li><a><img src="~/img/jiaoyikexing/banner18.jpg" /></a></li>
         </ul>
-
+        <ol id="btn" class="buttons">
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ol>
     </div>
 
     <div style="" id="content">
         @RenderBody()
     </div>
+    <script src="~/Scripts/styles/js/shufflingFigure.js"></script>
 
-
-    <footer class="clearfix" style="background-color:#666; margin-top:50px; text-align:center;">
+    <footer class="clearfix" style="background-color:#1f4492; margin-top:30px; text-align:center; overflow:hidden;">
         <div  style="width:1190px;margin:0 auto;">
-            <ul id="footera" style="list-style:none">
-                <li style="width:20%;float:left">
-                    <h2 style="font-size:16px;color:white">关于</h2>
+            <ul id="footera" style="list-style:none; overflow:hidden;margin-top:40px;">
+                <li style="width:18%;float:left">
+                    <h2 style="font-size:20px; font-weight:bold; color:white">关于</h2>
                     <p class="footercontent"><a href="" target="_blank" title="关于我们的介绍">关于我们</a></p>
                     <p class="footercontent"><a href="" target="_blank" title="对平台的详细介绍">平台须知</a></p>
                     <p class="footercontent"><a href="" target="_blank" title="在本平台的安全声明">安全声明</a></p>
                 </li>
-                <li style="width:20%;float:left">
-                    <h2 style="font-size:16px;color:white">作为人才方</h2>
+                <li style="width:18%;float:left">
+                    <h2 style="font-size:20px; font-weight:bold;color:white">作为人才方</h2>
                     <p class="footercontent"><a href="/Public/Identity/Identity" target="_blank" title="如何成为本平台的人才方">成为人才方</a></p>
                     <p class="footercontent"><a href="" target="_blank" title="如何找到优质的人才">人才指南</a></p>
                     <p class="footercontent"><a href="" target="_blank" title="更多管理人的经验，计划">人才管理锦囊</a></p>
@@ -336,30 +275,34 @@
 
 
 
-                <li style="width:20%;float:left">
-                    <h2 style="font-size:16px;color:white">作为项目方</h2>
+                <li style="width:18%;float:left">
+                    <h2 style="font-size:20px; font-weight:bold;color:white">作为项目方</h2>
                     <p class="footercontent"><a href="/Public/Identity/Identity" target="_blank" title="如何成为本平台的项目方">成为项目方</a></p>
                     <p class="footercontent"><a href="" target="_blank" title="如何获取更多优质的项目">项目指南</a></p>
                     <p class="footercontent"><a href="" target="_blank" title="更多管理项目的奇思妙想">项目管理锦囊</a></p>
                 </li>
-                <li style="width:20%;float:left">
-                    <h2 style="font-size:16px;color:white">支持</h2>
+                <li style="width:18%;float:left">
+                    <h2  style="font-size:20px; font-weight:bold;color:white">支持</h2>
                     <p class="footercontent"><a  href="" target="_blank" title="本平台常见的问题">问题支持</a></p>
                     <p class="footercontent"><a href="" target="_blank" title="本平台用户必须遵循的规则">规则声明</a></p>
 
 
                 </li>
-                <li style="width:20%;float:left">
-                    <h2 style="font-size:16px;color:white">微信二维码</h2>
+                <li style="width:12%;float:right">
+                    <h2 style="font-size:20px; font-weight:bold;color:white">新浪微博</h2>
                     <div style="display:inline-block;">
                         <img style="width:80px" src="/Scripts/styles/images/wxtb.jpg">
                     </div>
-
-
+                </li>
+                <li style="width:12%;float:right">
+                    <h2 style="font-size:20px; font-weight:bold;color:white">微信二维码</h2>
+                    <div style="display:inline-block;">
+                        <img style="width:80px" src="/Scripts/styles/images/wxtb.jpg">
+                    </div>
                 </li>
             </ul>
         </div>
-        <div class="foot" style="margin-top:30px; width:100%">
+        <div class="foot" style="width:100%">
 
             <p class="copyo">北京翼聚源软件科技有限公司&nbsp;&nbsp;&nbsp;<span class="mb"> 京ICP备14028280号-1&nbsp;&nbsp;&nbsp;&nbsp;传真：010-62572268</span></p>
             <p class="copy">地址：北京市海淀区上地十街1号院东6号楼457室（辉煌国际大厦）&nbsp;&nbsp;邮编：100084 &nbsp;&nbsp;电话：010-62626810</p>

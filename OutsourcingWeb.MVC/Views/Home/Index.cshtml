@@ -6,55 +6,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>无标题文档</title>
+    <title>首页</title>
     <link href="~/Scripts/styles/extends/Index/index.css" rel="stylesheet" />
     <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="http://localhost:22731/Content/sweetalert/docs.css" rel="stylesheet" />
-
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <link href="~/Scripts/styles/skin/owl.carousel.css" rel="stylesheet" />
+    
+    <script src="~/Scripts/styles/js/cityselect.js"></script>
+    <script src="~/Scripts/styles/js/jquery-1.9.1.min.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
-
+    <script src="~/Scripts/styles/js/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#owl-demo").owlCarousel({
+                autoPlay: 3000,
+                items: 4,
+                itemsDesktop: [1199, 3],
+                itemsDesktopSmall: [979, 3]
+            });
+        });
+        
+    </script>
     <style type="text/css">
-        #td_require {
-            width: 70%;
-            margin-top: 30px;
-            margin-left: 40px;
-        }
+        .ptrc-list li a:hover {font-size: 14px;font-weight: 800;color: red;}
+        #IndustryState { width: 1190px;margin: 0 auto;height: 500px;}
+        .NewsLi { line-height: 30px;}
 
-            #td_require tbody tr {
-                height: 50px;
-                font-size: 12px;
-                color: black;
-            }
 
-        .ptrc-list li a:hover {
-            font-size: 14px;
-            font-weight: 800;
-            color: red;
-        }
+        #div1{ width:1200px; height:206px; margin:0px auto; border:1px solid #e6e6e6; position:relative; overflow:hidden;}
+        #left{ position:absolute;top:70px;left:20px;}
+        #right{ position:absolute;top:70px;right:20px;}
 
-        #IndustryState {
-            width: 1190px;
-            margin: 0 auto;
-            height: 500px;
-        }
+       #owl-demo .item{margin: 3px;}
+       #owl-demo .item img {display: block; width: 100%; height: auto; }
 
-        .NewsLi {
-            line-height: 30px;
-        }
     </style>
 </head>
 <body>
-    @*<div class="content">
-        <div class="weather-box clearfix">
-            <div class="bgbox">
-                <img src="@Url.Action("GetImg")"/>
 
-            </div>*@
     <input type="hidden" id="hideInput" value="@ViewBag.Types" />
-
     <!--------------------第三部 工作页面--------------------------->
-    <div class="bigbox clearfix" style="height:500px;">
+    <div class="bigbox clearfix" style="height:400px;">
         <div class="bigbox-left">
             @{
 
@@ -62,7 +54,7 @@
                 {
                     if (ViewBag.Types == "")
                     {
-                        @*<img src="../../../../img/bj0.jpg" style="height:100%;width:1190px;" />*@
+                        @*<img src="../../../../img/bj0.jpg" style="height:100%;width:1200px;" />*@
                     Html.RenderPartial("~/Views/Home/Talent.cshtml", Model.requirementList);
                 }
                 if (ViewBag.Types == "1")
@@ -77,215 +69,311 @@
 
             }
             }
-            @*<ul>
-                    <li>外包-客户需求</li>
-                    <li>客户-个人状态</li>
-                    <li>猎头-公司需求</li>
-                    <li>个人-平台-公司</li>
-                    <li></li>
-                </ul>*@
         </div>
-
     </div>
-
 
     <!------------------第五部 精准匹配--------------------------->
-    <div style="text-align:center; width: 100%; height:80px;" class="jzpp-div">
-        <ul class="jzpp-list clearfix">
-            <li><a target="_blank" title="点击了解本平台为什么可信" href="/Tenet/Tenet/Trade">
-                    <img src="~/Scripts/styles/images/yjylogo.png"  style="width:20%; height:20%;"/>交易可信</a></li>
-            <li><a target="_blank" title="点击了解本平台在资源提供上的优势" href="">精准匹配</a></li>
-            <li><a target="_blank" title="点击了解本平台如何保障双方的权益" href="">权益保障</a></li>
-            <li><a target="_blank" title="点击了解本平台如何" href="">可靠支付</a></li>
-            <li><a target="_blank" title="点击了解本平台如何提供其他增值服务" href="">服务专业</a></li>
+    <div id="trade_box">
+        <div class="trade">
 
-        </ul>
+            <div class="trade_block">
+                <a href="/Tenet/Tenet/Trade"><img src="/img/fuwuzhongzhi/1.png" width="48" height="48" />交易可信</a>
+            </div>
+
+            <div class="trade_block">
+                <a href="/Tenet/Tenet/Matching"><img src="/img/fuwuzhongzhi/2.png" width="48" height="48" />精准匹配</a>
+            </div>
+
+            <div class="trade_block">
+                <a href="/Tenet/Tenet/Protection"><img src="/img/fuwuzhongzhi/3.png" width="48" height="48" />权益保障</a>
+            </div>
+            <div class="trade_block">
+                <a href="/Tenet/Tenet/Reliable"><img src="/img/fuwuzhongzhi/4.png" width="48" height="48" />可靠支付</a>
+            </div>
+            <div class="trade_block">     
+                <a href="/Tenet/Tenet/Professional"><img src="/img/fuwuzhongzhi/5.png" width="48" height="48" />服务专业 </a>
+            </div>
+        </div>
     </div>
     <!------------------第五部 平台人才--------------------------->
-    <div style="margin-top: 30px; background-color:#fafcfd;height:228px;width:100%;">
+    <div style=" background-color:#fafcfd;height:340px;width:100%;">
         <div class="ptrc-box clearfix">
             <h2>平台人才</h2>
             @if (ViewBag.Types == "1")
             {
                 <ul class="ptrc-list clearfix">
-                    <li><a href="javascript:void(0)" style="color:white;" attr="JAVA工程师">Java</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="C#工程师">C#</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="C++高级工程师">C/C++</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="Web前端工程师">Web前端</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="PHP工程师">PHP</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="ANDROID/IOS">ANDROID/IOS</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="UI">UI</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="PYTHON">PYTHON</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="HTML">HTML</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="测试">测试</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="售前">售前</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="售后">售后</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="微信开发">微信开发</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="脚本开发">脚本开发</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="产品经理">产品经理</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="架构师">架构师</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="美工">美工</a></li>
+                    <li><a href="javascript:void(0)" attr="JAVA工程师">
+                            <img src="~/img/fuwuzhongzhi/8.png" /></a></li>
+                    <li><a href="javascript:void(0)" attr="C#工程师"></a></li>
+                    <li><a href="javascript:void(0)" attr="C++高级工程师"></a></li>
+                    <li><a href="javascript:void(0)" attr="Web前端工程师"></a></li>
+                    <li><a href="javascript:void(0)" attr="PHP工程师"></a></li>
+                    <li><a href="javascript:void(0)" attr="ANDROID/IOS"></a></li>
+                    <li><a href="javascript:void(0)" attr="UI">UI</a></li>
+                    <li><a href="javascript:void(0)" attr="PYTHON"></a></li>
+                    <li><a href="javascript:void(0)" attr="HTML"></a></li>
+                    <li><a href="javascript:void(0)" attr="测试"></a></li>
+                    <li><a href="javascript:void(0)" attr="售前"></a></li>
+                    <li><a href="javascript:void(0)" attr="售后"></a></li>
+                    <li><a href="javascript:void(0)" attr="微信开发"></a></li>
+                    <li><a href="javascript:void(0)" attr="脚本开发"></a></li>
+                    <li><a href="javascript:void(0)" attr="产品经理"></a></li>
+                    <li><a href="javascript:void(0)" attr="架构师"></a></li>
+                    <li><a href="javascript:void(0)" attr="美工"></a></li>
+                    <li><a href="javascript:void(0)" attr="美工"></a></li>
 
                 </ul>
             }
             else
             {
                 <ul class="ptrc-list clearfix">
-                    <li><a href="javascript:void(0)" style="color:white;" attr="Java">Java</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="C#">C#</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="C/C++">C/C++</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="Web">Web前端</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="PHP">PHP</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="ANDROID/IOS">ANDROID/IOS</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="UI">UI</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="PYTHON">PYTHON</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="HTML">HTML</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="测试">测试</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="售前">售前</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="售后">售后</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="微信开发">微信开发</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="脚本开发">脚本开发</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="产品经理">产品经理</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="架构师">架构师</a></li>
-                    <li><a href="javascript:void(0)" style="color:white;" attr="美工">美工</a></li>
+                    <li><a href="javascript:void(0)" attr="JAVA"></a></li>
+                    <li><a href="javascript:void(0)" attr="C#"></a></li>
+                    <li><a href="javascript:void(0)" attr="C/C++"></a></li>
+                    <li><a href="javascript:void(0)" attr="Web"></a></li>
+                    <li><a href="javascript:void(0)" attr="PHP"></a></li>
+                    <li><a href="javascript:void(0)" attr="ANDROID/IOS"></a></li>
+                    <li><a href="javascript:void(0)" attr="UI"></a></li>
+                    <li><a href="javascript:void(0)" attr="PYTHON"></a></li>
+                    <li><a href="javascript:void(0)" attr="HTML"></a></li>
+                    <li><a href="javascript:void(0)" attr="测试"></a></li>
+                    <li><a href="javascript:void(0)" attr="售前"></a></li>
+                    <li><a href="javascript:void(0)" attr="售后"></a></li>
+                    <li><a href="javascript:void(0)" attr="微信开发"></a></li>
+                    <li><a href="javascript:void(0)" attr="脚本开发"></a></li>
+                    <li><a href="javascript:void(0)" attr="产品经理"></a></li>
+                    <li><a href="javascript:void(0)" attr="架构师"></a></li>
+                    <li><a href="javascript:void(0)" attr="美工"></a></li>
+                    <li><a href="javascript:void(0)" attr="美工"></a></li>
 
                 </ul>
             }
 
         </div>
     </div>
-    <div class="photo" style=""><h2>工程师的具体图片</h2></div>
-    <!------------------第七部 面试--------------------------->
 
-    <div class="msbox clearfix" style="margin-top:30px;">
-        <h2 id="msboxH2">特色服务</h2>
-        <div class="msbox-left" style="float:left;width:30%;">
-            <!-- <img src="img/dhms.jpg"/>-->
+    <!------------------第七部 面试--------------------------->
+    <div class="msbox clearfix" style="margin-top:10px;">
+        <h2 id="msboxH2"></h2>
+        <div class="msbox-left" style="float:left;width:35%;">
             <h2>电话面试</h2>
             <a href="#"></a>
         </div>
-        <div class="bigbox-right clearfix" style="text-align:center;margin:0 auto;width:40%; height:350px;">
-
+        <div class="bigbox-right clearfix" style="width:28%; height:330px;">
+            <h3>最新承担客户</h3>
+            <ul id="cd">
+                <li><a><span>2017-2-12</span>成功与中国联通签订项目外包合同</a></li> 
+                <li><a><span>2017-2-15</span>与中国石油成功签订项目外包合同</a></li>  
+                <li><a><span>2017-2-20</span>与方圆集团签订劳务派遣合同</a></li>  
+                <li><a><span>2017-3-16</span>成功与启明星辰达成合作关系</a></li>  
+                <li><a><span>2017-3-19</span>与铁道总公司签订合同</a></li>  
+                <li><a><span>2017-4-01</span>成功与中国地质调查局签订合同</a></li>  
+                <li><a><span>2017-4-03</span>成功与海翔国际签订合同</a></li>       
+            </ul>
         </div>
-        <div class="msbox-right" style="float:right;width:30%;">
+        <div class="msbox-right" style="float:right;width:35%;">
             <h2>视频面试</h2>
-            <!--<img src="img/spms.jpg"/>-->
-            <!--<a href="#"><img src="img/sxt.png"/ ></a>-->
-
         </div>
     </div>
+
     <!------------------第六部 交易流程--------------------------->
-    <div style="margin-top: 30px; background-color:grey;height:170px;width:100%;">
-        <div class="ptrc-box clearfix " style="margin-top:50px;clear:both;width:1190px;margin:0 auto">
-            <h2>交易流程</h2><p style="clear:both;"></p>
-            <div class="liucheng">
-                <ul style="text-align:center;" class="ptrc-list clearfix">
-                    <li style="color:white;"><a target="_blank" title="点击了解企业的需求" href="">企业要求</a></li>
-                    <li style="color:white;"><a target="_blank" title="点击了解人才选拔的机制" href="">人才甄选</a></li>
-                    <li style="color:white;"><a target="_blank" title="点击了解人才委派的方式和方法" href="">人才委派</a></li>
-                    <li style="color:white;"><a target="_blank" title="点击知道企业面试的宝典" href="">企业面试</a></li>
-                    <li style="color:white;"><a target="_blank" title="点击了解签订合同的具体情况" href="">签订合同</a></li>
-                    <li style="color:white;"><a target="_blank" title="点击了解人员到岗后的相关事宜" href="">人员到岗</a></li>
-                    <li style="color:white;"><a target="_blank" title="点击了解结算的方式方法" href="">结算</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <!--<li></li>
-    <li></li>
-    <li></li>
-    <li></li>-->
-    <!---------------------第八部 平台活动--------------------->
-    <div class="alzs" id="" style="height:400px;">
-        <h2>平台活动</h2>
-        <div id="dv_img" class="dv_img">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height:100%;margin-bottom:30px;">
-                <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic" data-slide-to="0"
-                        class="active"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
-                </ol>
-                <div class="carousel-inner" style="height:100%;">
-                    @{
-                        for (int i = 1; i < 6; i++)
-                        {
-                            if (i == 1)
-                            {
-                                <div class="item active">
-                                    <img src="@Url.Action("GetImg", "Home", new { id = i, type = "平台活动" })" alt="First slide" attr="@i" />
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="item">
-                                    <img src="@Url.Action("GetImg", "Home", new { id = i, type = "平台活动" })" alt="Second slide" attr="@i" />
-                                </div>
-                            }
-                        }
-                    }
+        <div style="background-color:#fff;height:130px;width:100%; margin-top:20px;">
+            <div class="ptrc-box" width:1200px;margin:0 auto">
+                <h2 id="Trans"></h2>
+               <div class="Trans">
+                    <ul class="Trans_box">
+                        <li class="TransL">
+                            <a href="/Tenet/Tenet/Enterprise">企业要求</a>
+                        </li>
+                        <li class="TransL">
+                            <a href="/Tenet/Tenet/Selection">人才甄选</a>
+                        </li>
+                        <li class="TransL">
+                            <a href="/Tenet/Tenet/appoint">人才委派</a>
+                        </li>
+                        <li class="TransL">
+                            <a href="/Tenet/Tenet/interview">企业面试</a>
+                        </li>
+                        <li class="TransL">
+                            <a href="/Tenet/Tenet/Sign">签订合同</a>
+                        </li>
+                        <li class="TransL">
+                            <a href="/Tenet/Tenet/hillock">人员到岗</a>
+                        </li>
+                        <li class="TransL">
+                            <a>结算</a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- Controls -->
-                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-                <a style="cursor:pointer;">
-                    @*<img src="@Url.Action("GetPlatformImage", "Home", new { type="平台活动" })" /></a>*@
-
-                </a>
-
+          
             </div>
-            <!---------------------尾部 ------------------------------->
+        </div>
+    <div style="clear:both"></div>
+ 
+    <!---------------------第八部 平台活动--------------------->
+    <div class="alzs" id=""style="height:260px;">
+        <h2 id="dv"></h2>
+        <div id="div1">
+            <div id="owl-demo" class="owl-carousel">
+                <div class="item"><a href="http://www.baidu.com"><img src="/img/jiaoyikexing/47.png" alt="案列展示1" /></a></div>
+                <div class="item"><a><img src="/img/jiaoyikexing/48.png" alt="案列展示1" /></a></div>
+                <div class="item"><a><img src="/img/jiaoyikexing/50.png" alt="案列展示1" /></a></div>
+                <div class="item"><a><img src="/img/jiaoyikexing/47.png" alt="案列展示1" /></a></div>
+                <div class="item"><a><img src="/img/jiaoyikexing/48.png" alt="案列展示1" /></a></div>
+                <div class="item"><a><img src="/img/jiaoyikexing/50.png" alt="案列展示1" /></a></div>
+                <div class="item"><a><img src="/img/jiaoyikexing/47.png" alt="案列展示1" /></a></div>
+                <div class="item"><a><img src="/img/jiaoyikexing/48.png" alt="案列展示1" /></a></div>
+            </div>        
+        </div>        
+    </div>
 
-
+    <!---------------------------案例展示------------------------->
+    <div style="width:100%">
+        <div id="Show" class="alzs center">
+            <div class="she">
+                <div class="she_left fl">
+                    <h2 id="inner_h2"><a href="/Tenet/Tenet/More">更多>></a></h2>
+                    <div id="one" class="fl">
+                        <a href="/Tenet/Tenet/Case"><img id="resize1" src="/img/jiaoyikexing/40.png" /></a>
+                    </div>
+                    <div id="two" class="fr">
+                        <div>
+                            <a href="/Tenet/Tenet/Case"><img id="resize2" src="/img/jiaoyikexing/41.png" /></a>
+                            <a href="/Tenet/Tenet/Case"><img id="resize3" src="/img/jiaoyikexing/42.png" /></a>
+                        </div>
+                        <div>
+                            <a  href="/Tenet/Tenet/Case"><img id="resize4" src="/img/jiaoyikexing/43.png" /></a>
+                            <a  href="/Tenet/Tenet/Case"><img id="resize5" src="/img/jiaoyikexing/44.png" /></a>
+                            <a  href="/Tenet/Tenet/Case"><img id="resize6" src="/img/jiaoyikexing/45.png" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="she_right fr">
+                    <h4>聚焦热文<a>更多>></a></h4>
+                    <ul>
+                        <li>基于智能终端与移动互联网物地产市场物地产市场</li>
+                        <li>基于智能终端与移动互联网山东省物地产市场</li>
+                        <li>基于智能终端与移动互联网物联网的物地产市场</li>
+                        <li>基于智能终端与移动互联网物联网的发物地产市场</li>
+                        <li>基于智能终端与移动互联网物联网的物地产市场</li>
+                        <li>基于智能终端与移动互联网物联网的物地产市场</li>
+                        <li>基于智能终端与移动互联网物联网的物地产市场</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-    <!第五部分---------------------------案例展示------------------------->
-    <div class="alzs" style="margin-top:30px; height:475px;">
-        <h2>案例展示</h2>
+   
+    <div style="clear:both"></div>
 
-        <table style="margin-top:30px;margin-bottom:50px; width:100%" id="tb_img">
-            <tr style="height:200px; width:100%">
-                @{
-                    for (int i = 1; i < 4; i++)
-                    {
-                        <td style="width:33%;border:none;">
-                            @if (Url.Action("GetImg", "Home", new { id = i, type = "Web项目" }) != null)
-                            {
-                                <a href="javascript:void()"><img src="@Url.Action("GetImg", "Home", new { id = i,type="Web项目"})" attr="@i" style="width:80%;  margin-left:40px;margin-right:10px;margin-top:40px;margin-bottom:40px;" /></a>
-                            }
-                        </td>
-                    }
-                }
-            </tr>
-            <tr style="height:200px; width:100%">
-                @{
-                    for (int i = 4; i < 7; i++)
-                    {
-                        <td style="width:33%;border:none;">
-                            @if (Url.Action("GetImg", "Home", new { id = i, type = "Web项目" }) != null)
-                            {
-                                <a href="javascript:void()"><img src="@Url.Action("GetImg", "Home", new { id = i, type = "Web项目" })" attr="@i" style="width:80%;  margin-left:40px;margin-right:10px;margin-top:40px;margin-bottom:40px;" /></a>
-                            }
-                        </td>
-                    }
-                }
-            </tr>
-        </table>
-    </div>
-    <!第五部分---------------------------行业资讯------------------------->
+    <script>
+        var bgs =
+            [
+                [
+                    "/img/jiaoyikexing/d1.png",
+                    "/img/jiaoyikexing/d2.png",
+                    "/img/jiaoyikexing/d3.png",
+                    "/img/jiaoyikexing/d1.png"
+                ],
+
+                [
+                    "/img/jiaoyikexing/d4.png",
+                    "/img/jiaoyikexing/d5.png",
+                    "/img/jiaoyikexing/d6.png",
+                    "/img/jiaoyikexing/d4.png"
+                ],
+
+                [
+                    "/img/jiaoyikexing/d7.png",
+                    "/img/jiaoyikexing/d8.png",
+                    "/img/jiaoyikexing/d9.png",
+                    "/img/jiaoyikexing/d7.png"
+                ],
+
+                [
+                    "/img/jiaoyikexing/d10.png",
+                    "/img/jiaoyikexing/d11.png",
+                    "/img/jiaoyikexing/d12.png",
+                    "/img/jiaoyikexing/d10.png"
+                ],
+                [
+                    "/img/jiaoyikexing/d13.png",
+                    "/img/jiaoyikexing/d14.png",
+                    "/img/jiaoyikexing/d15.png",
+                    "/img/jiaoyikexing/d13.png"
+                ],
+
+                [
+                    "/img/jiaoyikexing/d16.png",
+                    "/img/jiaoyikexing/d17.png",
+                    "/img/jiaoyikexing/c1.png",
+                    "/img/jiaoyikexing/d16.png"
+                ],      
+        ];
+
+        var curbg = 0;
+        setInterval(function () {
+            var oImg = document.getElementById("resize1");
+            if (curbg >= bgs[0].length - 1) {
+                oImg.src = bgs[0][curbg = 0];
+            }
+            else {
+                oImg.src = bgs[0][curbg++];
+            }
+        }, 2000);
+
+       timer1 = setInterval(function () {
+            var oImg2 = document.getElementById("resize2");
+            if (curbg >= bgs[1].length - 1) {
+                oImg2.src = bgs[1][curbg = 0];
+            }
+            else {
+                oImg2.src = bgs[1][curbg++];
+            }
+       }, 2200);
+
+       timer2 = setInterval(function () {
+           var oImg3 = document.getElementById("resize3");
+           if (curbg >= bgs[2].length - 1) {
+               oImg3.src = bgs[2][curbg = 0];
+           }
+           else {
+               oImg3.src = bgs[2][curbg++];
+           }
+       }, 2400);
+
+       timer3 = setInterval(function () {
+           var oImg4 = document.getElementById("resize4");
+           if (curbg >= bgs[3].length - 1) {
+               oImg4.src = bgs[3][curbg = 0];
+           }
+           else {
+               oImg4.src = bgs[3][curbg++];
+           }
+       }, 2600);
+
+       timer4 = setInterval(function () {
+           var oImg5 = document.getElementById("resize5");
+           if (curbg >= bgs[4].length - 1) {
+               oImg5.src = bgs[4][curbg = 0];
+           }
+           else {
+               oImg5.src = bgs[4][curbg++];
+           }
+       }, 2800);
+
+       timer5 = setInterval(function () {
+           var oImg6 = document.getElementById("resize6");
+           if (curbg >= bgs[5].length - 1) {
+               oImg6.src = bgs[5][curbg = 0];
+           }
+           else {
+               oImg6.src = bgs[5][curbg++];
+           }
+       }, 3000);
+    </script>
+
+    <!---------------------------行业资讯------------------------->
     <div class="hyzx">
         <h2 id="hyzxH2">行业资讯</h2>
         <div id="hyzxList">
@@ -299,19 +387,23 @@
                         <ul style="text-align:center;">
                             <li>
                                 <i class="hyzxi">1</i>
-                                <a target="_blank" title="支付宝再掀热潮" href="">支付宝再掀热潮</a>
+                                <a target="_blank" title="支付宝再掀热潮" href="http://www.cs.com.cn/sylm/cstop10/201604/t20160408_4942951.html">支付宝刷脸支付亮相 人脸识别再掀热潮</a>
                             </li>
                             <li>
                                 <i class="hyzxi">2</i>
-                                <a href="" target="_blank" title="腾讯付费背后的血与泪">腾讯付费背后的血与泪</a>
+                                <a href="http://tech.qq.com/a/20170323/028190.htm" target="_blank">京东金融：中国发展金融科技有优势</a>
                             </li>
                             <li>
                                 <i class="hyzxi">3</i>
-                                <a href="" target="_blank" title="腾讯付费背后的血与泪">腾讯付费背后的血与泪</a>
+                                <a href="http://tech.qq.com/a/20170324/005212.htm" target="_blank" title="腾讯付费背后的血与泪">不断发力 银联重拳布局扫码支付</a>
                             </li>
                             <li>
-                                <i>4</i>
-                                <a href="" target="_blank" title="腾讯付费背后的血与泪">腾讯付费背后的血与泪</a>
+                                <i class="hyzxi">4</i>
+                                <a href="http://www.qncye.com/ruhe/wangluo/092720481.html" target="_blank" title="腾讯付费背后的血与泪">10个脑洞很大的互联网创业项目</a>
+                            </li>
+                            <li>
+                                <i class="hyzxi">5</i>
+                                <a href="http://www.qncye.com/ruhe/wangluo/092720481.html" target="_blank" title="腾讯付费背后的血与泪">10个脑洞很大的互联网创业项目</a>
                             </li>
                         </ul>
                     </div>
@@ -326,19 +418,23 @@
                         <ul>
                             <li>
                                 <i class="hyzxi">1</i>
-                               <a target="_blank" title="Ipod Touch7 即将面世" href="">IPod Touch7 即将面世</a>
+                               <a target="_blank" title="Ipod Touch7 即将面世" href="http://tech.sina.com.cn/i/2017-03-24/doc-ifycstww0939430.shtml">亚马逊躲过一劫：不必补缴15亿美元税</a>
                             </li>
                             <li>
                                 <i class="hyzxi">2</i>
-                               <a target="_blank" title="亚马逊阅读器的利与弊" href="">亚马逊阅读器的利与弊</a>
+                               <a target="_blank" title="亚马逊阅读器的利与弊" href="http://tech.sina.com.cn/i/2017-03-24/doc-ifycstww0923723.shtml">腾讯再次成全球最大游戏公司</a>
                             </li>
                             <li>
                                 <i class="hyzxi">3</i>
-                                <a href="" target="_blank" title="IG付费背后的血与泪">IG付费背后的血与泪</a>
+                                <a href="http://tech.sina.com.cn/i/2017-03-24/doc-ifycstww0900160.shtml" target="_blank" title="IG付费背后的血与泪">Twitter考虑推出管理工具TweetDeck</a>
                             </li>
                             <li>
-                                <i>4</i>
-                                <a href="" target="_blank" title="扎克伯格的发家史">扎克伯格的发家史</a>
+                                <i class="hyzxi">4</i>
+                                <a href="http://tech.sina.com.cn/i/2017-03-22/doc-ifycnpiu9401182.shtml" target="_blank" title="扎克伯格的发家史">研究机构：BAT将挑战Facebook与谷歌</a>
+                            </li>
+                            <li>
+                                <i class="hyzxi">5</i>
+                                <a href="http://tech.sina.com.cn/i/2017-03-22/doc-ifycnpiu9401182.shtml" target="_blank" title="扎克伯格的发家史">研究机构：BAT将挑战Facebook与谷歌</a>
                             </li>
                         </ul>
                     </div>
@@ -354,19 +450,23 @@
                         <ul style="text-align:center">
                             <li>
                                 <i class="hyzxi">1</i>
-                            <a href="" target="_blank" title="支付宝再掀热潮">支付宝再掀热潮</a> 
+                            <a href="http://tech.sina.com.cn/i/2017-03-24/doc-ifycstww0896326.shtml" target="_blank" title="支付宝再掀热潮">85后的饿了么创始人：年轻人一定</a> 
                             </li>
                             <li>
                                 <i class="hyzxi">2</i>
-                                <a target="_blank" title="Ipod Touch7 即将面世" href="">IPod Touch7 即将面世</a>
+                                <a target="_blank" title="Ipod Touch7 即将面世" href="http://it.sohu.com/20170324/n484488771.shtml">微信跟外交部做了个小程序 </a>
                             </li>
                             <li>
                                 <i class="hyzxi">3</i>
-                                <a href="" target="_blank" title="IG付费背后的血与泪">IG付费背后的血与泪</a>
+                                <a href="http://it.sohu.com/20170323/n484492815.shtml" target="_blank" title="IG付费背后的血与泪">创新“互联网+政务” 村村乐打造智慧城镇</a>
                             </li>
                             <li>
-                                <i>4</i>
-                                <a href="" target="_blank" title="扎克伯格的发家史">扎克伯格的发家史</a>
+                                <i class="hyzxi">4</i>
+                                <a href="http://it.sohu.com/20170324/n484527996.shtml" target="_blank" title="扎克伯格的发家史">蚂蚁金服的拨乱反正,百度金融的咬定青</a>
+                            </li>
+                            <li>
+                                <i class="hyzxi">5</i>
+                                <a href="http://it.sohu.com/20170324/n484527996.shtml" target="_blank" title="扎克伯格的发家史">蚂蚁金服的拨乱反正,百度金融的咬定青</a>
                             </li>
                         </ul>
                     </div>
@@ -379,7 +479,6 @@
 
 <script type="text/javascript">
     $(".ptrc-list li").click(function () {
-        debugger;
 
         if ($("#hideInput").val() != "" && $("#hideInput").val() != null) {
             var name = $(this).find("a").attr("attr");

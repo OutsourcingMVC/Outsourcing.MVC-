@@ -1,0 +1,218 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_indexLayout1.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>案列展示更多</title>
+    <link href="~/Scripts/styles/skin/style.css" rel="stylesheet" />
+    <style>
+        #ul1{ width:1200px; height:900px; position:relative; margin:10px auto;}
+        #ul1 li{ width:180px; height:206px; float:left; list-style:none; margin:10px; z-index:1; overflow:hidden;padding:10px;border:1px solid #f1f1f1;}
+        #ul1 li img{ width:160px; height:120px;}
+         #ul1 li div{ width:160px; height:120px; background:red;}
+        #ul1 li h3{margin-top:10px; color:#2f82ff;font-weight:800; font-size:14px;}
+        #ul1 li h4{border-top:1px solid #e8e7e7; padding-top:5px; height:28px;line-height:28px;}
+        #ul1 .active{ border:1px dashed red;}
+    </style>
+    <script src="~/Scripts/styles/js/Wmove.js"></script>
+    <script>
+        window.onload = function () {
+            var oUl = document.getElementById('ul1');
+            var aLi = oUl.getElementsByTagName('li');
+            var aPos = [];
+            iMinZindex = 2;
+            var i = 0;
+
+            //布局转换
+            for (i = 0; i < aLi.length; i++) {
+                aPos[i] = { left: aLi[i].offsetLeft, top: aLi[i].offsetTop };
+            }
+
+            for (i = 0; i < aLi.length; i++) {
+                aLi[i].style.left = aPos[i].left + 'px';
+                aLi[i].style.top = aPos[i].top + 'px';
+
+                aLi[i].style.position = 'absolute';
+                aLi[i].style.margin = '0';
+
+                aLi[i].index = i;
+            }
+
+
+            //拖拽
+            for (i = 0; i < aLi.length; i++) {
+                setDrag(aLi[i]);
+            }
+
+
+            function setDrag(obj) {
+                obj.onmousedown = function (ev) {
+                    obj.style.zIndex = iMinZindex++;
+                    var oEvent = ev || event;
+
+                    var disX = oEvent.clientX - obj.offsetLeft;
+                    var disY = oEvent.clientY - obj.offsetTop;
+
+                    document.onmousemove = function (ev) {
+                        var oEvent = ev || event;
+                        obj.style.left = oEvent.clientX - disX + 'px';
+                        obj.style.top = oEvent.clientY - disY + 'px';
+
+                        for (i = 0; i < aLi.length; i++) {
+                            aLi[i].className = '';
+                        }
+
+                        var oNear = findNearest(obj);
+
+                        if (oNear) {
+                            oNear.className = 'active';
+                        }
+
+                        /*for(i=0;i<aLi.length;i++)
+                        {
+                            aLi[i].className='';
+                            if(obj==aLi[i])continue;
+                            
+                            if(cdTest(obj, aLi[i]))	
+                            {
+                                aLi[i].className='active';	
+                            }	
+                        }*/
+                    };
+
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+
+                        var oNear = findNearest(obj);
+                        if (oNear) {
+                            oNear.className = '';
+
+                            oNear.style.zIndex = iMinZindex++;
+                            obj.style.zIndex = iMinZindex++;
+
+                            startMove(oNear, aPos[obj.index]);
+                            startMove(obj, aPos[oNear.index]);
+
+                            var tmp = 0;
+
+                            tmp = obj.index;
+                            obj.index = oNear.index;
+                            oNear.index = tmp;
+                        }
+                        else {
+                            //startMove(obj, {left: aPos[obj.index].left, top: aPos[obj.index].top});
+                            startMove(obj, aPos[obj.index]);
+                        }
+                    };
+
+                    clearInterval(obj.timer);
+
+                    return false;
+                };
+            }
+
+
+            //碰撞检测
+            function cdTest(obj1, obj2) {
+                var l1 = obj1.offsetLeft;
+                var r1 = obj1.offsetLeft + obj1.offsetWidth;
+                var t1 = obj1.offsetTop;
+                var b1 = obj1.offsetTop + obj1.offsetHeight;
+
+                var l2 = obj2.offsetLeft;
+                var r2 = obj2.offsetLeft + obj2.offsetWidth;
+                var t2 = obj2.offsetTop;
+                var b2 = obj2.offsetTop + obj2.offsetHeight;
+
+                if (r1 < l2 || l1 > r2 || b1 < t2 || t1 > b2) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+
+
+            function getDis(obj1, obj2) {
+                var a = obj1.offsetLeft - obj2.offsetLeft;
+                var b = obj1.offsetTop - obj2.offsetTop;
+
+                return Math.sqrt(a * a + b * b);
+            }
+
+            function findNearest(obj)    //找到碰上的，并且最近的
+            {
+                var iMin = 99999999;
+                var iMinIndex = -1;
+
+                for (i = 0; i < aLi.length; i++) {
+                    if (obj == aLi[i]) continue;
+
+                    if (cdTest(obj, aLi[i])) {
+                        var dis = getDis(obj, aLi[i]);
+
+                        if (iMin > dis) {
+                            iMin = dis;
+                            iMinIndex = i;
+                        }
+                    }
+                }
+
+                if (iMinIndex == -1) {
+                    return null;
+                }
+                else {
+                    return aLi[iMinIndex];
+                }
+            }
+
+
+            //运动
+
+        };
+    </script>
+</head>
+
+<body>
+
+    <div class="new_t">
+        <img src="~/img/jiaoyikexing/banner11.png" />
+    </div>
+    <ul id="ul1">
+        <li><a href="/Tenet/Tenet/detailed"><div><img src="~/img/jiaoyikexing/c1.png" /></div><h3>北斗辅成</h3><h4>所属行业：(CRM系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c2.png" /></div><h3>创客空间</h3><h4>所属行业：(电商平台)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c3.png" /></div><h3>方圆集团</h3><h4>所属行业：(CRM系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c4.png" /></div><h3>慧点科技</h3><h4>所属行业：(风控系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c5.png" /></div><h3>启明星辰</h3><h4>所属行业：(信息安全)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c6.png" /></div><h3>中公高科</h3><h4>所属行业：(CRM系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c7.png" /></div><h3>铁道总公司</h3><h4>所属行业：(院内平台)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c8.png" /></div><h3>航美传媒</h3><h4>所属行业：(CRM系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c9.png" /></div><h3>包商银行</h3><h4>所属行业：(银行系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c10.png" /></div><h3>北京农业局</h3><h4>所属行业：(蔬菜管理系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c11.png" /></div><h3>中国移动</h3><h4>所属行业：(移动积分管理系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c12.png" /></div><h3>煜邦电力</h3><h4>所属行业：(电力系统)</h4></a></li>
+
+
+        <li><a><div><img src="~/img/jiaoyikexing/c13.png" /></div><h3>优利康达</h3><h4>所属行业：(ERP系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c14.png" /></div><h3>海翔国际</h3><h4>所属行业：(ERP系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c15.png" /></div><h3>合力金智</h3><h4>所属行业：(农业管理系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c16.png" /></div><h3>天仕博</h3><h4>所属行业：(互联网教育平台)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c17.png" /></div><h3>中新金桥</h3><h4>所属行业：(图书管理系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c18.png" /></div><h3>UME国际影城</h3><h4>所属行业：(hr管理系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c19.png" /></div><h3>恒达锦程</h3><h4>所属行业：(公路检测系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c20.png" /></div><h3>亿阳集团</h3><h4>所属行业：(CRM系统)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c21.png" /></div><h3>同尚阳光</h3><h4>所属行业：(客户关系平台)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c22.png" /></div><h3>人大金仓</h3><h4>所属行业：(达蒙数据库开发)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c23.png" /></div><h3>国信灵通</h3><h4>所属行业：(电商平台)</h4></a></li>
+        <li><a><div><img src="~/img/jiaoyikexing/c24.png" /></div><h3>建筑设计院</h3><h4>所属行业：(OA系统升级)</h4></a></li>
+    </ul>
+
+
+</body>
+</html>

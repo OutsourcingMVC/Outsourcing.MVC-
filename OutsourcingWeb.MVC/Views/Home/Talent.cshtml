@@ -1,4 +1,6 @@
-﻿@model List<Outsourcing.EF.Model.Recruit.RequiredModel>
+﻿
+
+@model List<Outsourcing.EF.Model.Recruit.RequiredModel>
 @{
     Layout = null;
 }
@@ -6,277 +8,287 @@
 <!DOCTYPE html>
 
 <style type="text/css">
-    #td_require {
-        width: 70%;
-        margin-left: 40px;
-    }
+#td_require {
+width: 100%;
+margin: 0px 2px 2px 2px;
+}
 
-        #td_require thead tr {
-            height: 50px;
-            font-size: 16px;
-            font-weight: bolder;
-            font-family: 黑体,隶书;
-        }
+#td_require thead tr th {
+border: none;
+}
 
-        #td_require tbody tr {
-            height: 50px;
-            font-size: 14px;
-            color: black;
-        }
+#td_require thead tr {
+height: 50px;
+font-size: 14px;
+font-weight: bolder;
+}
 
-            #td_require tbody tr:hover {
-                height: 50px;
-                font-size: 16px;
-                color: red;
-                cursor: pointer;
-            }
+#td_require tbody tr {
+height: 50px;
+font-size: 14px;
+color: black;
+}
 
-            #td_require tbody tr td {
-                border: none;
-                text-align: center;
-            }
+#td_require tbody tr:hover {
+    height: 50px;
+    font-size: 16px;
+    color: red;
+    cursor: pointer;
+}
 
-        #td_require thead td {
-            border: none;
-            text-align: center;
-        }
+#td_require tbody tr td {
+        border:none; border-bottom:1px solid #f5f4f4; font-size:12px;font-weight:normal;
+}
 
-    #personalinfo {
-        width: 66.7%;
-        float: right;
-    }
+#td_require thead td {
+border: none;
+text-align: center;
+}
 
-    #personinfor {
-        width: 1190px;
-        margin: 0 auto;
-        height: 500px;
-    }
+#personalinfor {
+width: 1200px;
+height: 400px;
+margin: 0 auto;
+position: relative;
+overflow: hidden;
+border: 1px solid #dddbdb;
+padding:5px; background:#f5f5f5;
+}
 
-    #personinforth tr td {
-        font-size: 20px;
-    }
+#personalinfor ul {
+width: 1200px;
+}
+
+#personalinfor ul li {
+    width: 32%;
+    background: red;
+    margin-left: 1%;
+}
+
+#personinforth tr td {
+font-size: 12px;
+}
+
+#Service {
+width: 100%;
+float: left;
+}
+
+#Star {
+width: 100%;
+float: right;
+}
+
+#personalinfo {
+width: 100%;
+}
+
+* {
+padding: 0;
+margin: 0;
+}
+
+table {
+position: relative;
+margin-top: 20px;
+}
+
+th, td {
+height: 40px;
+border: 1px solid #ffffff;
+font-size: 12px;
+text-align: center;
+box-sizing: border-box;
+transition: all 1s;
+}
+
+th {
+background: #f2f8fd;
+position: relative;
+z-index: 999;
+margin-top: 20px;
+width: 25%;
+}
+
+.Address {
+margin: 20px 300px 10px 0;
+}
+
+.Need a {
+color: red;
+text-decoration: solid;
+float: left;
+}
+
+.Talent {
+float: left;
+width: 36%;
+margin-left:5px;
+}
+.Talent_right {
+float: right;
+width: 27.1%;
+}
+.Talent_tittle  h3{font-size: 16px; margin-top: 10px; text-align:left;
+                                                margin:0 10px 0 10px ; border-bottom:2px solid #f5f5f5;
+                                                height:38px;line-height:38px; font-weight:bold;}
+.Talent_tittle  h3 a{display: block;float: right; font-size: 12px; cursor:pointer; margin-right:10px;} 
+.Join {
+float: right;
+}
+
+.Address {
+width: 200px;
+height: 34px;
+}
 
 
+.demo{width:70%;}
+/* citySelector */
+*{margin:0;padding:0;box-sizing:border-box;}
+.citySelector{font:12px/1.5 tahoma,arial,\5b8b\4f53;background:#fff;text-align:left;}
+.cityslide{width:250px;list-style:none;margin:0;padding:0;border:1px solid #B3CDC0;box-shadow:2px 2px 3px rgba(0,0,0,0.3);overflow:auto;max-height:300px;}
+.cityslide li{list-style:none;overflow:hidden;height:30px;padding:0px 10px;line-height:30px;}
+.cityslide li.on{background:#00a346;color:#fff;cursor:pointer;}
+.cityslide li:hover{background:#00a346;color:#fff;cursor:pointer;}
+.cityslide li b{font-weight:normal;}
+.cityslide li.empty{background:#fff2e8;color:#666;}
+.cityslide li.empty em{color:red;font-style:normal;}
+.cityname{float:left;}
+.cityspell{float:right;}
+.cityBox{width:380px;border:1px solid #B3CDC0;overflow:hidden;box-shadow:2px 2px 3px rgba(0,0,0,0.3);}
+.cityBox ul{margin:0;padding:0;overflow:hidden;}
+.cityBox ul li:first-child{margin-left:5px;}
+.cityBox ul li{float:left;list-style:none;padding:5px;border-bottom:1px solid #DDD;cursor:pointer;display:inline;color:#00a346;}
+.cityBox ul li.on{border-bottom-color:#00a346;position:relative;}
+.hide{display:none;}
+p.tip{color:#999;line-height:20px;padding:5px;margin:0;text-indent:3px;}
+.hotCity{border-top:1px solid #DDD;margin-top:-1px;clear:left;overflow:hidden;padding-bottom:10px;padding-top:10px;_margin-bottom:8px;}
+.cityTab{overflow:hidden;}
+.cityTab dl{margin:0;padding:0 0 0 10px;overflow:hidden;}
+.cityTab dl dt{float:left;padding-left:3px;color:#00a346;margin-top:1px;text-indent:5px;font-family:"Lucida console","consolas","courier new";line-height:25px;font-size:14px;width:20px;}
+.cityTab dl dd{margin-left:2px;float:left;width:335px;}
+.cityTab dl dd a{padding-left:5px;min-width:66px;line-height:25px;display:inline-block;color:#333;text-decoration:none;}
+.cityTab dl dd a:hover{color:#00a346;}
+.cityinput{ font-size: 12px; padding-left: 2px; margin:10px; width:60%; height:32px;line-height:32px; border: 1px solid #D8D8D8; }
 
-
-
-    #Service {
-        width: 100%;
-        float: left;
-    }
-
-    #Star {
-        width: 100%;
-        float: right;
-    }
-
-    #personalinfo {
-        width: 100%;
-    }
-
-    * {
-        padding: 0;
-        margin: 0;
-    }
-
-    table {
-        position: relative;
-        margin-top: 20px;
-    }
-
-    th, td {
-        height: 40px;
-        border: 1px solid #ffffff;
-        text-align: center;
-        box-sizing: border-box;
-        transition: all 1s;
-    }
-
-    th {
-        background: #ccc;
-        position: relative;
-        z-index: 999;
-        margin-top: 20px;
-        width: 120px;
-    }
-
-    tbody tr {
-    }
-
-    .Address {
-        margin-right: 300px;
-        margin-top: 20px;
-    }
-
-    .Need a{
-        color: red;
-        text-decoration: solid;
-        float:left;
-      
-    }
-     
-        .Talent{
-                   float:left;
-                   width:32%
-        }
-        .Join{
-            float:right;
-        }
+#searchname {
+width:54px;height :26px;
+background:url('../../img/jiaoyikexing/search.png') #2a74bf center center no-repeat;border:none;border-radius:5px; background-size:contain;
+}
 </style>
-@*<div align="center" id="demo" style="overflow:hidden;height:500px;border-width:1px 1px 1px 1px;border-style:dotted dotted dotted dotted;">
-    <div id="td_content">*@
-<div id="personinfor" style="border:1px solid rgba(245, 237, 237, 0.66);box-shadow:rgba(0,0,0,0,4) 10px 10px inset ">
+
+<div id="personinfor">
     <ul style="list-style:none">
         <li class="Talent">
             <div id="Service">
-                <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:20px;">
-                    <h3 class="Need"><a href="">最新需求</a></h3> <a class="Join" href="/Public/Identity/Identity">我要报名</a>
+                <div class="Talent_tittle">
+                    <h3 class="Need">最新需求<a class="Join" href="/Public/Identity/Identity">更多>></a></h3>            
                 </div>
 
-                <select class="Address">
-                    <option>北京</option>
-                    <option>上海</option>
-                </select>
-                <table id="td_require" style="overflow:hidden; height:350px;">
-                    <thead>
-                        <tr>
-                            <th>项目名</th>
-                            <th>项目金额</th>
-                            <th>发布时间</th>
-                            <th>发布公司</th>
-                        </tr>
-                    </thead>
-                    <tbody class="tbody" style="z-index:1; top:50px; position:absolute; ">
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td style="width:88px;">@item.ProjectName</td>
-                                <td style="width:88px;">@item.Salary 万元</td>
-                                <td style="width:89px;">@item.UpdateTime</td>
-                                <td style="width:89px;">@item.CompnayId</td>
-                            </tr>
-                        }
-                    </tbody>
-
-
-                </table>
-
-            </div>
-        </li>
-        <li class="Talent" >
-            <div id="Star">
-                <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:20px;">
-                    <h3 class="Need"><a href="">热门需求</a></h3> <a href="/Public/Identity/Identity" class="Join">发布需求</a>
+                <div class="demo">
+                    <input type="text" class="cityinput" id="citySelect" placeholder="请输入城市名或拼音首字母"><button id="searchname"></button>
                 </div>
-                <select class="Address">
-                    <option>北京</option>
-                    <option>上海</option>
-                </select>
-                <table id="td_require" style="overflow:hidden; height:350px;">
-                    <thead>
-                        <tr>
-                            <th>项目名</th>
-                            <th>项目金额</th>
-                            <th>关注人数</th>
-                            <th>发布公司</th>
-                        </tr>
-                    </thead>
 
-                    <tbody class="tbody" style="z-index:1; top:50px; position:absolute; ">
-                        @foreach (var item in Model)
-            {
+                <div style="height:300px; overflow:hidden; position:relative;">
+                    <table id="td_require"style="position:absolute;top:0;">
+                        <thead>
                             <tr>
-                                <td style="width:89px;">@item.ProjectName</td>
-                                <td style="width:89px;">@item.Salary 万元</td>
-                                <td style="width:88px;">@item.RequirementId k</td>
-                                <td style="width:88px;">@item.CompnayId</td>
+                                <th>项目名</th>
+                                <th>项目金额</th>
+                                <th>发布时间</th>
+                                <th>发布公司</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="tbody" id="tbody" style="z-index:1; top:50px; position:absolute; ">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="width:107px;">@item.ProjectName</td>
+                                    <td style="width:107px;">@item.Salary 万元</td>
+                                    <td style="width:108px;">@item.UpdateTime</td>
+                                    <td style="width:108px;">@item.CompnayId</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </li>
         <li class="Talent">
-            <div id="personalinfo">
-                <div style="width:100%;border-bottom:1px solid #dddbdb;margin-top:20px;">
-                    <h3 class="Need"><a href="">接包榜单</a></h3><a href="/Public/Identity/Identity" class="Join">我要参加</a>
+            <div id="Star">
+                <div class="Talent_tittle">
+                    <h3 class="Need">热门需求<a class="Join" href="/Public/Identity/Identity">更多>></a></h3>
                 </div>
-                <table id="td_require" style="margin-top:58px;margin-left:60px;  overflow:hidden; height:350px;">
-                    <thead>
-                        <tr>
-                            <th>接包企业</th>
-                            <th>累计金额</th>
-                        </tr>
-                    </thead>
-                    <tbody class="tbody" style="z-index:1; top:50px; position:absolute; ">
-                        @foreach (var item in Model)
-                        {
+                <div class="demo">
+                    <input type="text" class="cityinput" id="citySelect1" placeholder="请输入城市名或拼音首字母"><button id="searchname"></button>
+                </div>
+
+                <div style="height:300px; overflow:hidden; position:relative;">
+                    <table id="td_require"style="position:absolute;top:0;">
+                        <thead>
                             <tr>
-                                <td style="width:132px;">@item.CompnayId</td>
-                                <td style="width:133px;">@item.Salary 万元</td>
+                                <th>项目名</th>
+                                <th>项目金额</th>
+                                <th>关注人数</th>
+                                <th>发布公司</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
 
-
+                        <tbody class="tbody1" style="z-index:1; top:50px; position:absolute;">
+                            @foreach (var item in Model)
+            {
+                                <tr>
+                                    <td style="width:107px;">@item.ProjectName</td>
+                                    <td style="width:107px;">@item.Salary 万元</td>
+                                    <td style="width:108px;">@item.RequirementId k</td>
+                                    <td style="width:108px;">@item.CompnayId</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+               
+            </div>
+        </li>
+        <li class="Talent_right">
+            <div id="personalinfo">
+                <div class="Talent_tittle">
+                    <h3 class="Need">明星榜单<a class="Join" href="/Public/Identity/Identity">更多>></a></h3>
+                </div>
+                <div style="height:300px;margin-top:46px; overflow:hidden; position:relative;">
+                    <table id="td_require" style="margin-left:6px;">
+                        <thead>
+                            <tr>
+                                <th>接包企业</th>
+                                <th>累计金额</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody2" style="z-index:1; top:50px; position:absolute; ">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="width:164px;">@item.CompnayId</td>
+                                    <td style="width:164px;">@item.Salary 万元</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>                
             </div>
         </li>
     </ul>
-    
 
-
-
-    
-    
 </div>
-
-
-
-@*</div>*@
-@*<div id="copyContent"></div>
-
-    </div>*@
-
-
+<div style="clear:both;"></div>
 <script type="text/javascript">
-    //var demo = document.getElementById("demo");
-    //var demo1 = document.getElementById("td_content");
-    //var demo2 = document.getElementById("copyContent");
-    //var speed = 20;    //数值越大滚动速度越慢
-    //demo2.innerHTML = demo1.innerHTML;
-
-    ////demo.scrollTop = demo.scrollHeight + 'px';
-
-    //function Marquee() {
-    //    if (demo2.offsetTop - demo.scrollTop <= 0)    //当滚动至demo1与demo2交界时
-    //        demo.scrollTop -= demo1.offsetHeight    //demo跳到最顶端
-    //    else {
-    //        demo.scrollTop++
-    //    }
-    //}
-
-    //var MyMar = setInterval(Marquee, speed);
-    //demo.onmouseover = function () { clearInterval(MyMar) }
-    //demo.onmouseout = function () { MyMar = setInterval(Marquee, speed) }
-
-    //$("#marqueefirst").onmouseover=new function("stopscroll=true");
-
+    var test = new Vcity.CitySelector({ input: 'citySelect' });
+    var test1 = new Vcity.CitySelector({ input: 'citySelect1' });
 </script>
 
-<script type="text/javascript">
-    debugger;
-    @*$("#td_require tr").not("#td_require tr:first").click(function () {
-        var id = $(this).attr("attr");
-        window.location.href = "/Recruit/RecruitHome/PersonalInfo?id=" + id + "&loginid=@ViewBag.LoginID";
-    })*@
-
-    $("#td_require tr").click('#td_require tr:first', function () {
-        var id = $(this).attr("attr");
-        window.location.href = "/Public/Identity/Identity";
-    })
+<script type="text/javascript"> 
     // body对象
-    var tBody = document.getElementsByClassName('tbody')[0];    //
+   var tBody = document.getElementsByClassName('tbody')[0];
     // body 下的 tr
     var aTr = tBody.getElementsByTagName('tr');
 
@@ -287,7 +299,10 @@
     var newBody = tBody.cloneNode(true);    // 创建 new body
     newBody.style.top = (bH + rH) + 'px';  // new body 的top
     tBody.parentNode.appendChild(newBody);  // 插入 new body
-
+    $("#td_require tr").click('#td_require tr:first', function () {
+        var id = $(this).attr("attr");
+        window.location.href = "/Public/Identity/Identity";
+    })
 
     var iBody = document.getElementsByClassName('tbody');
 
@@ -310,7 +325,6 @@
     var time1 = 2000,
         time2 = 800;
 
-
     upRoll();
     function upRoll() {
         clearInterval(times1);
@@ -328,7 +342,6 @@
 
     }
 
-
     autoUp(time1, time2);
     function autoUp(t1, t2) {
         times2 = setInterval(function () {
@@ -341,28 +354,150 @@
             }, t2);
 
         }, t1);
+    }
+</script>
+
+<script type="text/javascript">
+
+    // body对象
+   var tBody1 = document.getElementsByClassName('tbody1')[0];
+    // body 下的 tr
+    var aTr1 = tBody1.getElementsByTagName('tr');
+
+    var bH1 = tBody1.offsetHeight;    // body的高
+    var rH1 = aTr1[0].offsetHeight;   // tr的高
+
+    // 克隆 body
+    var newBody1 = tBody1.cloneNode(true);    // 创建 new body
+    newBody1.style.top = (bH1 + rH1) + 'px';  // new body 的top
+    tBody1.parentNode.appendChild(newBody1);  // 插入 new body
+    $("#td_require tr").click('#td_require tr:first', function () {
+        var id = $(this).attr("attr");
+        window.location.href = "/Public/Identity/Identity";
+    })
+
+    var iBody1 = document.getElementsByClassName('tbody1');
+
+    for (var i = 0; i < iBody1.length; i++) {
+        iBody1[i].onmouseover = function () {
+            clearInterval(times4);
+            clearInterval(times5);
+            clearInterval(times6);
+        };
+        iBody1[i].onmouseout = function () {
+            autoUp1(time4, time5);
+            upRoll1();
+        };
 
     }
 
+    var times4;
+    var times5;
+    var times6;
+    var time4 = 2000,
+        time5 = 800;
 
-    //滚动数据加上停顿的代码
-    //var Omar = document.getElementById("Mar");
+    upRoll1();
+    function upRoll1() {
+        clearInterval(times4);
 
-    //var timesIn = null;
-    //var timesOut = null;
+        times4 = setInterval(function () {
+            for (var i = 0; i < iBody1.length; i++) {
+                iBody1[i].style.top = iBody1[i].offsetTop - 1 + "px";
 
-    //var time1 = 7500;
-    //var time2 = 6500;
-    //function timerMar(obj, t1, t2) {
-    //    timesIn = setInterval(function () {
-    //        obj.stop();
-    //        timesOut = setTimeout(function () {
-    //            obj.start();
-    //        }, t2);
-    //    }, t1);
-    //}
-    //timerMar(Omar, time1, time2);
+                if (iBody1[i].offsetTop <= -rH1 * (aTr1.length - 1)) {
+                    iBody1[i].style.top = (bH1 + rH1) + 'px';
+                }
+            }
 
+        }, 30);
 
+    }
+
+    autoUp1(time4, time5);
+    function autoUp1(t3, t4) {
+        times5 = setInterval(function () {
+            clearInterval(times4);
+            console.log('停止状态');
+
+            times6 = setTimeout(function () {
+                upRoll1();
+                console.log('开始状态');
+            }, t4);
+
+        }, t3);
+    }
+</script>
+
+<script type="text/javascript">
+
+    // body对象
+   var tBody2 = document.getElementsByClassName('tbody2')[0];
+    // body 下的 tr
+    var aTr2 = tBody2.getElementsByTagName('tr');
+
+    var bH2 = tBody2.offsetHeight;    // body的高
+    var rH2 = aTr2[0].offsetHeight;   // tr的高
+
+    // 克隆 body
+    var newBody2 = tBody2.cloneNode(true);    // 创建 new body
+    newBody2.style.top = (bH2 + rH2) + 'px';  // new body 的top
+    tBody2.parentNode.appendChild(newBody2);  // 插入 new body
+    $("#td_require tr").click('#td_require tr:first', function () {
+        var id = $(this).attr("attr");
+        window.location.href = "/Public/Identity/Identity";
+    })
+
+    var iBody2 = document.getElementsByClassName('tbody2');
+
+    for (var i = 0; i < iBody2.length; i++) {
+        iBody2[i].onmouseover = function () {
+            clearInterval(times7);
+            clearInterval(times8);
+            clearInterval(times9);
+        };
+        iBody2[i].onmouseout = function () {
+            autoUp2(time7, time8);
+            upRoll2();
+        };
+
+    }
+
+    var times7;
+    var times8;
+    var times9;
+    var time7 = 2000,
+        time8 = 800;
+
+    upRoll2();
+    function upRoll2() {
+        clearInterval(times7);
+
+        times7 = setInterval(function () {
+            for (var i = 0; i < iBody2.length; i++) {
+                iBody2[i].style.top = iBody2[i].offsetTop - 1 + "px";
+
+                if (iBody2[i].offsetTop <= -rH2 * (aTr2.length - 1)) {
+                    iBody2[i].style.top = (bH2 + rH2) + 'px';
+                }
+            }
+
+        }, 30);
+
+    }
+
+    autoUp2(time7, time8);
+    function autoUp2(t7, t8) {
+        times8 = setInterval(function () {
+            clearInterval(times7);
+            console.log('停止状态');
+
+            times9 = setTimeout(function () {
+                upRoll2();
+                console.log('开始状态');
+            }, t8);
+
+        }, t7);
+    }
 </script>
 
